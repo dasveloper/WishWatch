@@ -39,8 +39,7 @@ const Landing = () => {
       <div class="feature">
         <h2 className="feature-header">Product Integration</h2>
         <h4 class="feature-subheader">
-          The customer dashboard will provide direct access to their favorite
-          Manually upload products or integrate with our easy set-up product
+        Manually upload products or integrate with our easy set-up product
           feed to keep customers up to date with product prices.
         </h4>
 
