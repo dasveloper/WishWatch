@@ -1,4 +1,8 @@
-*{
+body,
+html {
+  margin: 0;
+}
+* {
   box-sizing: border-box;
 }
 @font-face {
@@ -17,6 +21,66 @@
     url(./fonts/Bariol-Regular-Webfont/bariol_regular-webfont.woff)
       format("woff");
 }
+
+
+
+
+.on-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.subhead {
+  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  max-width: 70%;
+  margin: 0 auto;
+  text-align: center;
+}
+.headline {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin: 0.5rem;
+  margin-top: 2rem;
+}
+.email {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  padding: 10px;
+  outline: none;
+  border: 1px solid #f0f0f0;
+  flex: 1;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.join {
+  background: #fff;
+  padding: 1rem 2rem;
+  color: #773d94;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  border-radius: 4px;
+  border: 1px solid #773d94;
+  margin: 2rem auto;
+  display: block;
+  transition: 0.2s color, 0.2s background;
+}
+.join:hover {
+  color: #fff;
+  background: #773d94;
+}
+.subscribe {
+  background: #773d94;
+  padding: 1rem 2rem;
+  color: #fff;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
 .feature {
   margin: 4rem 0;
 }
@@ -24,16 +88,15 @@
   font-family: "BariolBold", Arial, Helvetica, sans-serif;
   font-size: 2rem;
   text-align: center;
-  margin: 2rem;
+  margin: 1rem;
 }
 .feature-subheader {
   font-family: "Bariol", Arial, Helvetica, sans-serif;
   font-size: 1.4rem;
   text-align: center;
   max-width: 70vw;
-  margin: 2rem auto;
+  margin: 1rem auto;
 }
-
 
 .product-feed {
   background-color: #f0f0f0;
@@ -45,34 +108,31 @@
   position: relative;
   border-radius: 4px;
 }
-.customer-dashboard{
-    padding: 2rem 0;
-    
+.customer-dashboard {
+  padding: 2rem 0;
 }
-.affiliate-dashboard{
-  background: rgba(119, 61, 148, .1);
-    padding: 2rem 0;
-    
+.affiliate-dashboard {
+  background: rgba(119, 61, 148, 0.1);
+  padding: 2rem 0;
 }
-.affiliate{
+.affiliate {
   max-width: 70vw;
   margin: 1rem auto;
 }
-.affiliate-logo{
+.affiliate-logo {
   max-width: 150px;
   max-height: 150px;
 }
 .product-wrapper {
   display: flex;
   background-color: #f8f8f8;
-  padding: .2rem;
+  padding: 0.2rem;
   border-radius: 4px;
   max-width: 70vw;
   margin: 1rem auto;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.prod-image{
+.prod-image {
   max-width: 100%;
   align-self: center;
 }
@@ -86,67 +146,64 @@
   align-items: center;
   border: 1px solid #f0f0f0;
 }
-.favorite{
+.favorite {
   max-width: 40px;
   align-self: center;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 .product-image {
   max-width: 100px;
   max-height: 100px;
-  padding: .5rem;
+  padding: 0.5rem;
 }
-.product-details{
+.product-details {
   padding: 0 1rem;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
-.title-row{
-  display : flex;
+.title-row {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.product-link{
+.product-link {
   background: #773d94;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   color: #fff;
   font-family: "BariolBold", Arial, Helvetica, sans-serif;
   border-radius: 4px;
   font-size: 1rem;
 }
-.product-title{
+.product-title {
   margin: 0;
   font-family: "BariolBold", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
 }
-.special-offers{
-  margin-top: .5rem;
+.special-offers {
+  margin-top: 0.5rem;
   background-color: #fff;
   flex: 1;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  padding: .5rem 2rem;
-
+  padding: 0.5rem 2rem;
 }
-.special-offer-text{
+.special-offer-text {
   font-family: "Bariol", Arial, Helvetica, sans-serif;
   color: #c8c8c8;
   margin: 0;
 }
-.special-offer-text.offer{
+.special-offer-text.offer {
   font-family: "BariolBold", Arial, Helvetica, sans-serif;
-  color: #FAC54B;
+  color: #fac54b;
 }
 
-.affiliate-dash{
-
+.affiliate-dash {
   max-width: 70vw;
   margin: auto;
   display: block;
 }
-
 
 .product-feed pre {
   margin: auto;
@@ -157,13 +214,6 @@
   flex-direction: row;
   max-width: 70vw;
   margin: 4rem auto;
-}
-
-.subhead {
-  font-family: "Bariol", Arial, Helvetica, sans-serif;
-  font-size: 2rem;
-  text-align: center;
-  margin: 0.5rem;
 }
 
 .main-right {
@@ -230,7 +280,12 @@
   min-width: 300px;
   min-height: 300px;
   border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
+
 
 .wrapper {
   display: flex;
@@ -265,8 +320,8 @@
 
   background-color: transparent;
   box-shadow: 0px 0px 3px 3px #773d94;
-  -webkit-animation: active 1.5s infinite linear;
-  animation: active 1.5s infinite linear;
+  -webkit-animation: active 2s infinite linear;
+  animation: active 2s infinite linear;
 }
 
 @-webkit-keyframes active {
