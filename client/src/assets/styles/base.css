@@ -21,11 +21,20 @@ html {
     url(./../fonts/Bariol-Regular-Webfont/bariol_regular-webfont.woff)
       format("woff");
 }
+
 .hidden-xs{
+  display: none !important;
+}
+.hidden-sm{
   display: none !important;
 }
 @media only screen and (min-width: 450px){
   .hidden-xs{
+    display: block !important;
+  }
+}
+@media only screen and (min-width: 768px){
+  .hidden-sm{
     display: flex !important;
   }
 }

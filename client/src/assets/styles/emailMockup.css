@@ -1,9 +1,8 @@
 .email-wrapper.loaded .email {
-    transform: translateY(-40%);
-
+  transform: translateY(-40%);
 }
 .email-envelope {
-  width: 40vw;
+  width: 80vw;
   height: 35vh;
   position: relative;
   background: #ffd969;
@@ -21,29 +20,27 @@
 
   position: relative;
 }
-.email-front:before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
+.email-front:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
 
-
-    border-bottom: 35vh solid #FAD464;
-	border-left: 40vw solid transparent;
+  border-bottom: 35vh solid #fad464;
+  border-left: 80vw solid transparent;
 }
-.email-front:after{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
+.email-front:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
 
-
-    border-bottom: 35vh solid #FFDE6E;
-	border-right: 40vw solid transparent;
+  border-bottom: 35vh solid #ffde6e;
+  border-right: 80vw solid transparent;
 }
 .email {
   width: 98%;
@@ -54,55 +51,93 @@
   left: 1%;
   z-index: 1;
   transform: translateY(0%);
-  transition: .5s transform;
+  transition: 0.5s transform;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-
 }
 
-.email-promo-row{
+.email-promo-row {
   display: flex;
   align-items: center;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
-.email-header{
- margin: .25rem 1rem;
+.email-header {
+  margin: 0.25rem 1rem;
 }
-.email-promo-image{
+.email-promo-image {
   min-width: 50px;
   min-height: 50px;
   background: #f0f0f0;
   align-self: flex-start;
   flex: 0;
 }
-.email-promo-info{
+.email-promo-info {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
 }
-.email-promo-info-title{
+.email-promo-info-title {
   background: #f0f0f0;
-  height: .5rem;
-  border-radius: .25rem;
+  height: 0.5rem;
+  border-radius: 0.25rem;
   max-width: 40%;
-  margin: .25rem;
-
+  margin: 0.25rem;
 }
-.email-promo-info-detail{
+.email-promo-info-detail {
   background: #f0f0f0;
-  height: .5rem;
-  border-radius: .25rem;
-  margin: .25rem;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 0.25rem;
 }
 .email-envelope-flap {
   width: 0;
   height: 0;
-  border-left: 20vw solid transparent;
-  border-right: 20vw solid transparent;
+  border-left: 40vw solid transparent;
+  border-right: 40vw solid transparent;
 
   border-bottom: 20vh solid #f5bf4f;
+}
+@media only screen and (min-width: 450px) {
+  .email-envelope {
+    width: 60vw;
+  }
+  .email-front:before {
+    border-bottom: 35vh solid #fad464;
+    border-left: 60vw solid transparent;
+  }
+
+  .email-front:after {
+    border-bottom: 35vh solid #ffde6e;
+
+    border-right: 60vw solid transparent;
+  }
+  .email-envelope-flap {
+    border-left: 30vw solid transparent;
+    border-right: 30vw solid transparent;
   
+  }
+}
+
+@media only screen and (min-width: 940px) {
+  .email-envelope {
+    width: 40vw;
+    height: 30vh;
+  }
+  .email-front:before {
+    border-bottom: 30vh solid #fad464;
+    border-left: 40vw solid transparent;
+  }
+
+  .email-front:after {
+    border-bottom: 30vh solid #ffde6e;
+
+    border-right: 40vw solid transparent;
+  }
+  .email-envelope-flap {
+    border-left: 20vw solid transparent;
+    border-right: 20vw solid transparent;
+  }
 }

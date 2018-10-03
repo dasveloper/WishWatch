@@ -66,7 +66,7 @@ class Browser extends React.Component {
               </span>
             </div>
           </div>
-          <div className="main-right hidden-xs">
+          <div className="main-right hidden-sm">
             <div className="prod-name" />
             <div className="sub-title" />
             <div className="text-line" />

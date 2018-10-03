@@ -91,7 +91,7 @@ class Landing extends React.Component {
                         WishWatch
                       </h1>
                       <h2 className="headline hidden-xs">
-                        What your customers are wishing for
+                        <span class="no-break">What your customers </span> <span class="no-break"> are wishing for</span>
                       </h2>
                       <p className="subhead">
                         Easy to integrate wishlist platform to attract, convert,

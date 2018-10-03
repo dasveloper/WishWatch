@@ -1,6 +1,6 @@
 .browser {
   border:none;
-  width: 95vw;
+  width: 100%;
   transform: translateX(20%);
   transition: 0.5s transform;
   margin: auto;
@@ -212,8 +212,29 @@
     opacity: 0;
   }
 }
-
 @media only screen and (min-width: 450px) {
+  .main {
+    margin: 3rem 6rem;
+  }
+ .hero {
+    min-width: 300px;
+    min-height: 300px;
+  }
+
+}
+@media only screen and (min-width: 768px) {
+
+
+ 
+  .left-column {
+    flex-basis: 60%;
+  }
+  .main-left {
+    flex-basis: 60%;
+    border-right: 1px solid #f0f0f0;
+  }
+}
+@media only screen and (min-width: 940px) {
   .browser {
     width: 70vw;
     border: 2px solid #dfe1e6;
@@ -222,21 +243,10 @@
   .browser-header {
     display: flex;
   }
-  .main {
-    margin: 3rem 6rem;
-  }
-
-  .hero {
-    min-width: 300px;
-    min-height: 300px;
-  }
   .left-column {
-    flex-basis: 60%;
     padding-right: 2rem;
   }
   .main-left {
-    flex-basis: 60%;
     padding-right: 2rem;
-    border-right: 1px solid #f0f0f0;
   }
 }

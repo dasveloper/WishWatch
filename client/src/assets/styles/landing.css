@@ -5,6 +5,12 @@
   z-index: 0;
   overflow: hidden;
 }
+.landing-main > .section-column{
+  height: 50vh;
+}
+.landing-main > .section-column:nth-child(2){
+  height: 50vh;
+}
 .landing-main:before {
   content: "";
   position: absolute;
@@ -49,6 +55,9 @@
   font-size: 1.4rem;
   margin: 0.5rem 0;
   text-align: center;
+}
+.headline .no-break{
+  display: inline-block;
 }
 .subhead {
   font-family: "Bariol", Arial, Helvetica, sans-serif;
@@ -104,6 +113,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 40vh;
+}
+.section-column:nth-child(2){
+  height: 60vh;
+
 }
 .section-header {
   font-family: "BariolBold", Arial, Helvetica, sans-serif;
@@ -130,6 +144,7 @@
 
 
 @media only screen and (min-width: 450px){
+  
   .section-header {
    
   margin-bottom: 1rem;
@@ -142,14 +157,7 @@
    margin: 1rem auto;
 
   }
-  .on-board {
 
-    margin: 2rem;
-  }
-  .on-board-logo {
-
-    font-size: 3rem;
-  }
   .on-board-logo .logo-img {
     width: 3rem;
   }
@@ -162,31 +170,64 @@
     font-size: 1.4rem;
   }
 }
-@media only screen and (min-width:960px){
-
+@media only screen and (min-width:940px){
+  .landing-main > .section-column{
+    height: 100%;
+  }
+  .landing-main > .section-column:nth-child(2){
+    height: 100%;
+  }
   .section-row {
    
     flex-direction: row;
   }
   .section-column {
-    width: 50%;
+    width: 40%;
+    height: 100%;
+  }
+  .section-column:nth-child(2){
+    height: 100%;
+    width: 60%;
 
   }
   .on-board {
     justify-content: flex-start;
     align-items: flex-start;
   }
+  .on-board-logo {
+
+    font-size: 3rem;
+  }
   .join{
     align-self: flex-start;
   }
   .headline {
-    font-size: 2rem;
+    font-size: 1.8rem;
     text-align: left;
   }
   .subhead {
     font-size: 1.6rem;
     text-align: left;
+
+  }
+}
+@media only screen and (min-width:940px){
+  .on-board {
+    margin: 2rem;
+  }
+  .headline {
+    font-size: 2rem;
+  }
+  .subhead {
+    font-size: 1.6rem;
     max-width: 80%;
+
+  }
+  .section-column {
+    width: 50%;
+  }
+  .section-column:nth-child(2){
+    width: 50%;
 
   }
 }
