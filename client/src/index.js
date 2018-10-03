@@ -2,8 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import './assets/header.css'
-import './assets/landing.css'
+import './assets/styles/base.css'
+import './assets/styles/header.css'
+import './assets/styles/landing.css'
+import './assets/styles/prodBlockMockup.css'
+import './assets/styles/browserMockup.css'
+import './assets/styles/statsMockup.css'
+import './assets/styles/emailMockup.css'
+import './assets/styles/emailModal.css'
 
 import App from "./components/App";
 import reducers from './reducers';

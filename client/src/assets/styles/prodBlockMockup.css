@@ -1,0 +1,234 @@
+.prod-block-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vh;
+  height: 50vh;
+  grid-gap: 0.5rem;
+  padding: .25rem;
+}
+.prod-block-grid.loaded .prod-block-wrapper {
+  transform: translateY(0);
+}
+.prod-block-grid-row.first-row .prod-block-wrapper:nth-child(1) {
+  transition-delay: 0s;
+}
+.prod-block-grid-row.first-row .prod-block-wrapper:nth-child(2) {
+  transition-delay: 0.05s;
+}
+.prod-block-grid-row.second-row .prod-block-wrapper:nth-child(1) {
+  transition-delay: 0.15s;
+}
+.prod-block-grid-row.second-row .prod-block-wrapper:nth-child(2) {
+  transition-delay: 0.25s;
+}
+.prod-block-grid-row.third-row .prod-block-wrapper:nth-child(1) {
+  transition-delay: 0.35s;
+}
+.prod-block-grid-row.third-row .prod-block-wrapper:nth-child(2) {
+  transition-delay: 0.45s;
+}
+
+.prod-block-grid-row {
+  flex-basis: 50%;
+  width: 100%;
+  display: flex;
+  
+}
+.prod-block-grid-row.third-row {
+  display: none;
+}
+.prod-block-wrapper {
+  height: 100%;
+  padding: 0.25rem;
+  transform: translateY(100vh);
+  transition: 0.3s transform;
+}
+.prod-block {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  flex-direction: column;
+  height: 100%;
+  padding: 0.5rem;
+}
+.prod-icon-row {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.prod-special-icon {
+  padding: 0.25rem;
+  margin: 0.25rem;
+  color: #fff;
+  background: #f5bf4f;
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.prod-special-icon:before {
+  position: absolute;
+  content: "";
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 4px;
+  left: 0;
+  top: 0;
+
+  background-color: transparent;
+  box-shadow: 0px 0px 3px 3px #f5bf4f;
+  -webkit-animation: active 2s infinite linear;
+  animation: active 2s infinite linear;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.prod-price-icon {
+  padding: 0.25rem;
+  margin: 0.25rem;
+  color: #fff;
+  background: #63c756;
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.prod-price-icon:before {
+  position: absolute;
+  content: "";
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 4px;
+  left: 0;
+  top: 0;
+
+  background-color: transparent;
+  box-shadow: 0px 0px 3px 3px #63c756;
+  -webkit-animation: active 2s infinite linear;
+  animation: active 2s infinite linear;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.prod-image-wrapper {
+  position: relative;
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+}
+.prod-image-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+}
+@keyframes glow {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  99.9% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0);
+
+    opacity: 0;
+  }
+}
+@media only screen and (min-width: 450px) {
+  .prod-block-grid-row.third-row {
+    display: flex;
+  }
+
+  .prod-block-grid {
+    height: 75vh;
+  }
+}
+/* 
+.prod-block {
+  padding: 1rem;
+  background: #f0f0f0;
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.prod-image-wrapper {
+  background: #fff;
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: content-box;
+}
+.prod-image-wrapper {
+  max-width: 100%;
+}
+.prod-title {
+  margin: 1rem 0;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.offers-wrapper{
+    margin: 1rem 0;
+
+}
+.offers-header {
+    margin: .5rem 0;
+    font-size: 1rem;
+    color: #686868;
+  font-family: "Bariol", Arial, Helvetica, sans-serif;
+}
+.special-offers {
+  background-color: #fff;
+  flex: 1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 2rem 2rem;
+}
+.special-offer-text {
+  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  color: #c8c8c8;
+  margin: 0;
+}
+.special-offer-text.offer {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  color: #fac54b;
+}
+.prod-link-button {
+  background: #773d94;
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: flex;
+  flex: 0;
+  justify-content: center;
+  align-items: center;
+}
+.prod-link {
+  color: #fff;
+  font-size: 1.4rem;
+  margin: 0;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+} */

@@ -1,0 +1,242 @@
+.browser {
+  border:none;
+  width: 95vw;
+  transform: translateX(20%);
+  transition: 0.5s transform;
+  margin: auto;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+}
+.browser.loaded {
+  transform: translateX(0%);
+}
+.browser-header {
+  padding: 1rem 0.5rem;
+  background-color: #dfe1e6;
+  align-self: center;
+  justify-content: flex-start;
+  display: none;
+}
+.browser-button {
+  width: 14px;
+  height: 14px;
+  border-radius: 14px;
+  margin: 0 0.5rem;
+}
+.browser-button.red {
+  background: #ed6a5f;
+}
+.browser-button.yellow {
+  background: #f5bf4f;
+}
+.browser-button.green {
+  background: #63c756;
+}
+.prod-page-header {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin: 2.5rem 0;
+}
+.main {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.main-right {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 40%;
+  padding-left: 2rem;
+}
+
+.column-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-column {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-column {
+  background-color: #f0f0f0;
+  flex-basis: 40%;
+  margin: 0.5rem;
+  margin-right: 0;
+}
+
+.buyButton {
+  background-color: #f0f0f0;
+  height: 4rem;
+  width: 70%;
+  margin-top: 0.5rem;
+  align-self: flex-end;
+}
+
+.prod-name {
+  height: 4rem;
+  background-color: #f0f0f0;
+}
+
+.sub-title {
+  height: 1rem;
+  background-color: #f0f0f0;
+  margin: 0.5rem 0;
+  width: 50%;
+}
+
+.text-line {
+  height: 1rem;
+  background-color: #f0f0f0;
+  margin: 0.5rem 0;
+}
+
+.main-left {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+}
+
+.hero {
+  background-color: #f0f0f0;
+  min-width: 100px;
+  min-height: 100px;
+  padding: 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  -webkit-animation: mymove 2s infinite linear;
+  animation: mymove 2s infinite linear;
+}
+
+.wrapper {
+  display: flex;
+  padding: 0.5rem 0;
+}
+
+.beacon {
+  margin: 5px;
+  background-color: #f0f0f0;
+  height: 40px;
+  width: 40px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.beacon img {
+  border-radius: 4px;
+}
+
+.blink {
+  background: #773d94;
+}
+
+.beacon.blink:before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 40px;
+  border-radius: 4px;
+  left: 0;
+  top: 0;
+
+  background-color: transparent;
+  box-shadow: 0px 0px 3px 3px #773d94;
+  -webkit-animation: active 2s infinite linear;
+  animation: active 2s infinite linear;
+  animation-delay: 2s;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+@keyframes active {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  10% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  99.9% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0);
+
+    opacity: 0;
+  }
+}
+/* Standard syntax */
+@keyframes mymove {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.3;
+  }
+
+  /* Finish changes by here */
+  10% {
+    transform: scale(10, 10);
+    opacity: 0.3;
+  }
+  99.9% {
+    transform: scale(10, 10);
+    opacity: 0;
+  }
+  /* Between 20% and 100%, nothing changes */
+  100% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .browser {
+    width: 70vw;
+    border: 2px solid #dfe1e6;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+  .browser-header {
+    display: flex;
+  }
+  .main {
+    margin: 3rem 6rem;
+  }
+
+  .hero {
+    min-width: 300px;
+    min-height: 300px;
+  }
+  .left-column {
+    flex-basis: 60%;
+    padding-right: 2rem;
+  }
+  .main-left {
+    flex-basis: 60%;
+    padding-right: 2rem;
+    border-right: 1px solid #f0f0f0;
+  }
+}

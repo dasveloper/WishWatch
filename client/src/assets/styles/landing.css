@@ -1,0 +1,192 @@
+.landing-main {
+  position: relative;
+
+  background-color: #fff;
+  z-index: 0;
+  overflow: hidden;
+}
+.landing-main:before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: 200vw;
+  height: 100vw;
+  border-radius: 50%;
+  margin-top: -60%;
+  margin-left: -50vw;
+  background-color: #f0f0f0;
+  /*  background-image: linear-gradient(top, rgb(145,87,174) 50%, rgb(119,61,148) 75%, rgb(94,36,123) 100%);
+    background-image: -o-linear-gradient(top, rgb(145,87,174) 50%, rgb(119,61,148) 75%, rgb(94,36,123) 100%);
+    background-image: -moz-linear-gradient(top, rgb(145,87,174) 50%, rgb(119,61,148) 75%, rgb(94,36,123) 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(.5, rgb(145,87,174)),color-stop(0.75, rgb(119,61,148)),color-stop(1, rgb(94,36,123)));
+    background-image: -webkit-linear-gradient(top, rgb(145,87,174) 50%, rgb(119,61,148) 75%, rgb(94,36,123) 100%);
+    background-image: -ms-linear-gradient(top, rgb(145,87,174) 50%, rgb(119,61,148) 75%, rgb(94,36,123) 100%);  */
+}
+.on-board-logo {
+
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  margin: 0;
+}
+.on-board-logo .logo-img {
+  width: 2rem;
+  margin-right: 0.5rem;
+}
+
+.on-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.headline {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+.subhead {
+  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  text-align: center;
+}
+.email {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  padding: 10px;
+  outline: none;
+  border: 1px solid #f0f0f0;
+  flex: 1;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.join {
+  background: #773d94;
+  padding: .5rem 1rem;
+  color: #fff;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #773d94;
+  margin: 2rem 0;
+  display: block;
+  transition: 0.2s color, 0.2s background;
+}
+.join:hover {
+  color: #fff;
+  background: #773d94;
+}
+.subscribe {
+  background: #773d94;
+  padding: 1rem 2rem;
+  color: #fff;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.section-row {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.section-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.section-header {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 1rem;
+  margin-bottom: 0;
+}
+.section-subheader {
+  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 1rem;
+}
+.prod-mockup-column{
+  background: #ff5f45;
+}
+.stats-mockup-column{
+  background: #0798ec;
+}
+.email-mockup-column{
+  background: #fe0647;
+}
+
+
+@media only screen and (min-width: 450px){
+  .section-header {
+   
+  margin-bottom: 1rem;
+    font-size: 2rem;
+
+  }
+  .section-subheader {
+    font-size: 1.4rem;
+   max-width: 70vw;
+   margin: 1rem auto;
+
+  }
+  .on-board {
+
+    margin: 2rem;
+  }
+  .on-board-logo {
+
+    font-size: 3rem;
+  }
+  .on-board-logo .logo-img {
+    width: 3rem;
+  }
+  .section-column {
+    padding: 2rem;
+
+  }
+  .join {
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+  }
+}
+@media only screen and (min-width:960px){
+
+  .section-row {
+   
+    flex-direction: row;
+  }
+  .section-column {
+    width: 50%;
+
+  }
+  .on-board {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .join{
+    align-self: flex-start;
+  }
+  .headline {
+    font-size: 2rem;
+    text-align: left;
+  }
+  .subhead {
+    font-size: 1.6rem;
+    text-align: left;
+    max-width: 80%;
+
+  }
+}

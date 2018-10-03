@@ -1,183 +1,167 @@
-import React, { Component } from "react";
-import LandingHeader from "./LandingHeader";
-import icon from "../assets/wand-icon.svg";
+import React from "react";
+import ProdBlockMockup from "./ProdBlockMockup";
+import EmailMockup from "./EmailMockup";
+import BrowserMockup from "./BrowserMockup";
+import StatsMockup from "./StatsMockup";
+import EmailModal from "./EmailModal";
 
-import product1 from "../assets/prod1.png";
-import product2 from "../assets/prod2.png";
-import star from "../assets/star.png";
-import starempty from "../assets/star-empty.png";
-import affiliateDash from "../assets/affiliatedash.png";
-import heroProdImage1 from "../assets/photo_camera_1.svg";
-import heroProdImage2 from "../assets/watch.svg";
-import heroProdImage3 from "../assets/computer.svg";
-
-const heroImages = [
-  { imageSrc: heroProdImage1, color: "#00B14F" },
-  { imageSrc: heroProdImage2, color: "#FF3D1E" },
-  { imageSrc: heroProdImage3, color: "#781EA7" }
-];
+import ReactFullpage from "@fullpage/react-fullpage";
+import icon from "../assets/images/wand-icon.svg";
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      heroImageIndex: 0,
-      heroImage: heroImages[0],
-      intervalId: null
+      browserLoaded: false,
+      emailLoaded: false,
+      prodLoaded: false,
+      statsLoaded: false,
+      modalIsOpen: false,
+      email: ""
     };
-    this.timer = this.timer.bind(this);
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.afterLoad = this.afterLoad.bind(this);
   }
-   shadeColor = (color, percent) => {
-
-    let R = parseInt(color.substring(1,3),16);
-    let G = parseInt(color.substring(3,5),16);
-    let B = parseInt(color.substring(5,7),16);
-
-    R = parseInt(R * (100 + percent) / 100);
-    G = parseInt(G * (100 + percent) / 100);
-    B = parseInt(B * (100 + percent) / 100);
-
-    R = (R<255)?R:255;  
-    G = (G<255)?G:255;  
-    B = (B<255)?B:255;  
-
-    let RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
-    let GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
-    let BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
-
-    return "#"+RR+GG+BB;
-}
-  componentDidMount() {
-    var intervalId = setInterval(this.timer, 2000);
-    // store intervalId in the state so it can be accessed later:
-    this.setState({ intervalId: intervalId });
+  openModal() {
+    this.setState({ modalIsOpen: true });
   }
 
-  componentWillUnmount() {
-    // use intervalId from the state to clear the interval
-    clearInterval(this.state.intervalId);
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
-  timer() {
-    let newHeroImage =
-      this.state.heroImageIndex == heroImages.length - 1
-        ? 0
-        : this.state.heroImageIndex + 1;
-    // setState method is used to update the state
-    this.setState({
-      heroImageIndex: newHeroImage,
-      heroImage: heroImages[newHeroImage]
-    });
+  afterLoad(origin, destination, direction) {
+    switch (destination.index) {
+      case 0:
+        setTimeout(() => {
+          this.setState({ browserLoaded: true });
+        }, 200);
+        break;
+      case 1:
+        this.setState({ prodLoaded: true });
+
+        break;
+      case 2:
+        this.setState({ statsLoaded: true });
+
+        break;
+      case 3:
+        this.setState({ emailLoaded: true });
+        break;
+      default:
+        break;
+    }
+    // arguments are mapped in order of fullpage.js callback arguments
+    // do something with the event
   }
+
   render() {
-    let { heroImageIndex, heroImage } = this.state;
-    let { imageSrc, color } = heroImage;
+    let {
+      emailLoaded,
+      browserLoaded,
+      statsLoaded,
+      prodLoaded,
+      modalIsOpen
+    } = this.state;
 
     return (
-      <div className="landing">
-        <div style={{ backgroundColor: this.shadeColor(color, 30) }} className="landing-main">
-          <LandingHeader />
-          <div className="hero-wrapper">
-            {false && (
-              <div className="on-board">
-                <input className="email" placeholder="Email" />
-                <button className="subscribe">Subscribe</button>
-              </div>
-            )}
-            <div className="browser">
-              <div className="browser-header">
-                <div className="browser-button red" />
-                <div className="browser-button yellow" />
-                <div className="browser-button green" />
-              </div>
-              <h4 className="prod-page-header">Easily add to any product page</h4>
-              <div className="main">
-                <div className="main-left">
-                  <div style={{ backgroundColor: color }} className="hero">
-                    <img src={imageSrc} />
-                  </div>
-                  <div className="wrapper">
-                    <span className="beacon" />
-                    <span className="beacon" />
-                    <span className="beacon" />
-                    <span className="beacon" />
-                    <span className="beacon blink">
-                      <img src={icon} />
-                    </span>
-                  </div>
-                </div>
-                <div className="main-right">
-                  <div className="prod-name" />
-                  <div className="sub-title" />
-                  <div className="text-line" />
-                  <div className="text-line" />
-                  <div className="text-line" />
-                  <div className="column-wrapper">
-                    <div className="left-column">
-                      <div className="text-line" />
-                      <div className="text-line" />
-                      <div className="text-line" />
+      <ReactFullpage
+        afterLoad={this.afterLoad.bind(this)}
+        recordHistory={false}
+        // responsiveWidth={960}
+        render={({ state, fullpageApi }) => {
+          return (
+            <div id="fullpage-wrapper" className="landing">
+              <EmailModal
+                modalIsOpen={modalIsOpen}
+                closeModal={this.closeModal}
+              />
+              <div className="section fp-auto-height-responsive">
+                <div className="section-row landing-main">
+                  <div className="section-column">
+                    <div className="on-board">
+                      <h1 className="on-board-logo">
+                        <img
+                          alt="wishwatch icon"
+                          className="logo-img"
+                          src={icon}
+                        />
+                        WishWatch
+                      </h1>
+                      <h2 className="headline hidden-xs">
+                        What your customers are wishing for
+                      </h2>
+                      <p className="subhead">
+                        Easy to integrate wishlist platform to attract, convert,
+                        and retain customers.
+                      </p>
+                      <button onClick={this.openModal} className="join">
+                        Add WishWatch to your website
+                      </button>
                     </div>
-                    <div className="right-column" />
                   </div>
-                  <div className="buyButton" />
+                  <div className="section-column">
+                    <BrowserMockup loaded={browserLoaded} />
+                  </div>
+                </div>
+              </div>
+              <div className="section fp-auto-height-responsive">
+                <div className="section-row">
+                  <div className="section-column">
+                    <h2 className="section-header">
+                      Engage customers directly
+                    </h2>
+                    <h4 className="section-subheader">
+                      WishWatch monitors price changes and allows affiliates to
+                      advertise specials offers and promotions directly to a
+                      customer's dashboard. This helps to convert prospective
+                      customers from watchers to buyers.
+                    </h4>
+                  </div>
+                  <div className="section-column prod-mockup-column">
+                    <ProdBlockMockup loaded={prodLoaded} />
+                  </div>
+                </div>
+              </div>
+
+              <div className="section fp-auto-height-responsive">
+                <div className="section-row">
+                  <div className="section-column">
+                    <h2 className="section-header">In-depth analytics</h2>
+                    <h4 className="section-subheader">
+                      WishWatch autmatically crunches all of your product and
+                      customer data to provide affiliates with valuable insights
+                      as to which products and offers are converting well.
+                    </h4>
+                  </div>
+                  <div className="section-column stats-mockup-column">
+                    <StatsMockup loaded={statsLoaded} />
+                  </div>
+                </div>
+              </div>
+              <div className="section fp-auto-height-responsive">
+                <div className="section-row">
+                  <div className="section-column">
+                    <h2 className="section-header">WishWatch email list</h2>
+                    <h4 className="section-subheader">
+                      WishWatch affiliate products are automatically added to
+                      weekly email blasts updating customer on any price changes
+                      or promotions for the products they are watching. This
+                      helps reduce churn and bring the customer back to your
+                      site.
+                    </h4>
+                  </div>
+                  <div className="section-column email-mockup-column">
+                    <EmailMockup loaded={emailLoaded} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="feature">
-          <h2 className="feature-header">Customer Dashboard</h2>
-          <h4 className="feature-subheader">
-            The customer dashboard will provide direct access to their favorite
-            products linking directly back to your site, reducing churn an
-            increasing conversion.
-          </h4>
-          <div className="customer-dashboard">
-            <div className="product-wrapper">
-              <img className="prod-image" src={product2} />
-            </div>
-            <div className="product-wrapper">
-              <img className="prod-image" src={product1} />
-            </div>
-          </div>
-        </div>
-        <div class="feature">
-          <h2 className="feature-header">Affiliate Dashboard</h2>
-          <h4 class="feature-subheader">
-            View customer analytics to see which products are performing the
-            best as well as push promotions to incentivize purchases.
-          </h4>
-          <div className="affiliate-dashboard">
-            <img className="affiliate-dash" src={affiliateDash} />
-          </div>
-        </div>
-        <div class="feature">
-          <h2 className="feature-header">Product Integration</h2>
-          <h4 class="feature-subheader">
-            Manually upload products or integrate with our easy set-up product
-            feed to keep customers up to date with product prices.
-          </h4>
-
-          <div className="product-feed">
-            <pre>{`[
-  {
-    productId: "5748206",
-    productTitle: "Sony 65" Class - LED - X850E Series - 2160p - Smart - 4K UHD TV with HDR",
-    productPrice: 1099.99,
-    priceLocalization: "USD"   
-  },
-  {
-    productId: "6296207",
-    productTitle: "Bose QuietComfort 35 Wireless Headphones II",
-    productPrice: 349.99,
-    priceLocalization: "USD"   
-  }
-]
-`}</pre>
-          </div>
-        </div>
-      </div>
+          );
+        }}
+      />
     );
   }
 }

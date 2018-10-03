@@ -1,0 +1,83 @@
+
+.logo-row {
+    display: flex;
+    align-items: center;
+  }
+  .sign-up-logo {
+    display: flex;
+    align-items: center;
+    font-family: "BariolBold", Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+  
+    margin: 1rem;
+  }
+  .sign-up-logo .logo-img {
+    width: 3rem;
+    margin-right: 0.5rem;
+  }
+  
+  .sign-up-header {
+    color: #888;
+    font-family: "BariolThin", Arial, Helvetica, sans-serif;
+    white-space: nowrap;
+  }
+  .sign-up-explanation-row {
+    padding: 1rem;
+    max-width: 1;
+  }
+  .sign-up-explanation {
+    font-family: "Bariol", Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    margin: 0;
+  }
+  .sign-up-modal-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f0f0f0;
+    justify-content: center;
+    padding: 4rem;
+    flex: 1;
+  }
+  .sign-up-modal-bottom {
+    padding: 1rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    justify-content: center;
+  }
+  .email-input {
+    width: 100%;
+    padding: 1rem;
+    font-family: "Bariol", Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid #999999;
+  }
+  .email-handler-response{
+      margin: .5rem;
+      font-family: "BariolBold", Arial, Helvetica, sans-serif;
+      font-size: .8rem;
+  }
+  .email-handler-response.success{
+      color: #63c756;
+  }
+  .email-handler-response.error{
+      color: #ed6a5f;
+  }
+  .sign-up {
+    background: #773d94;
+    padding: 1rem 2rem;
+    color: #fff;
+    font-family: "BariolBold", Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    border-radius: 4px;
+    border: 1px solid #773d94;
+    margin: 2rem 0;
+    display: block;
+    transition: 0.2s color, 0.2s background;
+  }
+  
