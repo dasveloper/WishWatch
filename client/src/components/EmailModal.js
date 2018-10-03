@@ -40,7 +40,7 @@ class EmailModal extends React.Component {
     let databody = {
       email: this.state.email
     };
-    fetch("http://localhost:5000/subscribe", {
+    fetch("/subscribe", {
       method: "POST",
       body: JSON.stringify(databody),
       headers: {
