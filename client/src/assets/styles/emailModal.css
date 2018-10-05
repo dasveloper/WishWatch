@@ -1,83 +1,162 @@
+.email-modal {
+  position: absolute;
 
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  display: flex;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  padding: 0;
+  width: 95%;
+  height: 95%;
+}
+.email-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
 .logo-row {
-    display: flex;
-    align-items: center;
-  }
+  display: flex;
+  align-items: center;
+}
+.sign-up-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  flex-wrap: wrap;
+
+  margin: 1rem 0rem;
+}
+.sign-up-logo .logo-img {
+  width: 1.4rem;
+  margin-right: 0.5rem;
+}
+.sign-up-header {
+  white-space: nowrap;
+}
+
+.sign-up-subheader {
+  color: #888;
+  font-family: "BariolThin", Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+}
+
+.sign-up-explanation {
+  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+}
+.sign-up-modal-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f0f0f0;
+  justify-content: center;
+  padding: 1rem;
+  flex: 6;
+}
+.sign-up-modal-bottom {
+  padding: 1rem;
+  display: flex;
+  flex: 5;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  justify-content: center;
+}
+.email-input {
+  width: 100%;
+  padding: .5rem;
+  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #999999;
+}
+.email-handler-response {
+  margin: 0.5rem;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 0.8rem;
+}
+.email-handler-response.success {
+  color: #63c756;
+}
+.email-handler-response.error {
+  color: #ed6a5f;
+}
+.sign-up {
+  background: #773d94;
+  padding: .5rem 1rem;
+  color: #fff;
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  border: 1px solid #773d94;
+  margin: 1rem 0;
+  display: block;
+  transition: 0.2s color, 0.2s background;
+}
+.cancel{
+  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  outline: none;
+
+}
+@media only screen and (min-width: 768px) {
   .sign-up-logo {
-    display: flex;
-    align-items: center;
-    font-family: "BariolBold", Arial, Helvetica, sans-serif;
     font-size: 3rem;
-  
+
     margin: 1rem;
   }
   .sign-up-logo .logo-img {
     width: 3rem;
     margin-right: 0.5rem;
   }
-  
-  .sign-up-header {
-    color: #888;
-    font-family: "BariolThin", Arial, Helvetica, sans-serif;
-    white-space: nowrap;
-  }
-  .sign-up-explanation-row {
-    padding: 1rem;
-    max-width: 1;
-  }
   .sign-up-explanation {
-    font-family: "Bariol", Arial, Helvetica, sans-serif;
     font-size: 1.4rem;
-    margin: 0;
+  }
+  .email-modal {
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-width: 95%;
+    max-height: 95%;
+    min-width: 75%;
+    min-height: 60%;
   }
   .sign-up-modal-top {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #f0f0f0;
-    justify-content: center;
-    padding: 4rem;
+    padding: 2rem;
     flex: 1;
   }
   .sign-up-modal-bottom {
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     flex: 1;
-    flex-direction: column;
-    align-items: center;
-    background: #fff;
-    justify-content: center;
+  }
+  .sign-up-explanation-row {
+    padding: 1rem;
   }
   .email-input {
-    width: 100%;
+   
     padding: 1rem;
-    font-family: "Bariol", Arial, Helvetica, sans-serif;
     font-size: 1.4rem;
-    border-radius: 4px;
-    outline: none;
-    border: 1px solid #999999;
-  }
-  .email-handler-response{
-      margin: .5rem;
-      font-family: "BariolBold", Arial, Helvetica, sans-serif;
-      font-size: .8rem;
-  }
-  .email-handler-response.success{
-      color: #63c756;
-  }
-  .email-handler-response.error{
-      color: #ed6a5f;
+   
   }
   .sign-up {
-    background: #773d94;
     padding: 1rem 2rem;
-    color: #fff;
-    font-family: "BariolBold", Arial, Helvetica, sans-serif;
+   
     font-size: 1.4rem;
-    border-radius: 4px;
-    border: 1px solid #773d94;
     margin: 2rem 0;
-    display: block;
-    transition: 0.2s color, 0.2s background;
+  
   }
   
+}

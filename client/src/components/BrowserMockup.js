@@ -54,7 +54,7 @@ class Browser extends React.Component {
         <div className="main">
           <div className="main-left">
             <div style={{ backgroundColor: color }} className="hero">
-              <img alt="browser product mockup" src={imageSrc} />
+              <img className = "browser-product-mockup" alt="browser product mockup" src={imageSrc} />
             </div>
             <div className="wrapper">
               <span className="beacon" />
@@ -66,13 +66,13 @@ class Browser extends React.Component {
               </span>
             </div>
           </div>
-          <div className="main-right hidden-sm">
+          <div className="main-right d-none d-sm-flex">
             <div className="prod-name" />
             <div className="sub-title" />
             <div className="text-line" />
             <div className="text-line" />
             <div className="text-line" />
-            <div className="column-wrapper">
+            <div className="column-wrapper d-none d-md-flex">
               <div className="left-column">
                 <div className="text-line" />
                 <div className="text-line" />
@@ -80,7 +80,7 @@ class Browser extends React.Component {
               </div>
               <div className="right-column" />
             </div>
-            <div className="buyButton" />
+            <div className="buyButton d-none d-md-flex" />
           </div>
         </div>
       </div>

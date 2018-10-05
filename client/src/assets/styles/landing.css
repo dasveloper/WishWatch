@@ -84,7 +84,7 @@
   font-size: 1rem;
   border-radius: 4px;
   border: 1px solid #773d94;
-  margin: 2rem 0;
+  margin: .5rem 0;
   display: block;
   transition: 0.2s color, 0.2s background;
 }
@@ -166,11 +166,13 @@
 
   }
   .join {
+    margin: 2rem 0;
+
     padding: 1rem 2rem;
     font-size: 1.4rem;
   }
 }
-@media only screen and (min-width:940px){
+@media only screen and (min-width:769px){
   .landing-main > .section-column{
     height: 100%;
   }
@@ -211,7 +213,7 @@
 
   }
 }
-@media only screen and (min-width:940px){
+@media only screen and (min-width:769px){
   .on-board {
     margin: 2rem;
   }

@@ -147,7 +147,7 @@
     color: #494949;
   }
   .stats-base {
-    width: 40vh;
+    width: 40vw;
     height: 60vh;
     margin: 0;
   }
@@ -162,7 +162,7 @@
   }
 
 }
-@media only screen and (min-width: 940px) {
+@media only screen and (min-width: 840px) {
     .stats-base.loaded .stats-watching {
         transform: translateX(-35%) translateY(-60%);
       }

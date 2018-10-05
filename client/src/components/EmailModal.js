@@ -2,18 +2,6 @@ import React from "react";
 import icon from "../assets/images/wand-icon.svg";
 import Modal from "react-modal";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    display: "flex",
-    transform: "translate(-50%, -50%)",
-    flexDirection: "column",
-    padding: 0
-  }
-};
 
 Modal.setAppElement("#root");
 class EmailModal extends React.Component {
@@ -73,15 +61,17 @@ class EmailModal extends React.Component {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={this.clearAndClose}
-        style={customStyles}
+        className="email-modal"
+           overlayClassName="email-modal-overlay"
         contentLabel="Example Modal"
       >
         <div className="sign-up-modal-top">
           <div className="logo-row">
             <h1 className="sign-up-logo">
+            <span className="sign-up-header">
               <img alt="Wishwatch logo" className="logo-img" src={icon} />
-              WishWatch&nbsp;
-              <span className="sign-up-header">early access</span>
+              WishWatch</span>&nbsp;
+              <span className="sign-up-subheader">early access</span>
             </h1>
           </div>
 
@@ -116,6 +106,9 @@ class EmailModal extends React.Component {
           )}
           <button onClick={this.openModal} className="sign-up">
             Sign up
+          </button>
+          <button onClick={this.clearAndClose} className="cancel">
+            Cancel
           </button>
         </form>
       </Modal>

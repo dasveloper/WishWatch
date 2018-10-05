@@ -1,6 +1,4 @@
 .browser {
-  border:none;
-  width: 100%;
   transform: translateX(20%);
   transition: 0.5s transform;
   margin: auto;
@@ -8,6 +6,9 @@
   border-radius: 4px;
   position: relative;
   z-index: 2;
+  width: auto;
+  border: 2px solid #dfe1e6;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .browser.loaded {
   transform: translateX(0%);
@@ -17,7 +18,8 @@
   background-color: #dfe1e6;
   align-self: center;
   justify-content: flex-start;
-  display: none;
+  display: flex;
+
 }
 .browser-button {
   width: 14px;
@@ -51,6 +53,7 @@
   flex-direction: column;
   flex-basis: 40%;
   padding-left: 2rem;
+  min-width: 150px;
 }
 
 .column-wrapper {
@@ -130,7 +133,10 @@
   -webkit-animation: mymove 2s infinite linear;
   animation: mymove 2s infinite linear;
 }
-
+.browser-product-mockup{
+width: 100px;
+height: 100px;
+}
 .wrapper {
   display: flex;
   padding: 0.5rem 0;
@@ -212,19 +218,33 @@
     opacity: 0;
   }
 }
+.call-to-action{
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  text-align: center;
+  margin: .5rem 1.4rem;
+}
+@media only screen and (max-height: 667px){
+  .call-to-action{
+    display: none;
+  }
+}
 @media only screen and (min-width: 450px) {
-  .main {
-    margin: 3rem 6rem;
+  .hero{
+  min-width: 100px;
+  min-height: 100px;
   }
- .hero {
-    min-width: 300px;
-    min-height: 300px;
-  }
-
+  .browser-product-mockup{
+    width: 150px;
+    height: 150px;
+    }
 }
 @media only screen and (min-width: 768px) {
 
-
+  .hero {
+    min-width: 300px;
+    min-height: 300px;
+  }
  
   .left-column {
     flex-basis: 60%;
@@ -234,12 +254,28 @@
     border-right: 1px solid #f0f0f0;
   }
 }
-@media only screen and (min-width: 940px) {
+@media only screen and (min-width: 769px) {
+
+  .main {
+    margin: 3rem;
+}
+
+  .left-column {
+    padding-right: 2rem;
+  }
+  .main-left {
+    padding-right: 2rem;
+  }
+}
+@media only screen and (min-width: 840px) {
   .browser {
     width: 70vw;
     border: 2px solid #dfe1e6;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
+  .main {
+    margin: 3rem 6rem;
+}
   .browser-header {
     display: flex;
   }

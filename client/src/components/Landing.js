@@ -90,8 +90,8 @@ class Landing extends React.Component {
                         />
                         WishWatch
                       </h1>
-                      <h2 className="headline hidden-xs">
-                        <span class="no-break">What your customers </span> <span class="no-break"> are wishing for</span>
+                      <h2 className="headline d-none d-sm-block">
+                        <span className="no-break">What your customers </span> <span className="no-break"> are wishing for</span>
                       </h2>
                       <p className="subhead">
                         Easy to integrate wishlist platform to attract, convert,
@@ -103,6 +103,7 @@ class Landing extends React.Component {
                     </div>
                   </div>
                   <div className="section-column">
+                  <p className="call-to-action">Add WishWatch to any product page</p>
                     <BrowserMockup loaded={browserLoaded} />
                   </div>
                 </div>
