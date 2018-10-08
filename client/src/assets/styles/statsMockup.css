@@ -169,4 +169,9 @@
       .stats-base.loaded .stats-offers {
         transform: translateX(-35%) translateY(50%);
       }
+      .stats-base {
+        width: 25vw;
+        height: 60vh;
+        margin: 0;
+      }
 }
