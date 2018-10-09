@@ -116,7 +116,7 @@ class Landing extends React.Component {
                     </h2>
                     <h4 className="section-subheader">
                       WishWatch monitors price changes and allows affiliates to
-                      advertise specials offers and promotions directly to a
+                      advertise special offers and promotions directly to a
                       customer's dashboard. This helps to convert prospective
                       customers from watchers to buyers.
                     </h4>
