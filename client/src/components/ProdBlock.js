@@ -15,7 +15,7 @@ class ProdBlock extends React.Component {
             )}
             {this.props.priceDrop && (
               <p className="prod-price-icon">
-                <FontAwesomeIcon icon={faDollarSign} />
+                <FontAwesomeIcon className="foobar" icon={faDollarSign} />
               </p>
             )}
           </div>
@@ -28,6 +28,10 @@ class ProdBlock extends React.Component {
               />
             </div>
           )}
+           {this.props.showDetailsLink &&<div className="prod-details-button">
+            <button className="details-button">View details</button>
+            
+          </div>}
         </div>
       </div>
     );

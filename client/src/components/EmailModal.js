@@ -69,7 +69,7 @@ class EmailModal extends React.Component {
           <div className="logo-row">
             <h1 className="sign-up-logo">
             <span className="sign-up-header">
-              <img alt="Wishwatch logo" className="logo-img" src={icon} />
+              <img alt="WishWatch logo" className="logo-img" src={icon} />
               WishWatch</span>&nbsp;
               <span className="sign-up-subheader">early access</span>
             </h1>

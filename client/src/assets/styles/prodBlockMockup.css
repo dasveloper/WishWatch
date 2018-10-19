@@ -1,4 +1,4 @@
-.prod-block-grid {
+.landing-page .prod-block-grid {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,44 +8,44 @@
   grid-gap: 0.5rem;
   padding: .25rem;
 }
-.prod-block-grid.loaded .prod-block-wrapper {
+.landing-page .prod-block-grid.loaded .prod-block-wrapper {
   transform: translateY(0);
 }
-.prod-block-grid-row.first-row .prod-block-wrapper:nth-child(1) {
+.landing-page .prod-block-grid-row.first-row .prod-block-wrapper:nth-child(1) {
   transition-delay: 0s;
 }
-.prod-block-grid-row.first-row .prod-block-wrapper:nth-child(2) {
+.landing-page .prod-block-grid-row.first-row .prod-block-wrapper:nth-child(2) {
   transition-delay: 0.05s;
 }
-.prod-block-grid-row.second-row .prod-block-wrapper:nth-child(1) {
+.landing-page .prod-block-grid-row.second-row .prod-block-wrapper:nth-child(1) {
   transition-delay: 0.15s;
 }
-.prod-block-grid-row.second-row .prod-block-wrapper:nth-child(2) {
+.landing-page .prod-block-grid-row.second-row .prod-block-wrapper:nth-child(2) {
   transition-delay: 0.25s;
 }
-.prod-block-grid-row.third-row .prod-block-wrapper:nth-child(1) {
+.landing-page .prod-block-grid-row.third-row .prod-block-wrapper:nth-child(1) {
   transition-delay: 0.35s;
 }
-.prod-block-grid-row.third-row .prod-block-wrapper:nth-child(2) {
+.landing-page .prod-block-grid-row.third-row .prod-block-wrapper:nth-child(2) {
   transition-delay: 0.45s;
 }
 
-.prod-block-grid-row {
+.landing-page .prod-block-grid-row {
   flex-basis: 50%;
   width: 100%;
   display: flex;
   
 }
-.prod-block-grid-row.third-row {
+.landing-page .prod-block-grid-row.third-row {
   display: none;
 }
-.prod-block-wrapper {
+.landing-page .prod-block-wrapper {
   height: 100%;
   padding: 0.25rem;
   transform: translateY(100vh);
   transition: 0.3s transform;
 }
-.prod-block {
+.landing-page .prod-block {
   background: #fff;
   display: flex;
   justify-content: center;
@@ -56,12 +56,12 @@
   height: 100%;
   padding: 0.5rem;
 }
-.prod-icon-row {
+.landing-page .prod-icon-row {
   display: flex;
   width: 100%;
   justify-content: flex-end;
 }
-.prod-special-icon {
+.landing-page .prod-special-icon {
   padding: 0.25rem;
   margin: 0.25rem;
   color: #fff;
@@ -77,7 +77,7 @@
   align-items: center;
   position: relative;
 }
-.prod-special-icon:before {
+.landing-page .prod-special-icon:before {
   position: absolute;
   content: "";
   width: 1.8rem;
@@ -93,7 +93,7 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-.prod-price-icon {
+.landing-page .prod-price-icon {
   padding: 0.25rem;
   margin: 0.25rem;
   color: #fff;
@@ -109,7 +109,7 @@
   align-items: center;
   position: relative;
 }
-.prod-price-icon:before {
+.landing-page .prod-price-icon:before {
   position: absolute;
   content: "";
   width: 1.8rem;
@@ -125,14 +125,14 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-.prod-image-wrapper {
+.landing-page .prod-image-wrapper {
   position: relative;
   flex: 1;
 
   display: flex;
   justify-content: center;
 }
-.prod-image-wrapper img {
+.landing-page .prod-image-wrapper img {
   max-width: 100%;
   max-height: 100%;
 }
@@ -153,11 +153,11 @@
   }
 }
 @media only screen and (min-width: 450px) {
-  .prod-block-grid-row.third-row {
+  .landing-page .prod-block-grid-row.third-row {
     display: flex;
   }
 
-  .prod-block-grid {
+  .landing-page .prod-block-grid {
     height: 70vh;
     width: 45vw;
     
@@ -166,14 +166,14 @@
 
 @media only screen and (min-width: 840px) {
 
-  .prod-block-grid {
+  .landing-page .prod-block-grid {
     height: 75vh;
     width: 50vh;
 
   }
 }
 /* 
-.prod-block {
+.landing-page .prod-block {
   padding: 1rem;
   background: #f0f0f0;
   display: flex;
@@ -182,7 +182,7 @@
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.prod-image-wrapper {
+.landing-page .prod-image-wrapper {
   background: #fff;
   padding: 0.5rem 2rem;
   display: flex;
@@ -190,10 +190,10 @@
   align-items: center;
   box-sizing: content-box;
 }
-.prod-image-wrapper {
+.landing-page .prod-image-wrapper {
   max-width: 100%;
 }
-.prod-title {
+.landing-page .prod-title {
   margin: 1rem 0;
   font-family: "BariolBold", Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
@@ -228,7 +228,7 @@
   font-family: "BariolBold", Arial, Helvetica, sans-serif;
   color: #fac54b;
 }
-.prod-link-button {
+.landing-page .prod-link-button {
   background: #773d94;
   border-radius: 4px;
   padding: 0.5rem;
@@ -237,7 +237,7 @@
   justify-content: center;
   align-items: center;
 }
-.prod-link {
+.landing-page .prod-link {
   color: #fff;
   font-size: 1.4rem;
   margin: 0;

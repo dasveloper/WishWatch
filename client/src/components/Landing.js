@@ -67,6 +67,7 @@ class Landing extends React.Component {
     } = this.state;
 
     return (
+      <div class="landing-page">
       <ReactFullpage
         afterLoad={this.afterLoad.bind(this)}
         recordHistory={false}
@@ -163,6 +164,7 @@ class Landing extends React.Component {
           );
         }}
       />
+      </div>
     );
   }
 }

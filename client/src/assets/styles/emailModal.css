@@ -91,7 +91,7 @@
 .email-handler-response.error {
   color: #ed6a5f;
 }
-.sign-up {
+.email-modal .sign-up {
   background: #773d94;
   padding: .5rem 1rem;
   color: #fff;

@@ -1,0 +1,132 @@
+.container {
+  padding: 0 0.5rem;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+.add-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 65%;
+}
+
+.add-page .prod-row-wrapper {
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0;
+}
+.add-page .prod-row-header {
+  padding: 0.5rem;
+}
+.add-page .prod-row-logo-wrapper {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.add-page .prod-row-logo {
+  width: 90px;
+  height: 90px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+.add-page .prod-item-name-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 1rem;
+  border-left: 1px solid #e8e8e8;
+  padding-left: 1rem;
+}
+.add-page .prod-item-name {
+  font-family: "BariolThin", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  color: #686868;
+}
+.add-page .logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+.add-page .logo-text {
+  font-size: 3rem;
+  margin: 0;
+}
+.add-page .prod-row {
+  display: flex;
+  flex-direction: column;
+}
+.add-page .prod-img-wrapper {
+  height: 200px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.add-page .prod-img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.prod-atw-wrapper {
+  text-align: center;
+}
+.prod-atw-text {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+  margin: .5rem;
+}
+.prod-atw-button-wrapper{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+.prod-atw-button {
+  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  text-decoration: none;
+  background: #27BE8C;
+  padding: 1rem 4rem;
+color: #fff;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  flex:1;
+  margin: 0 2rem;
+}
+.prod-atw-no-thanks{
+    font-family: "Bariol", Arial, Helvetica, sans-serif;
+    font-size: .9rem;
+    margin: .5rem 0;
+    text-decoration: none;
+
+}
+
+@media only screen and (min-width: 450px) {
+  .container {
+    padding: 0 2rem;
+  }
+  .add-page .prod-block-wrapper {
+    flex-basis: 50%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .container {
+    padding: 0 4rem;
+  }
+  .add-page .prod-block-wrapper {
+    flex-basis: 33.33%;
+  }
+}
+
+@media only screen and (min-width: 940px) {
+  .add-page .prod-block-wrapper {
+    flex-basis: 25%;
+  }
+}

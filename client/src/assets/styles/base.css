@@ -1,7 +1,10 @@
-body,
-html {
+
+html,body,
+ #root {
   margin: 0;
+  height: 100%;
 }
+
 * {
   box-sizing: border-box;
 }
@@ -21,7 +24,11 @@ html {
     url(./../fonts/Bariol-Regular-Webfont/bariol_regular-webfont.woff)
       format("woff");
 }
-
+.master-wrapper{
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .d-none{
   display: none  !important;
 }
