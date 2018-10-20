@@ -4,10 +4,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Landing from "./Landing";
 import Wishlist from "./Wishlist";
 import AddProduct from "./AddProduct";
+import Dashboard from "./Dashboard";
 
-//import Header from './Header';
-const Dashboard = () => <h2>Dashboard</h2>;
-//const SurveyNew = () => <h2>SurveyNew</h2>;
+
 
 const App = () => {
   return (
@@ -17,6 +16,7 @@ const App = () => {
         <Route exact path="/" component={Landing} />
         <Route path="/wishlist" component={Wishlist} />
         <Route path="/add" component={AddProduct} />
+        <Route path="/dashboard" component={Dashboard} />
 
         {/*<Route path="/surveys/new" component={SurveyNew} />*/}
       </div>

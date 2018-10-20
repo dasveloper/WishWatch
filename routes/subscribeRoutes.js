@@ -36,10 +36,5 @@ module.exports = app => {
       })
 
   });
-  // app.post("/subscribe", (req, res) => {
-  //   console.log(req.body)
-  //   res.json({"foo": "bar"});
-  //  subscribe(req.body.email)
 
-  //  });
 };

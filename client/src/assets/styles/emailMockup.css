@@ -64,7 +64,9 @@
   padding: 0.5rem 1rem;
 }
 .email-header {
-  margin: 0.25rem 1rem;
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  margin: 0.5rem 1rem;
 }
 .email-promo-image {
   min-width: 50px;

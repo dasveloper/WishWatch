@@ -25,7 +25,6 @@
   padding: 0.5rem;
 }
 .wishlist-page .prod-row-logo-wrapper {
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -48,8 +47,9 @@
   padding-left: 1rem;
 }
 .wishlist-page .product-count {
-  font-family: "BariolThin", Arial, Helvetica, sans-serif;
-  font-size: 1.4rem;
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+    font-size: 1.4rem;
   color: #686868;
 }
 .wishlist-page .logo {
@@ -57,6 +57,8 @@
   max-height: 100%;
 }
 .wishlist-page .logo-text {
+  font-family: "Heebo", sans-serif;
+  font-weight: 500;
   font-size: 3rem;
   margin: 0;
 }
@@ -83,8 +85,9 @@
 }
 
 .wishlist-page .featured-offer-link {
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
-  font-size: 1rem;
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+    font-size: 1rem;
   color: #49708a;
   text-decoration: none;
 }
@@ -97,7 +100,7 @@
   padding: 0;
 }
 @media only screen and (min-width: 450px) {
-  .container {
+  .wishlist-page.container {
     padding: 0 2rem;
   }
   .wishlist-page .prod-block-wrapper {
@@ -105,7 +108,7 @@
   }
 }
 @media only screen and (min-width: 769px) {
-  .container {
+  .wishlist-page.container {
     padding: 0 4rem;
   }
   .wishlist-page .prod-block-wrapper {

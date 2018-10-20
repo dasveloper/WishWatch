@@ -36,12 +36,7 @@
 .browser-button.green {
   background: #63c756;
 }
-.prod-page-header {
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
-  font-size: 2rem;
-  text-align: center;
-  margin: 2.5rem 0;
-}
+
 .main {
   margin: 0.5rem;
   display: flex;
@@ -219,7 +214,8 @@ height: 100px;
   }
 }
 .call-to-action{
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
   font-size: 1.4rem;
   text-align: center;
   margin: .5rem 1.4rem;

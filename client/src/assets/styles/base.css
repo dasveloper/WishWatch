@@ -13,17 +13,7 @@ html,body,
   src: local("BariolBold"),
     url(./../fonts/Bariol-Bold-Webfont/bariol_bold-webfont.woff) format("woff");
 }
-@font-face {
-  font-family: "BariolThin";
-  src: local("BariolThin"),
-    url(./../fonts/Bariol-Thin-Webfont/bariol_thin-webfont.woff) format("woff");
-}
-@font-face {
-  font-family: "Bariol";
-  src: local("BariolThin"),
-    url(./../fonts/Bariol-Regular-Webfont/bariol_regular-webfont.woff)
-      format("woff");
-}
+
 .master-wrapper{
   min-height: 100%;
   display: flex;

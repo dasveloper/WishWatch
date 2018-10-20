@@ -1,4 +1,4 @@
-.container {
+.add-page.container {
   padding: 0 0.5rem;
   background: #f9f9f9;
   display: flex;
@@ -23,7 +23,6 @@
   padding: 0.5rem;
 }
 .add-page .prod-row-logo-wrapper {
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -46,7 +45,8 @@
   padding-left: 1rem;
 }
 .add-page .prod-item-name {
-  font-family: "BariolThin", Arial, Helvetica, sans-serif;
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
   font-size: 1.4rem;
   color: #686868;
 }
@@ -55,6 +55,8 @@
   max-height: 100%;
 }
 .add-page .logo-text {
+  font-family: "Heebo", sans-serif;
+  font-weight: 500;
   font-size: 3rem;
   margin: 0;
 }
@@ -78,38 +80,40 @@
   text-align: center;
 }
 .prod-atw-text {
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
-  font-size: 1.4rem;
-  margin: .5rem;
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin: 0.5rem;
 }
-.prod-atw-button-wrapper{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
+.prod-atw-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
 }
 .prod-atw-button {
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
-  font-size: 1.6rem;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 400;
+    font-size: 1.6rem;
   text-decoration: none;
-  background: #27BE8C;
+  background: #27be8c;
   padding: 1rem 4rem;
-color: #fff;
+  color: #fff;
   border-radius: 4px;
   border: 1px solid transparent;
-  flex:1;
+  flex: 1;
   margin: 0 2rem;
 }
-.prod-atw-no-thanks{
-    font-family: "Bariol", Arial, Helvetica, sans-serif;
-    font-size: .9rem;
-    margin: .5rem 0;
-    text-decoration: none;
-
+.prod-atw-no-thanks {
+  font-family: 'Heebo', sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+  text-decoration: none;
 }
 
 @media only screen and (min-width: 450px) {
-  .container {
+  .add-page.container {
     padding: 0 2rem;
   }
   .add-page .prod-block-wrapper {
@@ -117,7 +121,7 @@ color: #fff;
   }
 }
 @media only screen and (min-width: 769px) {
-  .container {
+  .add-page.container {
     padding: 0 4rem;
   }
   .add-page .prod-block-wrapper {

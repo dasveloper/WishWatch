@@ -14,6 +14,9 @@ import './assets/styles/emailModal.css'
 import './assets/styles/wishlist.css'
 import './assets/styles/prodBlock.css'
 import './assets/styles/addProduct.css'
+import './assets/styles/dashboard.css'
+import './assets/styles/form.css'
+import './assets/styles/confirm.css'
 
 import App from "./components/App";
 import reducers from './reducers';

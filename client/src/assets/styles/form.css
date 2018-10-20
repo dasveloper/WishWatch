@@ -1,0 +1,121 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.form-header {
+  font-family: "Heebo", sans-serif;
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin: 0.5rem;
+}
+.form-label {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.form-item {
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  margin: 0;
+  margin-top: .5rem;
+  padding: 0.75rem;
+  max-width: 60%;
+  border: 1px solid transparent;
+
+}
+.form-item.not-set{
+    color: #a8a8a8;
+}
+.form-input {
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  padding: 0.75rem;
+  margin-top: .5rem;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #e9e9e9;
+  max-width: 60%;
+}
+.form ::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #a8a8a8;
+  opacity: 1; /* Firefox */
+}
+
+.form :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: red;
+}
+
+.form ::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: red;
+}
+.form-header-wrapper {
+  display: flex;
+  align-items: center;
+}
+.form-edit-button {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 0.8em;
+  text-decoration: none;
+  color: #686868;
+  background: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin: 0.5rem;
+  text-transform: uppercase;
+}
+.form-submit-wrapper {
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+}
+.form-submit-button {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #fff;
+  background: #27be8c;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 2rem;
+  margin: 0.5rem;
+}
+.form-cancel-button {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 0.8em;
+  text-decoration: none;
+  color: #686868;
+  background: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin: 0.5rem;
+  text-transform: uppercase;
+}
+.handler-response {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 0.8em;
+  margin: 0.5rem;
+}
+.handler-response.success {
+  color: #63c756;
+}
+.handler-response.error {
+  color: #ed6a5f;
+}
+
+.react-confirm-alert-overlay{
+    background: rgba(255,255,255,.7) !important;
+}

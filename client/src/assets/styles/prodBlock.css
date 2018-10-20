@@ -114,8 +114,9 @@
     box-shadow: none;
     flex:1;
     border-radius: 4px;
-    font-family: "Bariol", Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
+    font-family: "Heebo", sans-serif;
+    font-weight: 400;
+        font-size: 1rem;
   }
   @keyframes glow {
     0% {

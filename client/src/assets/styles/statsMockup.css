@@ -67,16 +67,20 @@
 }
 
 .watching-title {
-  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+  font-size: .8rem;
   color: #494949;
 }
 .watching-count {
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
   font-size: 1rem;
 }
 .watching-change {
-  font-family: "BariolBold", Arial, Helvetica, sans-serif;
-  font-size: 0.8rem;
+  font-family: "Heebo", sans-serif;
+  font-weight: 500;
+    font-size: 0.8rem;
 }
 .watching-change.down {
   color: #ed6a5f;
@@ -125,27 +129,24 @@
   display: flex;
 }
 .offers-title {
-  font-family: "Bariol", Arial, Helvetica, sans-serif;
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
   color: #f5bf4f;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .offers-count {
-  font-family: "BariolThin", Arial, Helvetica, sans-serif;
-  font-size: 1rem;
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+    font-size: 1rem;
   color: #494949;
 }
 
 @media only screen and (min-width: 768px) {
   .offers-title {
-    font-family: "Bariol", Arial, Helvetica, sans-serif;
     color: #f5bf4f;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
-  .offers-count {
-    font-family: "BariolThin", Arial, Helvetica, sans-serif;
-    font-size: 1.4rem;
-    color: #494949;
-  }
+
   .stats-base {
     width: 40vw;
     height: 60vh;
