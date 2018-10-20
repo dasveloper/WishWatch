@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
   faBell,
-  faEnvelope
+  faEnvelope,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 
 class Header extends Component {
@@ -39,7 +40,9 @@ class Header extends Component {
               </span>
             </div>
             <div className="account">
-              <span className="avatar" />
+              <span className="avatar">
+                <FontAwesomeIcon icon={faUser} />
+              </span>
               <span className="avatar-toggle">
                 <FontAwesomeIcon icon={faCaretDown} />
               </span>
