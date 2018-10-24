@@ -1,6 +1,7 @@
 const authRoutes = require('./routes/authRoutes');
 const subscribeRoutes = require('./routes/subscribeRoutes');
 const affiliateRoutes = require('./routes/affiliateRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -39,6 +40,7 @@ if (process.env.NODE_ENV === 'production'){
 authRoutes(app);
 subscribeRoutes(app);
 affiliateRoutes(app);
+productRoutes(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

@@ -9,14 +9,20 @@ module.exports = app => {
     })
   );
   //Callback Google Auth
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get(
+    "/auth/google/callback",
+    passport.authenticate("google"),
+    (req, res) => {
+      res.redirect('/dashboard')
+    }
+  );
   //Check user status
-  app.get("/api/current_user", (req, res) => {
+  app.get("/auth/current_user", (req, res) => {
     res.send(req.user);
   });
   //Logout User
-  app.get("/api/logout", (req, res) => {
+  app.get("/auth/logout", (req, res) => {
     req.logout();
-    res.send(req.user);
+    res.redirect("/");
   });
 };

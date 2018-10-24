@@ -1,13 +1,14 @@
 .nav {
- /** position: fixed; **/
-    width: 100%;
-    background: #fff;
+  /** position: fixed; **/
+  width: 100%;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.03);
   z-index: 9;
+  position: relative;
 }
 .nav-logo {
   display: flex;
@@ -16,49 +17,51 @@
   font-family: "BariolBold", Arial, Helvetica, sans-serif;
   font-size: 2rem;
   margin: 0 2rem;
+  text-decoration: none;
+  color: #000;
 }
 .nav-logo-img {
   height: 2.2rem;
   margin-right: 0.5rem;
 }
-.nav .nav-login{
+.nav .nav-login {
 }
 .nav .sign-in {
   font-family: "Heebo", sans-serif;
   font-weight: 300;
-  font-size: .9rem;
+  font-size: 0.9rem;
   text-decoration: none;
   color: #686868;
-  padding: .5rem;
-  margin: 0 .5rem;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
   border-radius: 6px;
   border: 1px solid transparent;
 }
 .nav .sign-up {
   font-family: "Heebo", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1rem;
   text-decoration: none;
   color: #773d94;
-  padding: .5rem 1rem;
-  margin: 0 .5rem;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
   border-left: 1px solid #e8e8e8;
 }
 .nav .nav-right {
   display: flex;
   align-items: center;
 }
-.nav .nav-row{
+.nav .nav-row {
   padding: 0 1rem;
 }
 .nav .account {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
   border-left: 1px solid #e8e8e8;
 }
-.nav .avatar svg{
+.nav .avatar svg {
   font-size: 2rem;
   color: #a8a8a8;
 }
@@ -67,19 +70,94 @@
   height: 2.5rem;
   background: #e8e8e8;
   border-radius: 50%;
-  margin: 0 0.5rem;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   overflow: hidden;
+}
+.nav .avatar-toggle{
+  transform: rotate(0deg);
+  transition: transform .2s;
+  padding: 0.5rem;
 
 }
 .nav .avatar-toggle svg {
   color: #e8e8e8;
   font-size: 1.3rem;
 }
-.nav .notifications{
+.nav .notifications {
   font-size: 1.4rem;
-  margin: 0 .75rem;
+  margin: 0 0.75rem;
   color: #e8e8e8;
 }
+.nav .account-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #fff;
+  padding: 0.5rem .5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.03);
+  min-width: 200px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-1rem);
+  z-index: 9;
+  transition: transform .2s, opacity .2s;
+
+}
+.nav .account-menu-dropdown.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.nav .avatar-toggle.open  {
+  transform: rotate(-180deg);
+}
+.nav .account-menu-header {
+  padding: .5rem;
+  border-bottom: 1px solid #f9f9f9;
+}
+.nav .account-menu-user {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  text-decoration: none;
+  margin: 0;
+
+}
+.nav .account-menu-company {
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+  font-size: .8rem;
+  color: #a8a8a8;
+  text-decoration: none;
+  margin: 0;
+
+}
+.nav .account-menu-item {
+    display: flex;
+
+
+}
+.nav .account-menu-item-link {
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  color: #000;
+  text-decoration: none;
+  padding: .5rem;
+  flex:1;
+}
+.nav .account-menu-item-link:hover {
+  background: #f9f9f9;
+}
+.nav .account-menu-item-link:active,.nav .account-menu-item-link:focus  {
+  background: #e9e9e9;
+}
+
+.nav .account-menu-item-link.logout {
+  color: #ed6a5f;
+}
+

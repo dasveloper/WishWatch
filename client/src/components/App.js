@@ -1,27 +1,36 @@
-import React from "react";
-import Header from "./Header";
+import React, { Component } from "react";
+import {withRouter} from 'react-router-dom';
+
 import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../actions";
+import Header from "./Header";
 import Landing from "./Landing";
 import Wishlist from "./Wishlist";
 import AddProduct from "./AddProduct";
 import Dashboard from "./Dashboard";
+import CreateCompany from "./CreateCompany";
 
+class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="master-wrapper">
+          <Header />
+          <Route exact path="/" component={Landing} />
+          <Route path="/wishlist" component={Wishlist} />
+          <Route path="/add" component={AddProduct} />
+          <Route exact path="/createCompany" component={CreateCompany} />
+          <Route path="/dashboard/:affiliateId" component={Dashboard} />
 
+          {/*<Route path="/surveys/new" component={SurveyNew} />*/}
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <div className="master-wrapper">
-        <Header />
-        <Route exact path="/" component={Landing} />
-        <Route path="/wishlist" component={Wishlist} />
-        <Route path="/add" component={AddProduct} />
-        <Route path="/dashboard" component={Dashboard} />
-
-        {/*<Route path="/surveys/new" component={SurveyNew} />*/}
-      </div>
-    </BrowserRouter>
-  );
-};
-
-export default App;
+export default connect(null, actions)(App);

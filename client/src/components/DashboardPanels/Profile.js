@@ -6,13 +6,14 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      companyName: "",
+      affiliateId: this.props.affiliate._id,
+      companyName: this.props.affiliate.companyName,
       pendingCompanyName: "",
-      companyWebsite: "",
+      companyWebsite: this.props.affiliate.companyWebsite,
       pendingCompanyWebsite: "",
-      phone: "",
+      phone: this.props.affiliate.phone,
       pendingPhone: "",
-      email: "",
+      email: this.props.affiliate.email,
       pendingEmail: "",
       editMode: false,
       handlerResponse: undefined,
@@ -28,6 +29,7 @@ class Profile extends React.Component {
 
     this.handleProfileSubmit = this.handleProfileSubmit.bind(this);
   }
+
   toggleEditMode() {
     if (this.state.editMode) {
       confirmAlert({
@@ -105,13 +107,15 @@ class Profile extends React.Component {
   }
   handleProfileSubmit(event) {
     event.preventDefault();
+    console.log(this.state.affiliateId);
     let databody = {
+      affiliateId: this.state.affiliateId,
       companyName: this.state.pendingCompanyName,
       companyWebsite: this.state.pendingCompanyWebsite,
       phone: this.state.pendingPhone,
       email: this.state.pendingEmail
     };
-    fetch("affiliate/updateProfile", {
+    fetch("/affiliate/updateProfile", {
       method: "POST",
       body: JSON.stringify(databody),
       headers: {
@@ -146,7 +150,6 @@ class Profile extends React.Component {
       submitSuccess,
       editMode,
       companyName,
-      pendingCompanyName,
       companyWebsite,
       phone,
       email

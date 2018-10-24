@@ -5,7 +5,9 @@ const affiliateSchema = new Schema({
     companyName: String,
     companyWebsite: String,
     phone: String,
-    email: String
+    email: String,
+    owners: [String]
+
 });
 
 mongoose.model('affiliate', affiliateSchema);

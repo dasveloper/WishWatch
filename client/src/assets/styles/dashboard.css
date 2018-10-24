@@ -1,3 +1,15 @@
+.affiliate-not-found-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+.affiliate-not-found {
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+  font-size: 1.6rem;
+  color: #686868;
+}
 .dashboard-page.container {
   background: #f9f9f9;
   display: flex;
@@ -11,22 +23,28 @@
   padding: 0.5rem;
 }
 .dashboard-page .sidebar-section-header {
-    border-bottom: 1px solid #e9e9e9;
-    background: #fff;
-    padding: .5rem;
-    font-family: 'Heebo', sans-serif;
-    font-weight: 500;
-    font-size: .8rem;
-    text-transform: uppercase;
-    margin-top:.5rem;
-  }
+  border-bottom: 1px solid #e9e9e9;
+  background: #fff;
+  padding: 0.5rem;
+  font-family: "Heebo", sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
 .dashboard-page .sidebar-link {
   background: #fff;
-  padding: .75rem 1rem;
-  font-family: 'Heebo', sans-serif;
+  padding: 0.75rem 1rem;
+  font-family: "Heebo", sans-serif;
   font-weight: 300;
-font-size: 1rem;
+  font-size: 1rem;
 }
+
+.dashboard-page .sidebar-link:hover {
+  background: #f9f9f9;
+}
+.dashboard-page .sidebar-link:active,
+.dashboard-page .sidebar-link:focus,
 .dashboard-page .sidebar-link.active {
   background: #e9e9e9;
 }
@@ -42,9 +60,104 @@ font-size: 1rem;
   padding: 0.5rem;
   border-radius: 4px;
   margin: 0;
-
 }
 
+.upload-wrapper {
+  display: flex;
+}
+.upload-button {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #27be8c;
+  border: 1px solid #27be8c;
+  border-radius: 4px;
+  padding: 0.75rem 2rem;
+  margin: 0.5rem;
+}
+.browse-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin: 0.5rem;
+}
+.browse-button {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #fff;
+  background: #27be8c;
+  border: 1px solid #27be8c;
+  border-radius: 4px;
+  padding: 0.75rem 2rem;
+}
+.browse-button-hidden {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+.browse-icon {
+  font-size: 1rem;
+  color: #fff;
+  margin-right: 0.5rem;
+  margin-left: -0.5rem;
+}
+
+.uploaded-file-wrapper {
+  background: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+.uploaded-file-icon {
+  font-size: 2.5rem;
+  color: #27be8c;
+  margin: 0 1rem;
+}
+.uploaded-file-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.uploaded-file-name {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 0.5rem;
+}
+.uploaded-file-size {
+  font-family: "Heebo", sans-serif;
+  font-weight: 300;
+  font-size: 0.75rem;
+  color: #a9a9a9;
+  margin: 0.5rem;
+}
+.uploaded-file-progress {
+  background: #e8e8e8;
+  height: 10px;
+  border-radius: 5px;
+  margin: 0 0.5rem;
+  position: relative;
+}
+.uploaded-file-progress-inner {
+  background: #27be8c;
+  height: 10px;
+  border-radius: 5px;
+  margin: 0;
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+}
 @media only screen and (min-width: 450px) {
   .dashboard-page.container {
   }
