@@ -17,14 +17,10 @@ class App extends Component {
   }
   render() {
     return (
-      <BrowserRouter>
-        <div className="master-wrapper">
-          <Header />
-          <Route  path="/" component={Landing} />
+    
+          <Wishlist />
        
-          {/*<Route path="/surveys/new" component={SurveyNew} />*/}
-        </div>
-      </BrowserRouter>
+      
     );
   }
 }
