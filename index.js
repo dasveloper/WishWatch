@@ -30,14 +30,12 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-if (process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'));
-  const path = require('path');
-  app.get('*', (req, res) =>{
-    console.log("FOO");
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+app.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"]
   })
-}
+);
 authRoutes(app);
 subscribeRoutes(app);
 affiliateRoutes(app);
