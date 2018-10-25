@@ -1,7 +1,6 @@
 import React from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import ReactDropzone from "react-dropzone";
-import request from "superagent";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFileAlt } from "@fortawesome/free-solid-svg-icons";
