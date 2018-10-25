@@ -8,7 +8,7 @@ const EmailSubscription = mongoose.model("emailSubscriptions");
 
 module.exports = app => {
   //Logout User
-  app.post("/auth/subscribe", async (req, res) => {
+  app.post("/api/subscribe", async (req, res) => {
     if (!req.body || !req.body.email) {
       return res
         .status(400)

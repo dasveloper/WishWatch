@@ -17,11 +17,11 @@ module.exports = app => {
     }
   );
   //Check user status
-  app.get("/auth/current_user", (req, res) => {
+  app.get("/api/current_user", (req, res) => {
     res.send(req.user);
   });
   //Logout User
-  app.get("/auth/logout", (req, res) => {
+  app.get("/api/logout", (req, res) => {
     req.logout();
     res.redirect("/");
   });
