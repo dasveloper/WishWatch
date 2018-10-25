@@ -17,7 +17,7 @@ class Profile extends React.Component {
       submitSuccess: false,
       selectedFile: null,
       loaded: 0,
-
+       fileUploadProgress: 0,
       accepted: [],
       rejected: []
     };
@@ -46,17 +46,19 @@ class Profile extends React.Component {
     data.append("file", this.state.selectedFile, "foo");
     axios
       .post("/product/addProduct", data, {
-
         headers: {
           accept: "application/json",
           "Accept-Language": "en-US,en;q=0.8",
           "Content-Type": `multipart/form-data; boundary=${data._boundary}`
         },
-        onUploadProgress: (progressEvent) => {
-            if (progressEvent.lengthComputable) {
-               console.log(progressEvent.loaded + ' ' + progressEvent.total);
-              // this.updateProgressBarValue(progressEvent);
-            }
+        onUploadProgress: progressEvent => {
+          if (progressEvent.lengthComputable) {
+            const { loaded, total } = progressEvent;
+            const uploadProgress = (loaded * 100) / total;
+            this.setState({
+              fileUploadProgress: uploadProgress
+            });
+          }
         }
       })
       .then(res => {
@@ -84,7 +86,7 @@ class Profile extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    let { submitSuccess, handlerResponse } = this.state;
+    let { submitSuccess, handlerResponse,fileUploadProgress } = this.state;
 
     return (
       <div className="form-wrapper profile-form-wrapper">
@@ -120,18 +122,19 @@ class Profile extends React.Component {
             <FontAwesomeIcon className="uploaded-file-icon" icon={faFileAlt} />
 
             <div className="uploaded-file-details">
-            <span className="uploaded-file-name">
-            {this.state.selectedFile.name}</span>
+              <span className="uploaded-file-name">
+                {this.state.selectedFile.name}
+              </span>
 
-            <div className="uploaded-file-progress">
-            <span className="uploaded-file-progress-inner" style={{width: '50%'}}>
-            
-            </span>
-            </div>
-            <span className="uploaded-file-size">
-            {this.state.selectedFile.size} bytes</span>
-       
-            
+              <div className="uploaded-file-progress">
+                <span
+                  className="uploaded-file-progress-inner"
+                  style={{ width: fileUploadProgress+"%"}}
+                />
+              </div>
+              <span className="uploaded-file-size">
+                {this.state.selectedFile.size} bytes
+              </span>
             </div>
           </div>
         )}
