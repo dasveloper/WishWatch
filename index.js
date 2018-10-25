@@ -17,7 +17,7 @@ require('./services/passport');
 mongoose.connect(keys.mongoUri);
 
 const app = express();
-console.log("IN");
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
@@ -30,16 +30,19 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"]
-  })
-);
+
 authRoutes(app);
 subscribeRoutes(app);
 affiliateRoutes(app);
 productRoutes(app);
+
+if (process.env.NODE_ENV === 'production'){
+  app.use(express.static('client/build'));
+  const path = require('path');
+  app.get('*', (req, res) =>{
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  })
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
