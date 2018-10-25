@@ -2,7 +2,7 @@ const keys = require("../config/keys.js");
 const mongoose = require("mongoose");
 var validator = require("validator");
 
-require("../models/EmailSubscription");z
+require("../models/EmailSubscription");
 
 const EmailSubscription = mongoose.model("emailSubscriptions");
 
