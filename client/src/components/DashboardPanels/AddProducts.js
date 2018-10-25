@@ -37,7 +37,8 @@ class Profile extends React.Component {
     console.log(file);
     this.setState({
       handlerResponse: undefined,
-      selectedFile: file
+      selectedFile: file,
+        fileUploadProgress: 0
     });
   };
   handleProductListSubmit = () => {
@@ -53,6 +54,9 @@ class Profile extends React.Component {
         onUploadProgress: progressEvent => {
           if (progressEvent.lengthComputable) {
             const { loaded, total } = progressEvent;
+            console.log("loaded: " + loaded);
+            console.log("total: " + total);
+
             const uploadProgress = (loaded * 100) / total;
             this.setState({
               fileUploadProgress: uploadProgress
