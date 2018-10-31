@@ -10,6 +10,8 @@ import Wishlist from "./Wishlist";
 import AddProduct from "./AddProduct";
 import Dashboard from "./Dashboard";
 import CreateCompany from "./CreateCompany";
+import ChooseAffiliate from "./ChooseAffiliate";
+
 
 class App extends Component {
   componentDidMount() {
@@ -24,7 +26,9 @@ class App extends Component {
           <Route path="/wishlist" component={Wishlist} />
           <Route path="/add" component={AddProduct} />
           <Route exact path="/createCompany" component={CreateCompany} />
-          <Route path="/dashboard/:affiliateId" component={Dashboard} />
+
+          <Route path="/dashboard/:affiliateId?" component={Dashboard} />
+          <Route path="/chooseAffiliate" component={ChooseAffiliate} />
 
           {/*<Route path="/surveys/new" component={SurveyNew} />*/}
         </div>

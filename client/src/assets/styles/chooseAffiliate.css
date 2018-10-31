@@ -1,0 +1,77 @@
+.choose-affiliate-wrapper {
+    background: #f9f9f9;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+  .choose-affiliate-wrapper .choose-affiliate-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background: #fff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin: 0;
+  }
+ .choose-affiliate-header-wrapper{
+    margin: 0.5rem;
+
+ }
+ .choose-affiliate-header-wrapper .choose-affiliate-header{
+    background: #fff;
+    font-family: "Heebo", sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin: 0rem;
+  }
+  .choose-affiliate-wrapper .link-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #e9e9e9;
+    text-decoration: none;
+
+  }
+  .choose-affiliate-wrapper .affiliate-link-name{
+    margin-left: 1rem;
+    font-family: "Heebo", sans-serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+    color: #000;
+
+  }
+  .choose-affiliate-wrapper .affiliate-avatar-wrapper {
+  
+
+}
+  .choose-affiliate-wrapper .affiliate-avatar svg {
+    font-size: 2rem;
+    color: #a8a8a8;
+  }
+  .choose-affiliate-wrapper .affiliate-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #e8e8e8;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  @media only screen and (min-width: 450px) {
+
+  }
+  @media only screen and (min-width: 769px) {
+  
+  }
+  
+  @media only screen and (min-width: 940px) {
+  }
+  

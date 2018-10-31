@@ -97,7 +97,6 @@ class Header extends Component {
     }
   }
   render() {
-    console.log(this.props);
     return (
       <div className="nav">
         <Link to={this.props.auth ? '/dashboard' : '/'} className="nav-logo">

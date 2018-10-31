@@ -38,6 +38,8 @@
   font-family: "Heebo", sans-serif;
   font-weight: 300;
   font-size: 1rem;
+  text-decoration: none;
+  color: #000;
 }
 
 .dashboard-page .sidebar-link:hover {
@@ -117,16 +119,40 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   padding: 0.5rem;
   margin: 0.5rem;
+  opacity: 0;
+  transform: translateY(-1rem);
+  transition: 1s transform .4s opacity;
+
+}
+.uploaded-file-wrapper.show{
+  opacity: 1;
+  transform: translateY(0rem);
+
+
 }
 .uploaded-file-icon {
   font-size: 2.5rem;
   color: #27be8c;
   margin: 0 1rem;
 }
+.uploaded-file-icon.error{
+  color: #ed6a5f;
+}
 .uploaded-file-details {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+.upload-stats {
+ 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.uploaded-file-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .uploaded-file-name {
   font-family: "Heebo", sans-serif;
@@ -157,6 +183,9 @@
   z-index: 2;
   left: 0;
   top: 0;
+}
+.uploaded-file-progress-inner.error {
+  background: #ed6a5f;
 }
 @media only screen and (min-width: 450px) {
   .dashboard-page.container {

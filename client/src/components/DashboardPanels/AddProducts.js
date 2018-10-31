@@ -3,20 +3,27 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import ReactDropzone from "react-dropzone";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faFileAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faCheck,
+  faTimes,
+  faFileAlt
+} from "@fortawesome/free-solid-svg-icons";
 
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-class Profile extends React.Component {
+class AddProducts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      affiliateId: this.props.affiliate._id,
       handlerResponse: undefined,
       submitSuccess: false,
       selectedFile: null,
       loaded: 0,
-       fileUploadProgress: 0,
+      fileUploadProgress: 0,
+      fileUploadStats: "",
+      fileUploaded: 1,
+
       accepted: [],
       rejected: []
     };
@@ -25,7 +32,6 @@ class Profile extends React.Component {
   }
 
   handleselectedFile = file => {
-    console.log(file);
     this.setState({
       handlerResponse: undefined,
       selectedFile: file
@@ -38,9 +44,19 @@ class Profile extends React.Component {
     this.setState({
       handlerResponse: undefined,
       selectedFile: file,
-        fileUploadProgress: 0
+      fileUploadProgress: 0
     });
   };
+
+  formatBytes = (bytes, decimals) => {
+    if (bytes == 0) return "0 Bytes";
+    var k = 1024,
+      dm = decimals <= 0 ? 0 : decimals || 2,
+      sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
+      i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  };
+
   handleProductListSubmit = () => {
     const data = new FormData();
     data.append("file", this.state.selectedFile, "foo");
@@ -53,12 +69,16 @@ class Profile extends React.Component {
         },
         onUploadProgress: progressEvent => {
           if (progressEvent.lengthComputable) {
-            const { loaded, total } = progressEvent;
-            console.log("loaded: " + loaded);
-            console.log("total: " + total);
-
+            let { loaded, total } = progressEvent;
             const uploadProgress = (loaded * 100) / total;
+
+            loaded = this.formatBytes(loaded);
+            total = this.formatBytes(total);
+            const fileUploadStats =
+              loaded === total ? `Saving changes..` : `${loaded}/${total}`;
+
             this.setState({
+              fileUploadStats: fileUploadStats,
               fileUploadProgress: uploadProgress
             });
           }
@@ -72,12 +92,17 @@ class Profile extends React.Component {
         });
         if (res.data.success) {
           this.setState({
+            fileUploaded: 2,
+            fileUploadStats: "Success"
+
             // products: this.state.products
           });
         }
       })
       .catch(error => {
         this.setState({
+          fileUploaded: 3,
+          fileUploadStats: "Error uploading",
           submitSuccess: error.response.data.success,
           handlerResponse: JSON.stringify(error.response.data.message)
         });
@@ -89,14 +114,20 @@ class Profile extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    let { submitSuccess, handlerResponse,fileUploadProgress } = this.state;
+    let {
+      submitSuccess,
+      handlerResponse,
+      fileUploadProgress,
+      fileUploadStats,
+      selectedFile,
+      fileUploaded
+    } = this.state;
 
     return (
       <div className="form-wrapper profile-form-wrapper">
         <div className="form-header-wrapper">
           <h3 className="form-header">Add products</h3>
         </div>
-        <label className="form-label">Product List</label>
         <div className="upload-wrapper">
           <div className="browse-wrapper">
             <button className="browse-button">
@@ -120,27 +151,42 @@ class Profile extends React.Component {
             Upload
           </button>
         </div>
-        {this.state.selectedFile && (
-          <div className="uploaded-file-wrapper">
+        <div
+          className={`uploaded-file-wrapper ${
+            selectedFile ? "show" : undefined
+          }`}
+        >
+          {fileUploaded === 1 && (
             <FontAwesomeIcon className="uploaded-file-icon" icon={faFileAlt} />
-
+          )}
+          {fileUploaded === 2 && (
+            <FontAwesomeIcon className="uploaded-file-icon" icon={faCheck} />
+          )}
+          {fileUploaded === 3 && (
+            <FontAwesomeIcon
+              className="uploaded-file-icon error"
+              icon={faTimes}
+            />
+          )}
             <div className="uploaded-file-details">
-              <span className="uploaded-file-name">
-                {this.state.selectedFile.name}
-              </span>
+              <span className="uploaded-file-name">{selectedFile ? selectedFile.name : "test"}</span>
 
               <div className="uploaded-file-progress">
                 <span
-                  className="uploaded-file-progress-inner"
-                  style={{ width: fileUploadProgress+"%"}}
+                  className={`uploaded-file-progress-inner ${
+                    fileUploaded === 3 ? "error" : ""
+                  }`}
+                  style={{ width: fileUploadProgress + "%" }}
                 />
               </div>
-              <span className="uploaded-file-size">
-                {this.state.selectedFile.size} bytes
-              </span>
+              <div className="upload-stats">
+                <span className="uploaded-file-size">
+                {selectedFile ? this.formatBytes(selectedFile.size) : "test"}
+                </span>
+                <span className="uploaded-file-size">{fileUploadStats}</span>
+              </div>
             </div>
-          </div>
-        )}
+        </div>
         {handlerResponse && (
           <p
             className={`handler-response ${
@@ -154,4 +200,4 @@ class Profile extends React.Component {
     );
   }
 }
-export default Profile;
+export default AddProducts;
