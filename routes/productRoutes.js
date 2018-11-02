@@ -23,6 +23,14 @@ function validate(value, type) {
   switch (type) {
     case "string":
       return value && !validator.isEmpty(value, { ignore_whitespace: true });
+    case "url":
+      return (
+        value &&
+        !validator.isURL(value, {
+          protocols: ["https, http"],
+          require_protocol: true
+        })
+      );
     default:
       return value && validator.isEmpty(value, { ignore_whitespace: true });
   }
@@ -56,6 +64,7 @@ module.exports = app => {
   app.use(fileUpload());
 
   app.post("/product/addProduct", requireLogin, async (req, res) => {
+
     let products = req.files.file.data;
     try {
       products = JSON.parse(products);
@@ -72,10 +81,15 @@ module.exports = app => {
         rejected.push(product);
         return;
       }
-      if (!validate(product.image_url, "string")) {
+      console.log("write3");
+
+      console.log(product.image_url)
+      if (!validate(product.image_url, "url")) {
         rejected.push(product);
         return;
       }
+      console.log("write4");
+
       try {
         let result = await saveImage(product.image_url, `123/${product.sku}`);
         product.image_url = result.Location;
@@ -87,6 +101,7 @@ module.exports = app => {
           error: err
         });
       }
+      console.log("write5");
 
       let upsertProduct = {
         updateOne: {
@@ -98,6 +113,8 @@ module.exports = app => {
       accepted.push(upsertProduct);
     }
 
+    console.log("write");
+    console.log(accepted);
     // now bulkWrite (note the use of 'Model.collection')
     Product.collection.bulkWrite(accepted, function(err, docs) {
       if (err) {
