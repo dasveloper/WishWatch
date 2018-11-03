@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import { Link } from "react-router-dom";
 
-class LoginForm extends React.Component {
+class SignupForm extends React.Component {
   renderFields() {
     return (
       <div>
@@ -17,8 +17,6 @@ class LoginForm extends React.Component {
           type="text"
           label="Email"
           placeholder="Email"
-          //value={email}
-          // onChange={this.handleEmailChange}
         />
         <Field
           component={FormField}
@@ -27,42 +25,44 @@ class LoginForm extends React.Component {
           name="password"
           type="password"
           placeholder="Password"
-          //value={password}
-          //onChange={this.handlePasswordChange}
+        />
+        <Field
+          component={FormField}
+          className="form-input"
+          label="Confirrm password"
+          name="confirm-password"
+          type="password"
+          placeholder="Confirm password"
         />
       </div>
     );
   }
   onSubmit() {
-    const { formValues, loginUser, handleSubmit, history } = this.props;
+    const { formValues, signupUser, handleSubmit, history } = this.props;
 
-    loginUser(formValues, history);
+    signupUser(formValues, history);
   }
   render() {
-    const { handleSubmit, loginUserError } = this.props;
+    const { handleSubmit, signupUserError } = this.props;
     return (
       <div className="form-wrapper profile-form-wrapper">
         <div className="form-header-wrapper">
-          <h3 className="form-header">Login</h3>
+          <h3 className="form-header">Sign up</h3>
         </div>
         <form
           className="form profile-form"
           onSubmit={handleSubmit(this.onSubmit.bind(this))}
         >
           {this.renderFields()}
-          {this.props.loginUserError && (
-            <p
-              className={`handler-response error`}
-            >
-              {loginUserError}
-            </p>
+          {this.props.signupUserError && (
+            <p className={`handler-response error`}>{signupUserError}</p>
           )}
           <div className="form-submit-wrapper">
             <button type="submit" className="form-submit-button">
-              Login
-            </button>
-            <Link className="form-cancel-button" to={"/signup"}>
               Sign up
+            </button>
+            <Link className="form-cancel-button" to={"/login"}>
+              Login
             </Link>
           </div>
         </form>
@@ -82,15 +82,21 @@ function validate(values) {
   if (!values.password) {
     errors.password = "You must provide a password";
   }
+  if (!values.confirmPassword) {
+    errors.confirmPassword = "You must confirm your password";
+  }
+  if (values.password != values.confirmPassword) {
+    errors.confirmPassword = "Passwords do not match";
+  }
   return errors;
 }
-function mapStateToProps({ form, loginUserError }) {
-  return { loginUserError, formValues: form.surveyForm.values };
+function mapStateToProps({ form, signupUserError }) {
+  return { signupUserError, formValues: form.signupForm.values };
 }
-LoginForm = withRouter(
+SignupForm = withRouter(
   connect(
     mapStateToProps,
     actions
-  )(LoginForm)
+  )(SignupForm)
 );
-export default reduxForm({ validate, form: "surveyForm" })(LoginForm);
+export default reduxForm({ validate, form: "signupForm" })(SignupForm);

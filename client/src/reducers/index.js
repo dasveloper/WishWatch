@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import { fetchUser,fetchUserError} from "./authReducer";
+import { fetchUser,loginUserError, signupUserError} from "./authReducer";
 import {affiliate, affiliateProducts, domainVerified} from "./affiliateReducer";
 import {reducer as reduxForm} from 'redux-form';
 export default combineReducers({
   auth: fetchUser,
-  fetchUserError: fetchUserError,
+  loginUserError: loginUserError,
+  signupUserError: signupUserError,
+
   affiliate: affiliate,
   affiliateProducts: affiliateProducts,
   form: reduxForm,

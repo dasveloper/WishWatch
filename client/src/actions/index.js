@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   FETCH_USER,
   INVALID_LOGIN,
+  INVALID_SIGNUP,
   FETCH_AFFILIATE_DETAILS,
   FETCH_AFFILIATE_PRODUCTS,
   DOMAIN_VERIFICATION
@@ -61,17 +62,21 @@ export const fetchAffiliateProducts = affiliateId => async dispatch => {
     });
 };
 
-export const signupUser = (email, password) => async dispatch => {
+export const signupUser = (values, history) => async dispatch => {
+  const { email, password, confirmPassword } = values;
+
   axios
     .post("/auth/signup", {
       email,
-      password
+      password,
+      confirmPassword 
     })
-    .then(function(response) {
-      // dispatch({ type: FETCH_AFFILIATE_PRODUCTS, payload: response.data.products });
+    .then(response => {
+      history.push("/dashboard");
+      dispatch({ type: FETCH_USER, payload: response.data });
     })
-    .catch(function(error) {
-      //dispatch({ type: FETCH_AFFILIATE_PRODUCTS, payload: false });
+    .catch(error => {
+      dispatch({ type: INVALID_SIGNUP, payload: error.response.data });
     });
 };
 

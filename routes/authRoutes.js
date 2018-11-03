@@ -9,13 +9,24 @@ module.exports = app => {
     })
   );
   //Local
-
-  app.post(
-    "/auth/signup",
-    passport.authenticate("local-signup", (req, res) => {
-      res.redirect("/dashboard");
-    })
-  );
+  app.post("/auth/signup", (req, res, next) => {
+    passport.authenticate("local-signup", (err, user, info) => {
+      console.log(info);
+      if (err) {
+        return next(err);
+      }
+      if (user) {
+        req.login(user, err => {
+          if (err) {
+            return next(err);
+          }
+          return res.send(user);
+        });
+      } else {
+        return res.status(400).send(info);
+      }  
+    })(req, res, next);
+  });
 
   app.post("/auth/login", (req, res, next) => {
     passport.authenticate("local-login", (err, user, info) => {
@@ -30,7 +41,7 @@ module.exports = app => {
           return res.send(user);
         });
       } else {
-        return res.status(400).send("Email or password is invalid");
+        return res.status(400).send(info);
       }
     })(req, res, next);
   });

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
@@ -25,7 +25,16 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route path="/wishlist" component={Wishlist} />
           <Route path="/add" component={AddProduct} />
-          <Route exact path="/login" component={Login} />
+          <Route
+            exact
+            path="/login"
+            component={() => <Login isSignup={false} />}
+          />
+          <Route
+            exact
+            path="/signup"
+            component={() => <Login isSignup={true} />}
+          />
 
           <Route exact path="/createStore" component={CreateStore} />
 
@@ -36,4 +45,7 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App);
+export default connect(
+  null,
+  actions
+)(App);
