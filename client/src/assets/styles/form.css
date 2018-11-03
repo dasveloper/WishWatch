@@ -119,7 +119,13 @@
 .handler-response.error {
   color: #ed6a5f;
 }
-
+.input-error{
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 0.8em;
+  margin: 0.5rem 0.5rem 1rem 1rem;
+  color: #ed6a5f;
+}
 .react-confirm-alert-overlay{
     background: rgba(255,255,255,.7) !important;
 }

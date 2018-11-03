@@ -1,7 +1,6 @@
 const passport = require("passport");
 
 module.exports = app => {
-
   //Request Google Auth
   app.get(
     "/auth/google",
@@ -9,6 +8,33 @@ module.exports = app => {
       scope: ["profile", "email"]
     })
   );
+  //Local
+
+  app.post(
+    "/auth/signup",
+    passport.authenticate("local-signup", (req, res) => {
+      res.redirect("/dashboard");
+    })
+  );
+
+  app.post("/auth/login", (req, res, next) => {
+    passport.authenticate("local-login", (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (user) {
+        req.login(user, err => {
+          if (err) {
+            return next(err);
+          }
+          return res.send(user);
+        });
+      } else {
+        return res.status(400).send("Email or password is invalid");
+      }
+    })(req, res, next);
+  });
+
   //Callback Google Auth
   app.get(
     "/auth/google/callback",
@@ -22,7 +48,7 @@ module.exports = app => {
     res.send(req.user);
   });
   //Logout User
-  app.get("/api/logout", (req, res) => {
+  app.get("/auth/logout", (req, res) => {
     req.logout();
     res.redirect("/");
   });

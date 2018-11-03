@@ -81,15 +81,10 @@ module.exports = app => {
         rejected.push(product);
         return;
       }
-      console.log("write3");
-
-      console.log(product.image_url)
       if (!validate(product.image_url, "url")) {
         rejected.push(product);
         return;
       }
-      console.log("write4");
-
       try {
         let result = await saveImage(product.image_url, `123/${product.sku}`);
         product.image_url = result.Location;
@@ -101,8 +96,6 @@ module.exports = app => {
           error: err
         });
       }
-      console.log("write5");
-
       let upsertProduct = {
         updateOne: {
           filter: { sku: product.sku },
@@ -112,9 +105,6 @@ module.exports = app => {
       };
       accepted.push(upsertProduct);
     }
-
-    console.log("write");
-    console.log(accepted);
     // now bulkWrite (note the use of 'Model.collection')
     Product.collection.bulkWrite(accepted, function(err, docs) {
       if (err) {
@@ -125,7 +115,7 @@ module.exports = app => {
       } else {
         return res.status(200).json({
           success: true,
-          message: "Company successfully created",
+          message: "Products successfully added",
           accepted: { count: accepted.length, list: accepted },
           rejected: { count: rejected.length, rejected: rejected },
 
@@ -142,7 +132,7 @@ module.exports = app => {
       if (err) {
         return res.status(400).json({
           success: false,
-          message: "Could not find the requested company's products"
+          message: "Could not find the requested store's products"
         });
       } else {
         return res.status(200).json({

@@ -20,7 +20,6 @@ class AffiliateProducts extends React.Component {
 
   render() {
     let { products } = this.props;
-    console.log(products)
     return (
       <div className="form-wrapper profile-form-wrapper">
         <div className="form-header-wrapper">

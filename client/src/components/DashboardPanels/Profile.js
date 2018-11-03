@@ -7,10 +7,10 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       affiliateId: this.props.affiliate._id,
-      companyName: this.props.affiliate.companyName,
-      pendingCompanyName: "",
-      companyWebsite: this.props.affiliate.companyWebsite,
-      pendingCompanyWebsite: "",
+      storeName: this.props.affiliate.storeName,
+      pendingStoreName: "",
+      storeWebsite: this.props.affiliate.storeWebsite,
+      pendingStoreWebsite: "",
       phone: this.props.affiliate.phone,
       pendingPhone: "",
       email: this.props.affiliate.email,
@@ -19,8 +19,8 @@ class Profile extends React.Component {
       handlerResponse: undefined,
       submitSuccess: false
     };
-    this.handleCompanyNameChange = this.handleCompanyNameChange.bind(this);
-    this.handleCompanyWebsiteChange = this.handleCompanyWebsiteChange.bind(
+    this.handleStoreNameChange = this.handleStoreNameChange.bind(this);
+    this.handleStoreWebsiteChange = this.handleStoreWebsiteChange.bind(
       this
     );
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
@@ -54,8 +54,8 @@ class Profile extends React.Component {
                   className="dialog-primary"
                   onClick={() => {
                     this.setState({
-                      pendingCompanyName: "",
-                      pendingCompanyWebsite: "",
+                      pendingStoreName: "",
+                      pendingStoreWebsite: "",
                       pendingPhone: "",
                       pendingEmail: "",
                       editMode: !this.state.editMode
@@ -72,8 +72,8 @@ class Profile extends React.Component {
       });
     } else {
       this.setState({
-        pendingCompanyName: this.state.companyName,
-        pendingCompanyWebsite: this.state.companyWebsite,
+        pendingStoreName: this.state.storeName,
+        pendingStoreWebsite: this.state.storeWebsite,
         pendingEmail: this.state.email,
         pendingPhone: this.state.phone,
         editMode: !this.state.editMode
@@ -87,16 +87,16 @@ class Profile extends React.Component {
       pendingEmail: event.target.value
     });
   }
-  handleCompanyNameChange(event) {
+  handleStoreNameChange(event) {
     this.setState({
       handlerResponse: undefined,
-      pendingCompanyName: event.target.value
+      pendingStoreName: event.target.value
     });
   }
-  handleCompanyWebsiteChange(event) {
+  handleStoreWebsiteChange(event) {
     this.setState({
       handlerResponse: undefined,
-      pendingCompanyWebsite: event.target.value
+      pendingStoreWebsite: event.target.value
     });
   }
   handlePhoneChange(event) {
@@ -107,11 +107,10 @@ class Profile extends React.Component {
   }
   handleProfileSubmit(event) {
     event.preventDefault();
-    console.log(this.state.affiliateId);
     let databody = {
       affiliateId: this.state.affiliateId,
-      companyName: this.state.pendingCompanyName,
-      companyWebsite: this.state.pendingCompanyWebsite,
+      storeName: this.state.pendingStoreName,
+      storeWebsite: this.state.pendingStoreWebsite,
       phone: this.state.pendingPhone,
       email: this.state.pendingEmail
     };
@@ -124,15 +123,14 @@ class Profile extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({
           submitSuccess: data.success,
           handlerResponse: data.message
         });
         if (data.success) {
           this.setState({
-            companyName: this.state.pendingCompanyName,
-            companyWebsite: this.state.pendingCompanyWebsite,
+            storeName: this.state.pendingStoreName,
+            storeWebsite: this.state.pendingStoreWebsite,
             phone: this.state.pendingPhone,
             email: this.state.pendingEmail,
             editMode: false
@@ -149,8 +147,8 @@ class Profile extends React.Component {
       handlerResponse,
       submitSuccess,
       editMode,
-      companyName,
-      companyWebsite,
+      storeName,
+      storeWebsite,
       phone,
       email
     } = this.state;
@@ -158,45 +156,45 @@ class Profile extends React.Component {
     return (
       <div className="form-wrapper profile-form-wrapper">
         <div className="form-header-wrapper">
-          <h3 className="form-header">Company details</h3>
+          <h3 className="form-header">Store details</h3>
           <button className="form-edit-button" onClick={this.toggleEditMode}>
             Edit
           </button>
         </div>
         <form className="form profile-form" onSubmit={this.handleProfileSubmit}>
           <label className="form-label">
-            Company Name
+            Store Name
             {!editMode && (
               <p
-                className={`form-item ${companyName || "not-set"}`}
-              >{`${companyName || "Not set"}`}</p>
+                className={`form-item ${storeName || "not-set"}`}
+              >{`${storeName || "Not set"}`}</p>
             )}
             {editMode && (
               <input
                 className="form-input"
                 type="text"
-                placeholder="Company Name"
+                placeholder="Store Name"
                 type="text"
-                value={this.state.pendingCompanyName}
-                onChange={this.handleCompanyNameChange}
+                value={this.state.pendingStoreName}
+                onChange={this.handleStoreNameChange}
               />
             )}
           </label>
           <label className="form-label">
-            Company Website
+            Store Website
             {!editMode && (
               <p
-                className={`form-item ${companyWebsite || "not-set"}`}
-              >{`${companyWebsite || "Not set"}`}</p>
+                className={`form-item ${storeWebsite || "not-set"}`}
+              >{`${storeWebsite || "Not set"}`}</p>
             )}
             {editMode && (
               <input
                 className="form-input"
                 type="text"
-                placeholder="Company Website"
+                placeholder="Store Website"
                 type="text"
-                value={this.state.pendingCompanyWebsite}
-                onChange={this.handleCompanyWebsiteChange}
+                value={this.state.pendingStoreWebsite}
+                onChange={this.handleStoreWebsiteChange}
               />
             )}
           </label>

@@ -28,6 +28,43 @@
     text-transform: uppercase;
     margin: 0rem;
   }
+  .choose-affiliate-wrapper .empty-link-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+  .choose-affiliate-wrapper .empty-link-wrapper .no-stores{
+    margin-left: 1rem;
+    font-family: "Heebo", sans-serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+    color: #c8c8c8;
+  }
+  .or{
+    font-family: "Heebo", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    font-size: .8rem;
+    color: #282828;
+    text-transform: uppercase;
+    margin: .5rem;
+  }
+  .create-store-button{
+    font-family: "Heebo", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #fff;
+    background: #27be8c;
+    border: 1px solid #27be8c;
+    border-radius: 4px;
+    padding: 0.75rem 2rem;
+    margin: 0.5rem;
+    text-align: center;
+  }
   .choose-affiliate-wrapper .link-wrapper{
     display: flex;
     justify-content: center;
@@ -47,10 +84,7 @@
     color: #000;
 
   }
-  .choose-affiliate-wrapper .affiliate-avatar-wrapper {
-  
 
-}
   .choose-affiliate-wrapper .affiliate-avatar svg {
     font-size: 2rem;
     color: #a8a8a8;

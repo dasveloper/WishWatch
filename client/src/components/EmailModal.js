@@ -37,7 +37,6 @@ class EmailModal extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({
           submitSuccess: data.success,
           emailHandlerResponse: data.message

@@ -1,24 +1,22 @@
 import React from "react";
 import Profile from "./DashboardPanels/Profile";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
-class CreateCompany extends React.Component {
+class CreateStore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      companyName: "",
-      companyWebsite: "",
+      storeName: "",
+      storeWebsite: "",
       phone: "",
       email: "",
       handlerResponse: undefined,
       submitSuccess: false
     };
-    this.handleCompanyNameChange = this.handleCompanyNameChange.bind(this);
-    this.handleCompanyWebsiteChange = this.handleCompanyWebsiteChange.bind(
-      this
-    );
+    this.handleStoreNameChange = this.handleStoreNameChange.bind(this);
+    this.handleStoreWebsiteChange = this.handleStoreWebsiteChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
 
@@ -30,16 +28,16 @@ class CreateCompany extends React.Component {
       email: event.target.value
     });
   }
-  handleCompanyNameChange(event) {
+  handleStoreNameChange(event) {
     this.setState({
       handlerResponse: undefined,
-      companyName: event.target.value
+      storeName: event.target.value
     });
   }
-  handleCompanyWebsiteChange(event) {
+  handleStoreWebsiteChange(event) {
     this.setState({
       handlerResponse: undefined,
-      companyWebsite: event.target.value
+      storeWebsite: event.target.value
     });
   }
   handlePhoneChange(event) {
@@ -51,12 +49,12 @@ class CreateCompany extends React.Component {
   handleProfileSubmit(event) {
     event.preventDefault();
     let databody = {
-      companyName: this.state.companyName,
-      companyWebsite: this.state.companyWebsite,
+      storeName: this.state.storeName,
+      storeWebsite: this.state.storeWebsite,
       phone: this.state.phone,
       email: this.state.email
     };
-    fetch("/affiliate/createCompany", {
+    fetch("/affiliate/createStore", {
       method: "POST",
       body: JSON.stringify(databody),
       headers: {
@@ -65,15 +63,13 @@ class CreateCompany extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({
           submitSuccess: data.success,
           handlerResponse: data.message
         });
         if (data.success) {
-            console.log(data.affiliate)
-            let path = `dashboard/${data.affiliate}`
-            this.props.history.push(path);
+          let path = `dashboard/${data.affiliate}`;
+          this.props.history.push(path);
         }
       });
   }
@@ -85,43 +81,43 @@ class CreateCompany extends React.Component {
     let {
       handlerResponse,
       submitSuccess,
-      companyName,
-      companyWebsite,
+      storeName,
+      storeWebsite,
       phone,
       email
     } = this.state;
     return (
-      <div className="container create-company-page">
-        <div className="create-company-wrapper">
-          <div className="create-company-panel">
+      <div className="container create-store-page">
+        <div className="create-store-wrapper">
+          <div className="create-store-panel">
             <div className="form-wrapper profile-form-wrapper">
               <div className="form-header-wrapper">
-                <h3 className="form-header">Create company</h3>
+                <h3 className="form-header">Create store</h3>
               </div>
               <form
                 className="form profile-form"
                 onSubmit={this.handleProfileSubmit}
               >
                 <label className="form-label">
-                  Company Name
+                  Store Name
                   <input
                     className="form-input"
                     type="text"
-                    placeholder="Company Name"
+                    placeholder="Store Name"
                     type="text"
-                    value={companyName}
-                    onChange={this.handleCompanyNameChange}
+                    value={storeName}
+                    onChange={this.handleStoreNameChange}
                   />
                 </label>
                 <label className="form-label">
-                  Company Website
+                  Store Website
                   <input
                     className="form-input"
                     type="text"
-                    placeholder="Company Website"
+                    placeholder="Store Website"
                     type="text"
-                    value={companyWebsite}
-                    onChange={this.handleCompanyWebsiteChange}
+                    value={storeWebsite}
+                    onChange={this.handleStoreWebsiteChange}
                   />
                 </label>
                 <label className="form-label">
@@ -161,13 +157,13 @@ class CreateCompany extends React.Component {
                   <button type="submit" className="form-submit-button">
                     Submit
                   </button>
-                  <button
+                  {false && <button
                     type="button"
                     className="form-cancel-button"
-                    onClick={this.toggleEditMode}
+                    onClick={() =>this.props.history.goBack()}
                   >
                     Cancel
-                  </button>
+                  </button>}
                 </div>
               </form>
             </div>
@@ -177,4 +173,9 @@ class CreateCompany extends React.Component {
     );
   }
 }
-export default  withRouter(connect(null, actions)(CreateCompany));
+export default withRouter(
+  connect(
+    null,
+    actions
+  )(CreateStore)
+);

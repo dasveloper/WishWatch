@@ -1,4 +1,4 @@
-.create-company-page.container {
+.create-store-page.container {
     background: #f9f9f9;
     display: flex;
     flex: 1;
@@ -6,14 +6,14 @@
     align-items: center;
   }
 
-  .create-company-wrapper {
+  .create-store-wrapper {
     display: flex;
     flex-direction: column;
     padding: 1rem;
 
   }
   
-  .create-company-page .create-company-panel {
+  .create-store-page .create-store-panel {
     background: #fff;
     padding: 0.5rem;
     border-radius: 4px;

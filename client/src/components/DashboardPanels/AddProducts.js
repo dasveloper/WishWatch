@@ -40,7 +40,6 @@ class AddProducts extends React.Component {
 
   handleselectedFile = event => {
     const file = event.target.files[0];
-    console.log(file);
     this.setState({
       handlerResponse: undefined,
       selectedFile: file,
@@ -85,7 +84,6 @@ class AddProducts extends React.Component {
         }
       })
       .then(res => {
-        console.log(res.data);
         this.setState({
           submitSuccess: res.data.success,
           handlerResponse: JSON.stringify(res.data.message)

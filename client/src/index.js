@@ -16,8 +16,8 @@ import './assets/styles/wishlist.css'
 import './assets/styles/prodBlock.css'
 import './assets/styles/addProduct.css'
 import './assets/styles/dashboard.css'
-import './assets/styles/createCompany.css'
-import './assets/styles/chooseAffiliate.css'
+import './assets/styles/createStore.css'
+import './assets/styles/chooseStore.css'
 
 import './assets/styles/loader.css'
 

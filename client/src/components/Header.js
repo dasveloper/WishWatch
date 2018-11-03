@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import * as actions from "../actions";
+import { withRouter } from "react-router-dom";
 
 import icon from "../assets/images/wand-icon.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,10 +27,14 @@ class Header extends Component {
   }
   renderAccountMenu() {
     return this.props.auth ? (
-      <div className={`account-menu-dropdown ${this.state.menuOpen ? "open" : undefined}`}>
+      <div
+        className={`account-menu-dropdown ${
+          this.state.menuOpen ? "open" : undefined
+        }`}
+      >
         <div className="account-menu-header">
           <p className="account-menu-user">Dasveloper</p>
-          <p className="account-menu-company">WishWatch</p>
+          <p className="account-menu-store">WishWatch</p>
         </div>
         <div className="account-menu-item">
           <a className="account-menu-item-link" href="javascript:;">
@@ -63,10 +69,9 @@ class Header extends Component {
         return (
           <div className="nav-right">
             <div className="nav-login">
-              <a className="sign-in" href="/auth/google">
+              <Link to={"/login"} className="sign-in">
                 Sign In
-              </a>
-
+              </Link>
               <a className="sign-up" href="/auth/google">
                 GET STARTED
               </a>
@@ -88,7 +93,13 @@ class Header extends Component {
               <a href="javscript:;" onClick={this.openMenu} className="avatar">
                 <FontAwesomeIcon icon={faUser} />
               </a>
-              <a href="javscript:;" onClick={this.openMenu} className={`avatar-toggle ${this.state.menuOpen ? "open" : undefined}`}>
+              <a
+                href="javscript:;"
+                onClick={this.openMenu}
+                className={`avatar-toggle ${
+                  this.state.menuOpen ? "open" : undefined
+                }`}
+              >
                 <FontAwesomeIcon icon={faCaretDown} />
               </a>
             </div>
@@ -99,13 +110,12 @@ class Header extends Component {
   render() {
     return (
       <div className="nav">
-        <Link to={this.props.auth ? '/dashboard' : '/'} className="nav-logo">
+        <Link to={this.props.auth ? "/dashboard" : "/"} className="nav-logo">
           <img alt="logo" className="nav-logo-img" src={icon} />
           WishWatch
         </Link>
         {this.renderHeaderContent()}
         {this.renderAccountMenu()}
-
       </div>
     );
   }
@@ -114,4 +124,9 @@ class Header extends Component {
 function mapStateToProps({ auth }) {
   return { auth };
 }
-export default connect(mapStateToProps)(Header);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    actions
+  )(Header)
+);

@@ -9,9 +9,9 @@ import Landing from "./Landing";
 import Wishlist from "./Wishlist";
 import AddProduct from "./AddProduct";
 import Dashboard from "./Dashboard";
-import CreateCompany from "./CreateCompany";
-import ChooseAffiliate from "./ChooseAffiliate";
+import CreateStore from "./CreateStore";
 
+import Login from "./Login";
 
 class App extends Component {
   componentDidMount() {
@@ -25,12 +25,11 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route path="/wishlist" component={Wishlist} />
           <Route path="/add" component={AddProduct} />
-          <Route exact path="/createCompany" component={CreateCompany} />
+          <Route exact path="/login" component={Login} />
+
+          <Route exact path="/createStore" component={CreateStore} />
 
           <Route path="/dashboard/:affiliateId?" component={Dashboard} />
-          <Route path="/chooseAffiliate" component={ChooseAffiliate} />
-
-          {/*<Route path="/surveys/new" component={SurveyNew} />*/}
         </div>
       </BrowserRouter>
     );

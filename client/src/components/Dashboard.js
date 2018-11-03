@@ -1,12 +1,15 @@
 import React from "react";
-import Profile from "./DashboardPanels/Profile";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as actions from "../actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
 import AddProducts from "./DashboardPanels/AddProducts";
+import Profile from "./DashboardPanels/Profile";
+
 import AffiliateProducts from "./DashboardPanels/AffiliateProducts";
+import VerifyDomain from "./DashboardPanels/VerifyDomain";
+
 import { Link } from "react-router-dom";
 
 class Dashboard extends React.Component {
@@ -52,7 +55,7 @@ class Dashboard extends React.Component {
         return (
           <div className="affiliate-not-found-wrapper">
             <p className="affiliate-not-found">
-              Sorry, we could not find this company.
+              Sorry, we could not find this store.
             </p>
           </div>
         );
@@ -134,6 +137,7 @@ class Dashboard extends React.Component {
               {currentTab === 0 && (
                 <div className="dashboard-panel">
                   <Profile affiliate={this.props.affiliate} />
+                  <VerifyDomain  affiliate={this.props.affiliate} />
                 </div>
               )}
               {currentTab === 2 && (
@@ -147,7 +151,34 @@ class Dashboard extends React.Component {
         );
     }
   }
+  renderStores() {
+    const { auth } = this.props;
+    if (auth.stores.length) {
+      return auth.stores.map(function(store, key) {
+        return (
+          <Link
+            key={key}
+            className="link-wrapper"
+            to={"/dashboard/" + store.storeId}
+          >
+            <div className="affiliate-avatar-wrapper">
+              <div className="affiliate-avatar">
+                <FontAwesomeIcon icon={faUser} />
+              </div>
+            </div>
 
+            <span className="affiliate-link-name">{store.storeName}</span>
+          </Link>
+        );
+      });
+    } else {
+      return (
+        <div className="empty-link-wrapper">
+          <span className="no-stores">No stores found</span>
+        </div>
+      );
+    }
+  }
   render() {
     const { auth } = this.props;
     if (this.props.match.params.affiliateId) {
@@ -159,26 +190,12 @@ class Dashboard extends React.Component {
             <div className="choose-affiliate-header-wrapper">
               <h3 className="choose-affiliate-header">Choose a store</h3>
             </div>
-            {auth &&
-              auth.companies.map(function(company, key) {
-                return (
-                  <Link
-                    key={key}
-                    className="link-wrapper"
-                    to={"/dashboard/" + company._id}
-                  >
-                    <div className="affiliate-avatar-wrapper">
-                      <div className="affiliate-avatar">
-                        <FontAwesomeIcon icon={faUser} />
-                      </div>
-                    </div>
+            {auth && this.renderStores()}
+            <span className="or">or</span>
 
-                    <span className="affiliate-link-name">
-                      {company.companyName}
-                    </span>
-                  </Link>
-                );
-              })}
+            <Link className="create-store-button" to={"/createStore"}>
+              Create store
+            </Link>
           </div>
         </div>
       );

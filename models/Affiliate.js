@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const affiliateSchema = new Schema({
-    companyName: String,
-    companyWebsite: String,
+    storeName: String,
+    storeWebsite: String,
     phone: String,
     email: String,
-    owners: [String]
+    owners: [String],
+    verified: { type: Boolean, default: false }
+
 
 });
 
