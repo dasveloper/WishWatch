@@ -14,24 +14,18 @@ class VerifyDomain extends React.Component {
     this.state = {};
   }
   renderVerification() {
-    const { domainVerified, verifyDomain,affiliate } = this.props;
+    const { domainVerified, verifyDomain, affiliate } = this.props;
     switch (domainVerified) {
       case null:
-        return (
-          <div className="verification-wrapper">
-            <p> Checking verification</p>
-          </div>
-        );
+        return <p> Checking verification</p>;
       case false:
         return (
-          <div className="verification-wrapper">
-            <button onClick={() => verifyDomain(affiliate._id)}>Verify Domain</button>
-          </div>
+          <button onClick={() => verifyDomain(affiliate._id)}>
+            Verify Domain
+          </button>
         );
       default:
-       return <div className="affiliate-not-found-wrapper">
-          <p className="affiliate-not-found">Domain successfully verified</p>
-        </div>;
+        return <p>Domain successfully verified</p>;
     }
   }
   render() {
@@ -41,7 +35,8 @@ class VerifyDomain extends React.Component {
         <div className="form-header-wrapper">
           <h3 className="form-header">Verify Domain</h3>
         </div>
-        {this.renderVerification()}
+
+        <div className="verification-wrapper">{this.renderVerification()}</div>
       </div>
     );
   }

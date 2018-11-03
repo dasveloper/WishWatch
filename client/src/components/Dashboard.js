@@ -133,20 +133,26 @@ class Dashboard extends React.Component {
                 Contact
               </a>
             </div>
-            <div className="dashboard-wrapper">
-              {currentTab === 0 && (
+            {currentTab === 0 && (
+              <div className="dashboard-wrapper">
                 <div className="dashboard-panel">
                   <Profile affiliate={this.props.affiliate} />
-                  <VerifyDomain  affiliate={this.props.affiliate} />
                 </div>
-              )}
-              {currentTab === 2 && (
+                <div className="dashboard-panel">
+                  <VerifyDomain affiliate={this.props.affiliate} />
+                </div>
+              </div>
+            )}
+            {currentTab === 2 && (
+              <div className="dashboard-wrapper">
                 <div className="dashboard-panel">
                   <AddProducts affiliate={this.props.affiliate} />
+                </div>
+                <div className="dashboard-panel">
                   <AffiliateProducts products={this.props.affiliateProducts} />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         );
     }
