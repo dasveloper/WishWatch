@@ -1,6 +1,6 @@
 import React from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import
-import ReactDropzone from "react-dropzone";
+import ProductDetails from "../ProductDetails";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,7 +13,6 @@ import {
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 class AffiliateProducts extends React.Component {
-    
   constructor(props) {
     super(props);
   }
@@ -26,11 +25,16 @@ class AffiliateProducts extends React.Component {
           <h3 className="form-header">Product List</h3>
         </div>
 
-        <ul>
-      {products && products.map(function(product, key){
-         return (<li key={key}>{product.name}</li>)
-       })}
-        </ul>
+          {products &&
+            products.map(function(product, key) {
+              return (
+                <ProductDetails
+                  key={key}
+                  product={product}
+                 
+                />
+              );
+            })}
       </div>
     );
   }

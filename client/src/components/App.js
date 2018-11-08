@@ -12,6 +12,7 @@ import Dashboard from "./Dashboard";
 import CreateStore from "./CreateStore";
 
 import Login from "./Login";
+import PrivateRoute from "./PrivateRoute";
 
 class App extends Component {
   componentDidMount() {
@@ -23,8 +24,8 @@ class App extends Component {
         <div className="master-wrapper">
           <Header />
           <Route exact path="/" component={Landing} />
-          <Route path="/wishlist" component={Wishlist} />
-          <Route path="/add" component={AddProduct} />
+          <PrivateRoute path="/wishlist" component={Wishlist} />
+          <PrivateRoute path="/add/:productId" component={AddProduct} />
           <Route
             exact
             path="/login"
@@ -36,9 +37,9 @@ class App extends Component {
             component={() => <Login isSignup={true} />}
           />
 
-          <Route exact path="/createStore" component={CreateStore} />
+          <PrivateRoute exact path="/createStore" component={CreateStore} />
 
-          <Route path="/dashboard/:affiliateId?" component={Dashboard} />
+          <PrivateRoute path="/dashboard/:affiliateId?" component={Dashboard} />
         </div>
       </BrowserRouter>
     );

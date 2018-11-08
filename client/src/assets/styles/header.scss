@@ -27,8 +27,8 @@
 .nav .nav-login {
 }
 .nav .sign-in {
-  font-family: "Heebo", sans-serif;
-  font-weight: 300;
+
+  font-weight: $font-weight-light;
   font-size: 0.9rem;
   text-decoration: none;
   color: #686868;
@@ -38,8 +38,8 @@
   border: 1px solid transparent;
 }
 .nav .sign-up {
-  font-family: "Heebo", sans-serif;
-  font-weight: 400;
+
+  font-weight: $font-weight-base;
   font-size: 1rem;
   text-decoration: none;
   color: #773d94;
@@ -120,16 +120,16 @@
   border-bottom: 1px solid #f9f9f9;
 }
 .nav .account-menu-user {
-  font-family: "Heebo", sans-serif;
-  font-weight: 400;
+
+  font-weight: $font-weight-base;
   font-size: 1.2rem;
   text-decoration: none;
   margin: 0;
 
 }
 .nav .account-menu-store {
-  font-family: "Heebo", sans-serif;
-  font-weight: 300;
+
+  font-weight: $font-weight-light;
   font-size: .8rem;
   color: #a8a8a8;
   text-decoration: none;
@@ -142,8 +142,8 @@
 
 }
 .nav .account-menu-item-link {
-  font-family: "Heebo", sans-serif;
-  font-weight: 300;
+
+  font-weight: $font-weight-light;
   font-size: 1rem;
   color: #000;
   text-decoration: none;

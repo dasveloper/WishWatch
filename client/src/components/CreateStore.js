@@ -154,7 +154,7 @@ class CreateStore extends React.Component {
                 )}
 
                 <div className="form-submit-wrapper">
-                  <button type="submit" className="form-submit-button">
+                  <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
                   {false && <button

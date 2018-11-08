@@ -1,0 +1,76 @@
+@import "./setupProducts";
+@import "./productDetails";
+
+;.affiliate-not-found-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+.affiliate-not-found {
+  font-weight: $font-weight-light;
+  font-size: 1.6rem;
+  color: #686868;
+}
+.dashboard-page.container {
+  background: $offWhite;
+  display: flex;
+  flex: 1;
+  .dashboard-sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+    background: $white;
+    padding: 0.5rem;
+    .sidebar-section-header {
+      border-bottom: 1px solid $lightGray;
+      background: $white;
+      padding: 0.5rem;
+
+      font-weight: $font-weight-bold;
+      font-size: $font-size-sm;
+      margin-top: 0.5rem;
+    }
+    .sidebar-link {
+      background: #fff;
+      padding: 0.75rem 1rem;
+    
+      font-weight: $font-weight-light;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #000;
+    }
+  }
+}
+
+
+.dashboard-page .sidebar-link:hover {
+  background: #f9f9f9;
+}
+.dashboard-page .sidebar-link:active,
+.dashboard-page .sidebar-link:focus,
+.dashboard-page .sidebar-link.active {
+  background: #e9e9e9;
+}
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 80%;
+  padding: 1rem;
+}
+
+.dashboard-page .dashboard-panel {
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+@media only screen and (min-width: 450px) {
+}
+@media only screen and (min-width: 769px) {
+}
+
+@media only screen and (min-width: 940px) {
+}

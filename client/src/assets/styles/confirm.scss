@@ -15,8 +15,8 @@
 
 }
 .dialog-header-text{
-    font-family: "Heebo", sans-serif;
-    font-weight: 500;
+  
+    font-weight: $font-weight-bold;
     font-size: 1.2rem;
     margin: 0;
 
@@ -27,8 +27,8 @@ box-sizing: content-box;
     text-align: center;
   }
   .dialog-body-text{
-      font-family: "Heebo", sans-serif;
-      font-weight: 400;
+    
+      font-weight: $font-weight-base;
       font-size: 1rem;
       margin: 0;
 
@@ -42,8 +42,8 @@ box-sizing: content-box;
     justify-content: center;
   }
   .dialog-secondary{
-      font-family: "Heebo", sans-serif;
-      font-weight: 400;
+    
+      font-weight: $font-weight-base;
       font-size: .8rem;
       text-decoration: none;
       color: #a8a8a8;
@@ -54,8 +54,8 @@ box-sizing: content-box;
       margin: 0.5rem;
   }
   .dialog-primary{
-    font-family: "Heebo", sans-serif;
-    font-weight: 400;
+  
+    font-weight: $font-weight-base;
     font-size: .8rem;
     text-decoration: none;
     color: #fff;

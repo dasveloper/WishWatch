@@ -2,7 +2,9 @@ import React from "react";
 import ProdBlock from "./ProdBlock";
 import logo1 from "../assets/images/amazon-logo.png";
 import logo2 from "../assets/images/bestbuy-logo.png";
-
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import * as actions from "../actions";
 import product1 from "../assets/images/headphone.jpg";
 import product2 from "../assets/images/tv.jpg";
 import product3 from "../assets/images/shoes.jpg";
@@ -15,11 +17,13 @@ class Wishlist extends React.Component {
     this.state = {};
     // this.timer = this.timer.bind(this);
   }
-  componentDidMount() {}
-
-  componentWillUnmount() {}
+  async componentDidMount() {
+    this.props.fetchWatchlist();
+  }
 
   render() {
+    const { watchlist } = this.props;
+    console.log(watchlist)
     return (
       <div className="container wishlist-page">
         <div className="wishlist-wrapper">
@@ -35,9 +39,19 @@ class Wishlist extends React.Component {
               </div>
             </div>
             <div className="prod-row">
-              <ProdBlock showDetailsLink={true} prodImg={product1} special={true} priceDrop={true} />
-              <ProdBlock showDetailsLink={true} prodImg={product2} priceDrop={true} />
-              <ProdBlock showDetailsLink={true} prodImg={product3} />
+            
+              {watchlist &&
+                watchlist.map(function(product, key) {
+                  
+                 return  <ProdBlock
+                 key={key}
+
+                    showDetailsLink={true}
+                    prodImg={product.image_url}
+                    special={true}
+                    priceDrop={true}
+                  />;
+                })}
             </div>
           </div>
           <hr />
@@ -68,12 +82,30 @@ class Wishlist extends React.Component {
               </ul>
             </div>
             <div className="prod-row">
-              <ProdBlock showDetailsLink={true} prodImg={product6} special={true} priceDrop={true} />
+              <ProdBlock
+                showDetailsLink={true}
+                prodImg={product6}
+                special={true}
+                priceDrop={true}
+              />
               <ProdBlock showDetailsLink={true} prodImg={product4} />
               <ProdBlock showDetailsLink={true} prodImg={product2} />
-              <ProdBlock showDetailsLink={true} prodImg={product1} priceDrop={true} />
-              <ProdBlock showDetailsLink={true} prodImg={product3} special={true} priceDrop={true} />
-              <ProdBlock showDetailsLink={true} prodImg={product5} special={true} />
+              <ProdBlock
+                showDetailsLink={true}
+                prodImg={product1}
+                priceDrop={true}
+              />
+              <ProdBlock
+                showDetailsLink={true}
+                prodImg={product3}
+                special={true}
+                priceDrop={true}
+              />
+              <ProdBlock
+                showDetailsLink={true}
+                prodImg={product5}
+                special={true}
+              />
             </div>
           </div>
         </div>
@@ -81,4 +113,12 @@ class Wishlist extends React.Component {
     );
   }
 }
-export default Wishlist;
+function mapStateToProps({ watchlist }) {
+  return { watchlist };
+}
+export default withRouter(
+  connect(
+    mapStateToProps,
+    actions
+  )(Wishlist)
+);

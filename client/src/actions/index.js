@@ -1,12 +1,13 @@
 import axios from "axios";
 import {
   FETCH_USER,
-  INVALID_LOGIN,
-  INVALID_SIGNUP,
   FETCH_AFFILIATE_DETAILS,
   FETCH_AFFILIATE_PRODUCTS,
-  DOMAIN_VERIFICATION
+  FETCH_PRODUCT,
+  FETCH_WATCHLIST
 } from "./types";
+import { SubmissionError } from "redux-form";
+
 import formValues from "redux-form/lib/formValues";
 
 export const fetchUser = () => async dispatch => {
@@ -26,18 +27,8 @@ export const fetchAffiliateDetails = affiliateId => async dispatch => {
         type: FETCH_AFFILIATE_DETAILS,
         payload: response.data.affiliate
       });
-      if (response.data.affiliate.verified){
-        dispatch({
-          type: DOMAIN_VERIFICATION,
-          payload: true
-        });
-      }
-      else{
-        dispatch({
-          type: DOMAIN_VERIFICATION,
-          payload: false
-        });
-      }
+      
+      
     })
     .catch(function(error) {
       dispatch({ type: FETCH_AFFILIATE_DETAILS, payload: false });
@@ -61,38 +52,88 @@ export const fetchAffiliateProducts = affiliateId => async dispatch => {
       dispatch({ type: FETCH_AFFILIATE_PRODUCTS, payload: false });
     });
 };
+export const fetchProduct = productId => async dispatch => {
+  axios
+    .get("/product/fetchProduct", {
+      params: {
+        productId
+      }
+    })
+    .then(function(response) {
+      dispatch({
+        type: FETCH_PRODUCT,
+        payload: response.data.product
+      });
+    })
+    .catch(function(error) {
+      dispatch({ type: FETCH_PRODUCT, payload: false });
+    });
+};
+
+export const fetchWatchlist = () => async dispatch => {
+  axios
+    .get("/user/fetchWatchlist")
+    .then(function(response) {
+      console.log(response.data.watchlist);
+      dispatch({
+        type: FETCH_WATCHLIST,
+        payload: response.data.watchlist
+      });
+    })
+    .catch(function(error) {
+      console.log(error); 
+    });
+};
+
+export const addToWishlist = (productId, history) => async dispatch => {
+  axios
+    .post("/user/addToWishlist", {
+      productId
+    })
+    .then(function(response) {
+      history.push("/wishlist");
+      dispatch({ type: FETCH_USER, payload: response.data });
+    })
+    .catch(function(error) {
+      // dispatch({ type: FETCH_USER, payload: false });
+    });
+};
 
 export const signupUser = (values, history) => async dispatch => {
   const { email, password, confirmPassword } = values;
 
-  axios
+  return axios
     .post("/auth/signup", {
       email,
       password,
-      confirmPassword 
+      confirmPassword
     })
     .then(response => {
       history.push("/dashboard");
       dispatch({ type: FETCH_USER, payload: response.data });
     })
     .catch(error => {
-      dispatch({ type: INVALID_SIGNUP, payload: error.response.data });
+      throw new SubmissionError({
+        _error:  error.response.data
+      });
     });
 };
 
 export const loginUser = (values, history) => async dispatch => {
   const { email, password } = values;
-  axios
+  return axios
     .post("/auth/login", {
       email,
       password
     })
     .then(response => {
-      history.push("/dashboard");
       dispatch({ type: FETCH_USER, payload: response.data });
+      history.push("/dashboard");
     })
     .catch(error => {
-      dispatch({ type: INVALID_LOGIN, payload: error.response.data });
+      throw new SubmissionError({
+        _error:  error.response.data
+      });
     });
 
   //if (res)
@@ -100,17 +141,17 @@ export const loginUser = (values, history) => async dispatch => {
 };
 
 export const verifyDomain = (affiliateId, domain) => async dispatch => {
-  
   axios
     .post("/affiliate/verifyDomain", {
       affiliateId
     })
     .then(response => {
-      console.log("IN")
-        dispatch({ type: DOMAIN_VERIFICATION, payload: response.data.success });
+      dispatch({ type: FETCH_AFFILIATE_DETAILS, payload: response.data.success });
     })
     .catch(function(error) {
-      console.log("error", error);
-      dispatch({ type: DOMAIN_VERIFICATION, payload: error.response.data.success });
+      dispatch({
+        type: FETCH_AFFILIATE_DETAILS,
+        payload: error.response.data.success
+      });
     });
 };

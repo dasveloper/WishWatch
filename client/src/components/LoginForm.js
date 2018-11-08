@@ -7,6 +7,11 @@ import * as actions from "../actions";
 import { Link } from "react-router-dom";
 
 class LoginForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onLoginSubmit = this.onLoginSubmit.bind(this);
+  }
   renderFields() {
     return (
       <div>
@@ -33,13 +38,13 @@ class LoginForm extends React.Component {
       </div>
     );
   }
-  onSubmit() {
-    const { formValues, loginUser, handleSubmit, history } = this.props;
+  onLoginSubmit() {
+    const { formValues, loginUser, history } = this.props;
 
-    loginUser(formValues, history);
+    return loginUser(formValues, history);
   }
   render() {
-    const { handleSubmit, loginUserError } = this.props;
+    const { handleSubmit, error } = this.props;
     return (
       <div className="form-wrapper profile-form-wrapper">
         <div className="form-header-wrapper">
@@ -47,18 +52,18 @@ class LoginForm extends React.Component {
         </div>
         <form
           className="form profile-form"
-          onSubmit={handleSubmit(this.onSubmit.bind(this))}
+          onSubmit={handleSubmit(this.onLoginSubmit)}
         >
           {this.renderFields()}
-          {this.props.loginUserError && (
+          {error && (
             <p
               className={`handler-response error`}
             >
-              {loginUserError}
+              {error}
             </p>
           )}
           <div className="form-submit-wrapper">
-            <button type="submit" className="form-submit-button">
+            <button type="submit" className="btn btn-primary">
               Login
             </button>
             <Link className="form-cancel-button" to={"/signup"}>
@@ -84,8 +89,8 @@ function validate(values) {
   }
   return errors;
 }
-function mapStateToProps({ form, loginUserError }) {
-  return { loginUserError, formValues: form.surveyForm.values };
+function mapStateToProps({ form }) {
+  return { formValues: form.surveyForm.values };
 }
 LoginForm = withRouter(
   connect(

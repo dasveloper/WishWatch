@@ -1,7 +1,5 @@
 export const FETCH_USER = "fetch-user";
-export const FETCH_AFFILIATE_DETAILS = "fetch-affiliate-details"
-export const FETCH_AFFILIATE_PRODUCTS = "fetch-affiliate-products"
-export const INVALID_LOGIN = "invalid-login";
-export const INVALID_SIGNUP = "invalid-signup";
-
-export const DOMAIN_VERIFICATION = "domain-verification";
+export const FETCH_AFFILIATE_DETAILS = "fetch-affiliate-details";
+export const FETCH_AFFILIATE_PRODUCTS = "fetch-affiliate-products";
+export const FETCH_PRODUCT = "fetch-product";
+export const FETCH_WATCHLIST = "fetch-watchlist";

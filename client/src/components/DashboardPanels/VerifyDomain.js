@@ -14,22 +14,29 @@ class VerifyDomain extends React.Component {
     this.state = {};
   }
   renderVerification() {
-    const { domainVerified, verifyDomain, affiliate } = this.props;
-    switch (domainVerified) {
+    const {verifyDomain, affiliate } = this.props;
+    switch (affiliate.verified) {
       case null:
-        return <p> Checking verification</p>;
+        return           <label className="form-label">
+        Verification status
+        <p className="form-item">Checking verification...</p>
+      </label>;
       case false:
         return (
-          <button onClick={() => verifyDomain(affiliate._id)}>
+          <button className ="btn btn-primary" onClick={() => verifyDomain(affiliate._id)}>
             Verify Domain
           </button>
         );
       default:
-        return <p>Domain successfully verified</p>;
+        return (
+          <label className="form-label">
+            Verification status
+            <p className="form-item">Domain successfully verified</p>
+          </label>
+        );
     }
   }
   render() {
-    const { domainVerified, verifyDomain } = this.props;
     return (
       <div className="form-wrapper profile-form-wrapper">
         <div className="form-header-wrapper">
@@ -41,9 +48,8 @@ class VerifyDomain extends React.Component {
     );
   }
 }
-function mapStateToProps({ auth, affiliate, domainVerified }) {
-  console.log(domainVerified);
-  return { auth, affiliate, domainVerified };
+function mapStateToProps({ auth, affiliate }) {
+  return { auth, affiliate };
 }
 export default withRouter(
   connect(

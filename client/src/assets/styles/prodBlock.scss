@@ -2,7 +2,7 @@
 
    .prod-block-wrapper {
     padding: 0.5rem;
-  }
+  
    .prod-block {
     background: #fff;
     display: flex;
@@ -114,10 +114,11 @@
     box-shadow: none;
     flex:1;
     border-radius: 4px;
-    font-family: "Heebo", sans-serif;
-    font-weight: 400;
+  
+    font-weight: $font-weight-base;
         font-size: 1rem;
   }
+}
   @keyframes glow {
     0% {
       transform: scale(1);

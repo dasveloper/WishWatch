@@ -47,8 +47,8 @@
   padding-left: 1rem;
 }
 .wishlist-page .product-count {
-  font-family: "Heebo", sans-serif;
-  font-weight: 300;
+
+  font-weight: $font-weight-light;
     font-size: 1.4rem;
   color: #686868;
 }
@@ -57,8 +57,8 @@
   max-height: 100%;
 }
 .wishlist-page .logo-text {
-  font-family: "Heebo", sans-serif;
-  font-weight: 500;
+
+  font-weight: $font-weight-bold;
   font-size: 3rem;
   margin: 0;
 }
@@ -85,8 +85,8 @@
 }
 
 .wishlist-page .featured-offer-link {
-  font-family: "Heebo", sans-serif;
-  font-weight: 400;
+
+  font-weight: $font-weight-base;
     font-size: 1rem;
   color: #49708a;
   text-decoration: none;

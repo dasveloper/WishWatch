@@ -67,9 +67,6 @@ module.exports = app => {
           message: "Something went wrong, please try again"
         });
       } else {
-        console.log(newAffiliate);
-        console.log(newAffiliate.id);
-
         var newAffiliateBase = {
           storeId: newAffiliate.id,
           storeName: newAffiliate.storeName
@@ -209,7 +206,6 @@ module.exports = app => {
           records.forEach(function(txtRecords) {
             if (txtRecords.length) {
               txtRecords.forEach(function(record) {
-                console.log(record);
                 try {
                   const verificationKey = record.split("=")[0];
                   const verificationValue = record.split("=")[1];
@@ -236,7 +232,6 @@ module.exports = app => {
                 message: "Verification failed"
               });
             }
-            console.log(success);
             return res.status(200).json({
               success: true,
               message: "Verification successful"

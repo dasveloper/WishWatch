@@ -1,6 +1,5 @@
 import React from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import
-import ReactDropzone from "react-dropzone";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -58,7 +57,9 @@ class AddProducts extends React.Component {
 
   handleProductListSubmit = () => {
     const data = new FormData();
-    data.append("file", this.state.selectedFile, "foo");
+    data.append("file",this.state.selectedFile);
+    data.append("affiliateId", this.props.affiliate._id);
+
     axios
       .post("/product/addProduct", data, {
         headers: {
@@ -128,7 +129,7 @@ class AddProducts extends React.Component {
         </div>
         <div className="upload-wrapper">
           <div className="browse-wrapper">
-            <button className="browse-button">
+            <button className="btn btn-primary browse-button">
               <FontAwesomeIcon className="browse-icon" icon={faPlus} />
               Add new file
             </button>
@@ -143,7 +144,7 @@ class AddProducts extends React.Component {
           </div>
 
           <button
-            className="upload-button"
+            className="btn btn-secondary"
             onClick={this.handleProductListSubmit}
           >
             Upload

@@ -1,5 +1,8 @@
 import React from "react";
 import ProdBlock from "./ProdBlock";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import * as actions from "../actions";
 import logo1 from "../assets/images/amazon-logo.png";
 import logo2 from "../assets/images/bestbuy-logo.png";
 
@@ -15,44 +18,70 @@ class AddProduct extends React.Component {
     this.state = {};
     // this.timer = this.timer.bind(this);
   }
-  componentDidMount() {}
-
+  async componentDidMount() {
+    let productId = this.props.match.params.productId;
+    if (productId) {
+      this.props.fetchProduct(productId);
+    }
+  }
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (
+      this.props.match.params.productId !== prevProps.match.params.productId
+    ) {
+      this.props.fetchProduct(this.props.match.params.productId);
+    }
+  }
   componentWillUnmount() {}
-
+  addProductToWishlist(){
+      this.props.addToWishlist(this.props.product._id, this.props.history);
+  }
+  renderAddProductBlock() {
+    const { image_url, name } = this.props.product;
+   return <div className="prod-row-wrapper">
+      <div className="prod-row-header">
+        <div className="prod-row-logo-wrapper">
+          <div className="prod-row-logo">
+            <img className="logo" src={logo1} alt="Amazon logo" />
+          </div>
+          <div className="prod-item-name-wrapper">
+            <p className="prod-item-name">
+              {name}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="prod-img-wrapper">
+        <img className="prod-img" src={image_url} alt="product image" />
+      </div>
+      <div className="prod-atw-wrapper">
+        <p className="prod-atw-text">Add this product to your wishlist?</p>
+      </div>
+      <div className="prod-atw-button-wrapper">
+        <button onClick={()=> this.addProductToWishlist()} className="prod-atw-button">
+          Add to WishWatch
+        </button>
+        <a className="prod-atw-no-thanks">No thanks</a>
+      </div>
+    </div>;
+  }
   render() {
+    const { product } = this.props;
     return (
       <div className="container add-page">
         <div className="add-wrapper">
-          <div className="prod-row-wrapper">
-            <div className="prod-row-header">
-              <div className="prod-row-logo-wrapper">
-                <div className="prod-row-logo">
-                  <img className="logo" src={logo1} alt="Amazon logo" />
-                </div>
-                <div className="prod-item-name-wrapper">
-                  <p className="prod-item-name">
-                    Bose&trade; Quiet Comfort headphones
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="prod-img-wrapper">
-              <img className="prod-img" src={product1} alt="product image" />
-            </div>
-            <div className="prod-atw-wrapper">
-              <p className="prod-atw-text">
-                Add this product to your wishlist?
-              </p>
-            </div>
-            <div className="prod-atw-button-wrapper">
-              <a href="wishlist" className="prod-atw-button">Add to WishWatch</a>
-              <a className="prod-atw-no-thanks">No thanks</a>
-            </div>
-          </div>
-   
+          {product && this.renderAddProductBlock()}
         </div>
       </div>
     );
   }
 }
-export default AddProduct;
+function mapStateToProps({ product }) {
+  return { product };
+}
+export default withRouter(
+  connect(
+    mapStateToProps,
+    actions
+  )(AddProduct)
+);

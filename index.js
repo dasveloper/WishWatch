@@ -2,6 +2,7 @@ const authRoutes = require('./routes/authRoutes');
 const subscribeRoutes = require('./routes/subscribeRoutes');
 const affiliateRoutes = require('./routes/affiliateRoutes');
 const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -35,6 +36,7 @@ authRoutes(app);
 subscribeRoutes(app);
 affiliateRoutes(app);
 productRoutes(app);
+userRoutes(app);
 
 if (process.env.NODE_ENV === 'production'){
   app.use(express.static('client/build'));

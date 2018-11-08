@@ -45,8 +45,8 @@
   padding-left: 1rem;
 }
 .add-page .prod-item-name {
-  font-family: "Heebo", sans-serif;
-  font-weight: 300;
+
+  font-weight: $font-weight-light;
   font-size: 1.4rem;
   color: #686868;
 }
@@ -55,8 +55,8 @@
   max-height: 100%;
 }
 .add-page .logo-text {
-  font-family: "Heebo", sans-serif;
-  font-weight: 500;
+
+  font-weight: $font-weight-bold;
   font-size: 3rem;
   margin: 0;
 }
@@ -80,8 +80,8 @@
   text-align: center;
 }
 .prod-atw-text {
-  font-family: "Heebo", sans-serif;
-  font-weight: 400;
+
+  font-weight: $font-weight-base;
   font-size: 1.2rem;
   margin: 0.5rem;
 }
@@ -93,7 +93,7 @@
 }
 .prod-atw-button {
   font-family: 'Heebo', sans-serif;
-  font-weight: 400;
+  font-weight: $font-weight-base;
     font-size: 1.6rem;
   text-decoration: none;
   background: #27be8c;
@@ -106,9 +106,9 @@
 }
 .prod-atw-no-thanks {
   font-family: 'Heebo', sans-serif;
-  font-weight: 400;
+  font-weight: $font-weight-base;
   font-size: 0.8rem;
-  margin: 0.5rem 0;
+  margin: 1rem 0;
   text-decoration: none;
 }
 

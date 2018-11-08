@@ -67,19 +67,19 @@
 }
 
 .watching-title {
-  font-family: "Heebo", sans-serif;
-  font-weight: 300;
+
+  font-weight: $font-weight-light;
   font-size: .8rem;
   color: #494949;
 }
 .watching-count {
-  font-family: "Heebo", sans-serif;
-  font-weight: 400;
+
+  font-weight: $font-weight-base;
   font-size: 1rem;
 }
 .watching-change {
-  font-family: "Heebo", sans-serif;
-  font-weight: 500;
+
+  font-weight: $font-weight-bold;
     font-size: 0.8rem;
 }
 .watching-change.down {
@@ -129,14 +129,14 @@
   display: flex;
 }
 .offers-title {
-  font-family: "Heebo", sans-serif;
-  font-weight: 300;
+
+  font-weight: $font-weight-light;
   color: #f5bf4f;
   font-size: 1rem;
 }
 .offers-count {
-  font-family: "Heebo", sans-serif;
-  font-weight: 300;
+
+  font-weight: $font-weight-light;
     font-size: 1rem;
   color: #494949;
 }

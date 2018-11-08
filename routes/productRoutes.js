@@ -1,6 +1,8 @@
 const keys = require("../config/keys.js");
 const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
+const verifyStoreOwner = require("../middlewares/verifyStoreOwner");
+
 var validator = require("validator");
 const fileUpload = require("express-fileupload");
 var fs = require("fs");
@@ -63,7 +65,8 @@ function saveImage(url, key) {
 module.exports = app => {
   app.use(fileUpload());
 
-  app.post("/product/addProduct", requireLogin, async (req, res) => {
+  app.post("/product/addProduct", requireLogin, verifyStoreOwner, async (req, res) => {
+    var affiliateId = req.body.affiliateId;
 
     let products = req.files.file.data;
     try {
@@ -96,11 +99,13 @@ module.exports = app => {
           error: err
         });
       }
+      product.owner = affiliateId;
+      product.updated = Date.now();
       let upsertProduct = {
         updateOne: {
-          filter: { sku: product.sku },
+          filter: { sku: product.sku, owner: affiliateId},
           update: product,
-          upsert: true
+          upsert: true,
         }
       };
       accepted.push(upsertProduct);
@@ -108,6 +113,7 @@ module.exports = app => {
     // now bulkWrite (note the use of 'Model.collection')
     Product.collection.bulkWrite(accepted, function(err, docs) {
       if (err) {
+        console.log(err);
         return res.status(400).json({
           success: false,
           message: "Something went wrong, please try again"
@@ -139,6 +145,25 @@ module.exports = app => {
           success: true,
           message: "Products successfully found",
           products: products
+        });
+      }
+    });
+  });
+
+  app.get("/product/fetchProduct", (req, res) => {
+    var productId = req.query.productId;
+
+    Product.findById( productId , function(err, product) {
+      if (err) {
+        return res.status(400).json({
+          success: false,
+          message: "Could not find the requested product"
+        });
+      } else {
+        return res.status(200).json({
+          success: true,
+          message: "Product successfully found",
+          product: product
         });
       }
     });

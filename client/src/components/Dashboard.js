@@ -63,7 +63,7 @@ class Dashboard extends React.Component {
         return (
           <div className="container dashboard-page">
             <div className="dashboard-sidebar">
-              <span className="sidebar-section-header">Account</span>
+              <span className="sidebar-section-header">ACCOUNT</span>
               <a
                 href="javascript:;"
                 onClick={() => this.setCurrentTab(0)}
@@ -82,7 +82,7 @@ class Dashboard extends React.Component {
               >
                 Billing
               </a>
-              <span className="sidebar-section-header">Setup</span>
+              <span className="sidebar-section-header">SETUP</span>
               <a
                 href="javascript:;"
                 onClick={() => this.setCurrentTab(2)}
@@ -101,7 +101,7 @@ class Dashboard extends React.Component {
               >
                 Offers
               </a>
-              <span className="sidebar-section-header">Analytics</span>
+              <span className="sidebar-section-header">ANALYTICS</span>
 
               <a
                 href="javascript:;"
@@ -121,7 +121,7 @@ class Dashboard extends React.Component {
               >
                 Offers
               </a>
-              <span className="sidebar-section-header">Support</span>
+              <span className="sidebar-section-header">SUPPORT</span>
 
               <a
                 href="javascript:;"
@@ -149,7 +149,7 @@ class Dashboard extends React.Component {
                   <AddProducts affiliate={this.props.affiliate} />
                 </div>
                 <div className="dashboard-panel">
-                  <AffiliateProducts products={this.props.affiliateProducts} />
+                  <AffiliateProducts  affiliate={this.props.affiliate} products={this.props.affiliateProducts} />
                 </div>
               </div>
             )}

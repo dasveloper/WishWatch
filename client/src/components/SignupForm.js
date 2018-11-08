@@ -7,6 +7,11 @@ import * as actions from "../actions";
 import { Link } from "react-router-dom";
 
 class SignupForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onSignupSubmit = this.onSignupSubmit.bind(this);
+  }
   renderFields() {
     return (
       <div>
@@ -37,13 +42,13 @@ class SignupForm extends React.Component {
       </div>
     );
   }
-  onSubmit() {
-    const { formValues, signupUser, handleSubmit, history } = this.props;
+  onSignupSubmit() {
+    const { formValues, signupUser, history } = this.props;
 
-    signupUser(formValues, history);
+    return signupUser(formValues, history);
   }
   render() {
-    const { handleSubmit, signupUserError } = this.props;
+    const { handleSubmit, error } = this.props;
     return (
       <div className="form-wrapper profile-form-wrapper">
         <div className="form-header-wrapper">
@@ -51,14 +56,14 @@ class SignupForm extends React.Component {
         </div>
         <form
           className="form profile-form"
-          onSubmit={handleSubmit(this.onSubmit.bind(this))}
+          onSubmit={handleSubmit(this.onSignupSubmit)}
         >
           {this.renderFields()}
-          {this.props.signupUserError && (
-            <p className={`handler-response error`}>{signupUserError}</p>
+          {error && (
+            <p className={`handler-response error`}>{error}</p>
           )}
           <div className="form-submit-wrapper">
-            <button type="submit" className="form-submit-button">
+            <button type="submit" className="btn btn-primary">
               Sign up
             </button>
             <Link className="form-cancel-button" to={"/login"}>
@@ -90,8 +95,8 @@ function validate(values) {
   }
   return errors;
 }
-function mapStateToProps({ form, signupUserError }) {
-  return { signupUserError, formValues: form.signupForm.values };
+function mapStateToProps({ form }) {
+  return {  formValues: form.signupForm.values };
 }
 SignupForm = withRouter(
   connect(

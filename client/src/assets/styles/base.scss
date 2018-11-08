@@ -1,0 +1,57 @@
+@import "./colors";
+@import "./fonts";
+@import "./buttons";
+@import "./forms";
+@import "./header";
+@import "./landing";
+@import "./prodBlockMockup";
+@import "./browserMockup";
+@import "./statsMockup";
+@import "./emailMockup";
+@import "./emailModal";
+@import "./wishlist";
+@import "./prodBlock";
+@import "./addProduct";
+@import "./dashboard.scss";
+@import "./createStore";
+@import "./chooseStore";
+
+@import "./loader";
+
+@import "./confirm";
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.master-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.d-none {
+  display: none !important;
+}
+
+@media only screen and (min-width: 450px) {
+  .d-sm-block {
+    display: block !important;
+  }
+  .d-sm-flex {
+    display: flex !important;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .d-md-block {
+    display: block !important;
+  }
+  .d-md-flex {
+    display: flex !important;
+  }
+}
