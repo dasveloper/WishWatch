@@ -1,6 +1,7 @@
 import {
   FETCH_AFFILIATE_DETAILS,
   FETCH_AFFILIATE_PRODUCTS,
+  FETCH_STORES
 } from "../actions/types";
 
 export function affiliate(state = null, action) {
@@ -14,6 +15,15 @@ export function affiliate(state = null, action) {
 export function affiliateProducts(state = null, action) {
   switch (action.type) {
     case FETCH_AFFILIATE_PRODUCTS:
+      return action.payload || false;
+    default:
+      return state;
+  }
+}
+
+export function affiliateStores(state = [], action) {
+  switch (action.type) {
+    case FETCH_STORES:
       return action.payload || false;
     default:
       return state;

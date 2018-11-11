@@ -68,7 +68,8 @@ class CreateStore extends React.Component {
           handlerResponse: data.message
         });
         if (data.success) {
-          let path = `dashboard/${data.affiliate}`;
+          console.log(data, data.store.id);
+          let path = `dashboard/${data.store.id}`;
           this.props.history.push(path);
         }
       });

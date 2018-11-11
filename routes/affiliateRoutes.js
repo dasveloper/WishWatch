@@ -1,24 +1,15 @@
 const keys = require("../config/keys.js");
-const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 var validator = require("validator");
 var dns = require("dns");
 var url = require("url");
 
-require("../models/Affiliate");
+const Store = require("../mysql_models/store");
 
-const Affiliate = mongoose.model("affiliate");
 
 module.exports = app => {
   //Create store
   app.post("/affiliate/createStore", requireLogin, async (req, res) => {
-    if (!req.body) {
-      return res.status(400).json({
-        success: false,
-        message: "Something went wrong, please try again"
-      });
-    }
-
     const storeName = req.body.storeName;
     if (!storeName) {
       return res
@@ -54,40 +45,26 @@ module.exports = app => {
       });
     }
 
-    const affiliate = await new Affiliate({
+    Store.create({
+      name: storeName,
+      website: storeWebsite,
       email,
       phone,
-      storeName,
-      storeWebsite,
-      owners: req.user.id
-    }).save(function(err, newAffiliate) {
-      if (err) {
+      owner: req.user.id
+    })
+      .then(store => {
+        return res.status(200).json({
+          success: true,
+          message: "Store successfully created",
+          store: store.dataValues
+        });
+      })
+      .catch(err => {
         return res.status(400).json({
           success: false,
           message: "Something went wrong, please try again"
         });
-      } else {
-        var newAffiliateBase = {
-          storeId: newAffiliate.id,
-          storeName: newAffiliate.storeName
-        };
-        req.user.stores.push(newAffiliateBase);
-        req.user.save(function(err, affiliateBase) {
-          if (err) {
-            return res.status(400).json({
-              success: false,
-              message: "Something went wrong, please try again"
-            });
-          } else {
-            return res.status(200).json({
-              success: true,
-              message: "Store successfully created",
-              affiliate: newAffiliateBase.storeId
-            });
-          }
-        });
-      }
-    });
+      });
   });
 
   //Update store profile
@@ -140,53 +117,79 @@ module.exports = app => {
       });
     }
 
-    var query = { _id: "5bcd137a7cc407380d5a0802" };
     let data = {
       email,
       phone,
       storeName,
       storeWebsite
     };
-    Affiliate.findOneAndUpdate(query, data, { upsert: false }, function(
-      err,
-      newAffiliate
-    ) {
-      if (err) {
+
+
+    Store.findByPk(affiliateId)
+    .then(store => {
+      if (!store) {
         return res.status(400).json({
           success: false,
-          message: "Something went wrong, please try again"
+          message: "Could not find the requested store"
         });
-      } else {
-        return res
-          .status(200)
-          .json({ success: true, message: "Profile successfully updated" });
       }
+      store.email = email;
+      store.phone = phone;
+      store.name = storeName;
+      store.website = storeWebsite;
+      store.save();
+    })
+    .then(result => {
+      return res.status(200).json({
+        success: true,
+        message: "Profile successfully updated"
+      });
+    })
+    .catch(err => {
+      return res.status(400).json({
+        success: false,
+        message: "Could not update store profile."
+      });
     });
+  });
+
+  //Fetch store details
+  app.get("/affiliate/fetchStores", (req, res) => {
+    var userId = req.query.userId;
+    Store.findAll({ where: { owner: userId } })
+      .then(stores => {
+        return res.status(200).json({
+          success: true,
+          message: "Stores successfully found",
+          stores: stores
+        });
+      })
+      .catch(err => {
+        return res.status(400).json({
+          success: false,
+          message: "No stores found"
+        });
+      });
   });
 
   //Fetch store details
   app.get("/affiliate/fetchDetails", (req, res) => {
     var affiliateId = req.query.affiliateId;
-    if (!mongoose.Types.ObjectId.isValid(affiliateId)) {
-      return res.status(400).json({
-        success: false,
-        message: "Please provide a valid affiliate ID"
-      });
-    }
-    Affiliate.findById(affiliateId, function(err, affiliate) {
-      if (err) {
+
+    Store.findByPk(affiliateId)
+      .then(store => {
+        return res.status(200).json({
+          success: true,
+          message: "Store details successfully found",
+          affiliate: store
+        });
+      })
+      .catch(err => {
         return res.status(400).json({
           success: false,
           message: "Could not find the requested store"
         });
-      } else {
-        return res.status(200).json({
-          success: true,
-          message: "Store details successfully found",
-          affiliate: affiliate
-        });
-      }
-    });
+      });
   });
 
   //Verify store domain
@@ -225,18 +228,30 @@ module.exports = app => {
           const doc = {
             verified: true
           };
-          Affiliate.updateOne({ _id: affiliateId }, doc, function(err, raw) {
-            if (err) {
+
+          Store.findByPk(affiliateId)
+            .then(store => {
+              if (!store) {
+                return res.status(400).json({
+                  success: false,
+                  message: "Could not find the requested store"
+                });
+              }
+              store.verified = true;
+              store.save();
+            })
+            .then(result => {
+              return res.status(200).json({
+                success: true,
+                message: "Verification successful"
+              });
+            })
+            .catch(err => {
               return res.status(400).json({
                 success: false,
                 message: "Verification failed"
               });
-            }
-            return res.status(200).json({
-              success: true,
-              message: "Verification successful"
             });
-          });
         } else {
           return res.status(400).json({
             success: false,

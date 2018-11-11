@@ -25,7 +25,7 @@ class App extends Component {
           <Header />
           <Route exact path="/" component={Landing} />
           <PrivateRoute path="/wishlist" component={Wishlist} />
-          <PrivateRoute path="/add/:productId" component={AddProduct} />
+          <PrivateRoute path="/add/:storeId/:productId" component={AddProduct} />
           <Route
             exact
             path="/login"

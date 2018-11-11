@@ -1,10 +1,10 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 var LocalStrategy = require("passport-local").Strategy;
+var bcrypt = require("bcrypt-nodejs");
 
 const keys = require("../config/keys.js");
-const mongoose = require("mongoose");
-const User = mongoose.model("users");
+const SQLUser = require("../mysql_models/user");
 
 //Put user in token
 passport.serializeUser((user, done) => {
@@ -13,10 +13,17 @@ passport.serializeUser((user, done) => {
 
 //Get user from token
 passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => {
+  SQLUser.findByPk(id).then(user => {
     done(null, user);
   });
 });
+
+const generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+const validPassword = function(password, passwordAttempt) {
+  return bcrypt.compareSync(password, passwordAttempt);
+};
 
 passport.use(
   new GoogleStrategy(
@@ -54,17 +61,26 @@ passport.use(
     },
     function(req, email, password, done) {
       process.nextTick(function() {
-        User.findOne({ "local.email": email }, function(err, user) {
-          if (err) return done(err);
-          if (user) return done(null, false, "That email is already in use.");
-          var newUser = new User();
-          newUser.local.email = email;
-          newUser.local.password = newUser.generateHash(password);
-          newUser.save(function(err) {
-            if (err) throw err;
-            return done(null, newUser);
+        SQLUser.findOne({ where: { email: email } })
+          .then(user => {
+            if (!!user) {
+              return done(null, false, "That email is already in use.");
+            }
+
+            SQLUser.create({
+              email,
+              password: generateHash(password)
+            })
+              .then(newUser => {
+                return done(null, newUser);
+              })
+              .catch(err => {
+                throw err;
+              });
+          })
+          .catch(err => {
+            return done(err);
           });
-        });
       });
     }
   )
@@ -80,12 +96,21 @@ passport.use(
       proxy: true //To allow https from Heroku
     },
     function(req, email, password, done) {
-      User.findOne({ "local.email": email }, function(err, user) {
-        if (err) return done(err);
-        if (!user) return done(null, false, "Email or password is incorrect");
-        if (!user.validPassword(password)) return done(null, false,  "Email or password is incorrect");
-        return done(null, user);
-      });
+      SQLUser.findOne({ where: { email: email } })
+        .then(user => {
+          if (!user) {
+            return done(null, false, "Email or password is incorrect");
+          }
+
+          if (!validPassword(password, user.dataValues.password))
+          return done(null, false, "Email or password is incorrect");
+
+
+          return done(null, user.dataValues);
+        })
+        .catch(err => {
+          return done(err);
+        });
     }
   )
 );

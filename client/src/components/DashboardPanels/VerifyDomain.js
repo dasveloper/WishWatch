@@ -23,7 +23,7 @@ class VerifyDomain extends React.Component {
       </label>;
       case false:
         return (
-          <button className ="btn btn-primary" onClick={() => verifyDomain(affiliate._id)}>
+          <button className ="btn btn-primary" onClick={() => verifyDomain(affiliate.id)}>
             Verify Domain
           </button>
         );

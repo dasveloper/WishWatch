@@ -3,3 +3,4 @@ export const FETCH_AFFILIATE_DETAILS = "fetch-affiliate-details";
 export const FETCH_AFFILIATE_PRODUCTS = "fetch-affiliate-products";
 export const FETCH_PRODUCT = "fetch-product";
 export const FETCH_WATCHLIST = "fetch-watchlist";
+export const FETCH_STORES = "fetch-stores";

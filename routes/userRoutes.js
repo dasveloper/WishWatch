@@ -1,61 +1,69 @@
 const keys = require("../config/keys.js");
-const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 
-require("../models/User");
-const User = mongoose.model("users");
 
-require("../models/Product");
-const Product = mongoose.model("product");
+const UserProduct = require("../mysql_models/userProduct");
+const Product = require("../mysql_models/product");
+const Store = require("../mysql_models/store");
+const User = require("../mysql_models/user");
 
 module.exports = app => {
   //Create store
 
   //Update store profile
   app.post("/user/addToWishlist", requireLogin, async (req, res) => {
-    const productId = req.body.productId;
+    const { id } = req.body.product;
 
-    req.user.watching.push(productId);
-
-    req.user.save(function(err, docs) {
-      if (err) {
+    UserProduct.create({
+      userId: req.user.id,
+      productId: id
+    })
+      .then(userproduct => {
+        return res.status(200).json({
+          success: true,
+          message: "Product added to watchlist",
+          userproduct: userproduct
+        });
+      })
+      .catch(err => {
         return res.status(400).json({
           success: false,
           message: "Something went wrong, please try again"
         });
-      } else {
-        return res.status(200).json({
-          success: true,
-          message: "Product added to watchlist",
-          affiliate: req.user.watching
-        });
-      }
-    });
+      });
   });
   //Update store profile
   app.get("/user/fetchWatchlist", requireLogin, async (req, res) => {
-    const watchingIds = req.user.watching;
-    Product.find(
-      {
-        _id: {
-          $in: watchingIds
-        }
+  
+    User.findOne({
+      where: {
+        id: req.user.id
       },
-      function(err, docs) {
-        console.log(docs);
-        if (err) {
-          return res.status(400).json({
-            success: false,
-            message: "Something went wrong, please try again"
-          });
-        } else {
-          return res.status(200).json({
-            success: true,
-            message: "Product added to watchlist",
-            watchlist: docs
-          });
+      include: [
+        {
+          model: Product,
+     
+          include: [
+            {
+              model: Store,
+              required: false
+            }
+          ]
         }
-      }
-    );
+      ]
+
+      // attributes: ["id"] //in quotes specify what columns you want, otherwise you will pull them all
+      // Otherwise remove attributes above this line to import everything.
+    })
+      .then(userproduct => {
+        return res.status(200).json({
+          success: true,
+          message: "Product added to watchlist",
+          watchlist: userproduct
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   });
 };

@@ -4,7 +4,8 @@ import {
   FETCH_AFFILIATE_DETAILS,
   FETCH_AFFILIATE_PRODUCTS,
   FETCH_PRODUCT,
-  FETCH_WATCHLIST
+  FETCH_WATCHLIST,
+  FETCH_STORES
 } from "./types";
 import { SubmissionError } from "redux-form";
 
@@ -27,11 +28,29 @@ export const fetchAffiliateDetails = affiliateId => async dispatch => {
         type: FETCH_AFFILIATE_DETAILS,
         payload: response.data.affiliate
       });
-      
-      
     })
     .catch(function(error) {
       dispatch({ type: FETCH_AFFILIATE_DETAILS, payload: false });
+    });
+};
+export const fetchStores = userId => async dispatch => {
+  axios
+    .get("/affiliate/fetchStores", {
+      params: {
+        userId
+      }
+    })
+    .then(function(response) {
+      console.log(response.data);
+      console.log("IN");
+      console.log(response.data.stores);
+      dispatch({
+        type: FETCH_STORES,
+        payload: response.data.stores
+      });
+    })
+    .catch(function(error) {
+      dispatch({ type: FETCH_STORES, payload: false });
     });
 };
 
@@ -52,20 +71,23 @@ export const fetchAffiliateProducts = affiliateId => async dispatch => {
       dispatch({ type: FETCH_AFFILIATE_PRODUCTS, payload: false });
     });
 };
-export const fetchProduct = productId => async dispatch => {
+export const fetchProduct = (storeId, productId) => async dispatch => {
   axios
     .get("/product/fetchProduct", {
       params: {
+        storeId,
         productId
       }
     })
     .then(function(response) {
+      console.log(response);
       dispatch({
         type: FETCH_PRODUCT,
         payload: response.data.product
       });
     })
     .catch(function(error) {
+      console.log(error);
       dispatch({ type: FETCH_PRODUCT, payload: false });
     });
 };
@@ -74,21 +96,22 @@ export const fetchWatchlist = () => async dispatch => {
   axios
     .get("/user/fetchWatchlist")
     .then(function(response) {
-      console.log(response.data.watchlist);
+      const { watchlist } = response.data;
+
       dispatch({
         type: FETCH_WATCHLIST,
-        payload: response.data.watchlist
+        payload: watchlist
       });
     })
     .catch(function(error) {
-      console.log(error); 
+      console.log(error);
     });
 };
 
-export const addToWishlist = (productId, history) => async dispatch => {
+export const addToWishlist = (product, history) => async dispatch => {
   axios
     .post("/user/addToWishlist", {
-      productId
+      product
     })
     .then(function(response) {
       history.push("/wishlist");
@@ -114,7 +137,7 @@ export const signupUser = (values, history) => async dispatch => {
     })
     .catch(error => {
       throw new SubmissionError({
-        _error:  error.response.data
+        _error: error.response.data
       });
     });
 };
@@ -132,7 +155,7 @@ export const loginUser = (values, history) => async dispatch => {
     })
     .catch(error => {
       throw new SubmissionError({
-        _error:  error.response.data
+        _error: error.response.data
       });
     });
 
@@ -146,7 +169,10 @@ export const verifyDomain = (affiliateId, domain) => async dispatch => {
       affiliateId
     })
     .then(response => {
-      dispatch({ type: FETCH_AFFILIATE_DETAILS, payload: response.data.success });
+      dispatch({
+        type: FETCH_AFFILIATE_DETAILS,
+        payload: response.data.success
+      });
     })
     .catch(function(error) {
       dispatch({

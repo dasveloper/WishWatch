@@ -7,10 +7,10 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       affiliateId: this.props.affiliate._id,
-      storeName: this.props.affiliate.storeName,
-      pendingStoreName: "",
-      storeWebsite: this.props.affiliate.storeWebsite,
-      pendingStoreWebsite: "",
+      name: this.props.affiliate.name,
+      pendingName: "",
+      website: this.props.affiliate.website,
+      pendingWebsite: "",
       phone: this.props.affiliate.phone,
       pendingPhone: "",
       email: this.props.affiliate.email,
@@ -19,8 +19,8 @@ class Profile extends React.Component {
       handlerResponse: undefined,
       submitSuccess: false
     };
-    this.handleStoreNameChange = this.handleStoreNameChange.bind(this);
-    this.handleStoreWebsiteChange = this.handleStoreWebsiteChange.bind(
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleWebsiteChange = this.handleWebsiteChange.bind(
       this
     );
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
@@ -54,8 +54,8 @@ class Profile extends React.Component {
                   className="dialog-primary"
                   onClick={() => {
                     this.setState({
-                      pendingStoreName: "",
-                      pendingStoreWebsite: "",
+                      pendingName: "",
+                      pendingWebsite: "",
                       pendingPhone: "",
                       pendingEmail: "",
                       editMode: !this.state.editMode
@@ -72,8 +72,8 @@ class Profile extends React.Component {
       });
     } else {
       this.setState({
-        pendingStoreName: this.state.storeName,
-        pendingStoreWebsite: this.state.storeWebsite,
+        pendingName: this.state.name,
+        pendingWebsite: this.state.website,
         pendingEmail: this.state.email,
         pendingPhone: this.state.phone,
         editMode: !this.state.editMode
@@ -87,16 +87,16 @@ class Profile extends React.Component {
       pendingEmail: event.target.value
     });
   }
-  handleStoreNameChange(event) {
+  handleNameChange(event) {
     this.setState({
       handlerResponse: undefined,
-      pendingStoreName: event.target.value
+      pendingName: event.target.value
     });
   }
-  handleStoreWebsiteChange(event) {
+  handleWebsiteChange(event) {
     this.setState({
       handlerResponse: undefined,
-      pendingStoreWebsite: event.target.value
+      pendingWebsite: event.target.value
     });
   }
   handlePhoneChange(event) {
@@ -109,8 +109,8 @@ class Profile extends React.Component {
     event.preventDefault();
     let databody = {
       affiliateId: this.state.affiliateId,
-      storeName: this.state.pendingStoreName,
-      storeWebsite: this.state.pendingStoreWebsite,
+      name: this.state.pendingName,
+      website: this.state.pendingWebsite,
       phone: this.state.pendingPhone,
       email: this.state.pendingEmail
     };
@@ -129,8 +129,8 @@ class Profile extends React.Component {
         });
         if (data.success) {
           this.setState({
-            storeName: this.state.pendingStoreName,
-            storeWebsite: this.state.pendingStoreWebsite,
+            name: this.state.pendingName,
+            website: this.state.pendingWebsite,
             phone: this.state.pendingPhone,
             email: this.state.pendingEmail,
             editMode: false
@@ -147,8 +147,8 @@ class Profile extends React.Component {
       handlerResponse,
       submitSuccess,
       editMode,
-      storeName,
-      storeWebsite,
+      name,
+      website,
       phone,
       email
     } = this.state;
@@ -166,8 +166,8 @@ class Profile extends React.Component {
             Store Name
             {!editMode && (
               <p
-                className={`form-item ${storeName || "not-set"}`}
-              >{`${storeName || "Not set"}`}</p>
+                className={`form-item ${name || "not-set"}`}
+              >{`${name || "Not set"}`}</p>
             )}
             {editMode && (
               <input
@@ -175,8 +175,8 @@ class Profile extends React.Component {
                 type="text"
                 placeholder="Store Name"
                 type="text"
-                value={this.state.pendingStoreName}
-                onChange={this.handleStoreNameChange}
+                value={this.state.pendingName}
+                onChange={this.handleNameChange}
               />
             )}
           </label>
@@ -184,8 +184,8 @@ class Profile extends React.Component {
             Store Website
             {!editMode && (
               <p
-                className={`form-item ${storeWebsite || "not-set"}`}
-              >{`${storeWebsite || "Not set"}`}</p>
+                className={`form-item ${website || "not-set"}`}
+              >{`${website || "Not set"}`}</p>
             )}
             {editMode && (
               <input
@@ -193,8 +193,8 @@ class Profile extends React.Component {
                 type="text"
                 placeholder="Store Website"
                 type="text"
-                value={this.state.pendingStoreWebsite}
-                onChange={this.handleStoreWebsiteChange}
+                value={this.state.pendingWebsite}
+                onChange={this.handleWebsiteChange}
               />
             )}
           </label>

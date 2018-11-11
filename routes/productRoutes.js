@@ -1,5 +1,4 @@
 const keys = require("../config/keys.js");
-const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 const verifyStoreOwner = require("../middlewares/verifyStoreOwner");
 
@@ -9,6 +8,7 @@ var fs = require("fs");
 const aws = require("aws-sdk");
 const S3_BUCKET = keys.awsBucket;
 var path = require("path");
+const SQLProduct = require("../mysql_models/product");
 
 var request = require("request");
 aws.config.update({
@@ -17,9 +17,6 @@ aws.config.update({
   secretAccessKey: keys.awsSecretKey
 });
 
-require("../models/Product");
-
-const Product = mongoose.model("product");
 
 function validate(value, type) {
   switch (type) {
@@ -64,10 +61,9 @@ function saveImage(url, key) {
 
 module.exports = app => {
   app.use(fileUpload());
-
-  app.post("/product/addProduct", requireLogin, verifyStoreOwner, async (req, res) => {
+  //verifyStoreOwner, add to middleware after requireLogin
+  app.post("/product/addProduct", requireLogin, async (req, res) => {
     var affiliateId = req.body.affiliateId;
-
     let products = req.files.file.data;
     try {
       products = JSON.parse(products);
@@ -99,73 +95,75 @@ module.exports = app => {
           error: err
         });
       }
-      product.owner = affiliateId;
-      product.updated = Date.now();
-      let upsertProduct = {
-        updateOne: {
-          filter: { sku: product.sku, owner: affiliateId},
-          update: product,
-          upsert: true,
-        }
-      };
-      accepted.push(upsertProduct);
+      product.storeId = affiliateId;
+      //product.updated = Date.now();
+      // let upsertProduct = {
+      //   updateOne: {
+      //     filter: { sku: product.sku, owner: affiliateId},
+      //     update: product,
+      //     upsert: true,
+      //   }
+      // };
+      accepted.push(product);
     }
-    // now bulkWrite (note the use of 'Model.collection')
-    Product.collection.bulkWrite(accepted, function(err, docs) {
-      if (err) {
-        console.log(err);
-        return res.status(400).json({
-          success: false,
-          message: "Something went wrong, please try again"
-        });
-      } else {
+
+    SQLProduct.bulkCreate(accepted, {
+      fields: ["id", "sku", "name", "storeId", "image_url"],
+      updateOnDuplicate: ["name", "name", "storeId","image_url", "updatedAt"]
+    })
+      .then(products => {
         return res.status(200).json({
           success: true,
           message: "Products successfully added",
           accepted: { count: accepted.length, list: accepted },
           rejected: { count: rejected.length, rejected: rejected },
 
-          affiliate: docs
+          products: products
         });
-      }
-    });
+      })
+      .catch(err => {
+        return res.status(400).json({
+          success: false,
+          message: "Something went wrong, please try again"
+        });
+      });
   });
 
   app.get("/product/fetchAffiliateProducts", requireLogin, (req, res) => {
     var affiliateId = req.query.affiliateId;
-
-    Product.find({ owner: affiliateId }, function(err, products) {
-      if (err) {
-        return res.status(400).json({
-          success: false,
-          message: "Could not find the requested store's products"
-        });
-      } else {
+    SQLProduct.findAll({ where: { storeId: affiliateId } })
+      .then(products => {
         return res.status(200).json({
           success: true,
           message: "Products successfully found",
           products: products
         });
-      }
-    });
+      })
+      .catch(err => {
+        return res.status(400).json({
+          success: false,
+          message: "Could not find the requested store's products"
+        });
+      });
   });
 
   app.get("/product/fetchProduct", (req, res) => {
-    var productId = req.query.productId;
+    const {storeId, productId} = req.query;
+    SQLProduct.findOne({ where: { storeId: storeId, sku: productId } })
+    .then(product => {
+      return res.status(200).json({
+        success: true,
+        message: "Product successfully found",
+        product: product
+      });
+    })
+    .catch(err => {
+      console.log(err);
 
-    Product.findById( productId , function(err, product) {
-      if (err) {
-        return res.status(400).json({
-          success: false,
-          message: "Could not find the requested product"
-        });
-      } else {
-        return res.status(200).json({
-          success: true,
-          message: "Product successfully found",
-          product: product
-        });
-      }
+      return res.status(400).json({
+        success: false,
+        message: "Could not find the requested product"
+      });
     });
   });
 };

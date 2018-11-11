@@ -19,22 +19,26 @@ class AddProduct extends React.Component {
     // this.timer = this.timer.bind(this);
   }
   async componentDidMount() {
-    let productId = this.props.match.params.productId;
-    if (productId) {
-      this.props.fetchProduct(productId);
+    let {storeId, productId} = this.props.match.params;
+
+    if (storeId && productId) {
+      this.props.fetchProduct(storeId, productId);
     }
   }
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (
-      this.props.match.params.productId !== prevProps.match.params.productId
+      this.props.match.params.productId !== prevProps.match.params.productId ||
+      this.props.match.params.storeId !== prevProps.match.params.storeId 
+
     ) {
-      this.props.fetchProduct(this.props.match.params.productId);
+      this.props.fetchProduct(this.props.match.params.storeId, this.props.match.params.productId);
     }
+    
   }
   componentWillUnmount() {}
   addProductToWishlist(){
-      this.props.addToWishlist(this.props.product._id, this.props.history);
+      this.props.addToWishlist(this.props.product,  this.props.history);
   }
   renderAddProductBlock() {
     const { image_url, name } = this.props.product;

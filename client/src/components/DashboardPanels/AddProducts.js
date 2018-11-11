@@ -58,7 +58,7 @@ class AddProducts extends React.Component {
   handleProductListSubmit = () => {
     const data = new FormData();
     data.append("file",this.state.selectedFile);
-    data.append("affiliateId", this.props.affiliate._id);
+    data.append("affiliateId", this.props.affiliate.id);
 
     axios
       .post("/product/addProduct", data, {
@@ -85,6 +85,7 @@ class AddProducts extends React.Component {
         }
       })
       .then(res => {
+
         this.setState({
           submitSuccess: res.data.success,
           handlerResponse: JSON.stringify(res.data.message)
@@ -94,7 +95,7 @@ class AddProducts extends React.Component {
             fileUploaded: 2,
             fileUploadStats: "Success"
 
-            // products: this.state.products
+            //products: this.state.products
           });
         }
       })

@@ -6,5 +6,10 @@ module.exports={
     cookieKey: process.env.COOKIE_KEY,
     awsAccessKey:process.env.AWS_ACCESS_KEY_ID,
     awsSecretKey:process.env.AWS_SECRET_ACCESS_KEY,
-    awsBucket: process.env.S3_BUCKET
+    awsBucket: process.env.S3_BUCKET,
+
+  mysqlHost: MYSQL_HOST,
+  mysqlUserName: MYSQL_USERNAME,
+  mysqlPassword: MYSQL_PASSWORD,
+  mysqlDatabase: MYSQL_DATABASE
 }

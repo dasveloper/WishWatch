@@ -22,8 +22,13 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
+    if (this.props.auth){
+    this.props.fetchStores(this.props.auth.id);
+    }
+
     let affiliateId = this.props.match.params.affiliateId;
     if (affiliateId) {
+
       this.props.fetchAffiliateDetails(affiliateId);
       this.props.fetchAffiliateProducts(affiliateId);
     }
@@ -149,7 +154,10 @@ class Dashboard extends React.Component {
                   <AddProducts affiliate={this.props.affiliate} />
                 </div>
                 <div className="dashboard-panel">
-                  <AffiliateProducts  affiliate={this.props.affiliate} products={this.props.affiliateProducts} />
+                  <AffiliateProducts
+                    affiliate={this.props.affiliate}
+                    products={this.props.affiliateProducts}
+                  />
                 </div>
               </div>
             )}
@@ -158,14 +166,14 @@ class Dashboard extends React.Component {
     }
   }
   renderStores() {
-    const { auth } = this.props;
-    if (auth.stores.length) {
-      return auth.stores.map(function(store, key) {
+    const { stores } = this.props;
+    if (stores.length) {
+      return stores.map(function(store, key) {
         return (
           <Link
             key={key}
             className="link-wrapper"
-            to={"/dashboard/" + store.storeId}
+            to={"/dashboard/" + store.id}
           >
             <div className="affiliate-avatar-wrapper">
               <div className="affiliate-avatar">
@@ -173,7 +181,7 @@ class Dashboard extends React.Component {
               </div>
             </div>
 
-            <span className="affiliate-link-name">{store.storeName}</span>
+            <span className="affiliate-link-name">{store.name}</span>
           </Link>
         );
       });
@@ -186,7 +194,7 @@ class Dashboard extends React.Component {
     }
   }
   render() {
-    const { auth } = this.props;
+    const { stores } = this.props;
     if (this.props.match.params.affiliateId) {
       return this.renderDashboard();
     } else {
@@ -196,7 +204,7 @@ class Dashboard extends React.Component {
             <div className="choose-affiliate-header-wrapper">
               <h3 className="choose-affiliate-header">Choose a store</h3>
             </div>
-            {auth && this.renderStores()}
+            {stores && this.renderStores()}
             <span className="or">or</span>
 
             <Link className="create-store-button" to={"/createStore"}>
@@ -209,8 +217,8 @@ class Dashboard extends React.Component {
   }
 }
 
-function mapStateToProps({ auth, affiliate, affiliateProducts }) {
-  return { auth, affiliate, affiliateProducts };
+function mapStateToProps({ auth, stores, affiliate, affiliateProducts }) {
+  return { auth, stores, affiliate, affiliateProducts };
 }
 export default withRouter(
   connect(
