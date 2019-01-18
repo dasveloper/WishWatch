@@ -1,65 +1,21 @@
-const passport = require("passport");
+var auth_controller = require("../controllers/authController");
 
 module.exports = app => {
-  //Request Google Auth
-  app.get(
-    "/auth/google",
-    passport.authenticate("google", {
-      scope: ["profile", "email"]
-    })
-  );
-  //Local
-  app.post("/auth/signup", (req, res, next) => {
-    passport.authenticate("local-signup", (err, user, info) => {
-      if (err) {
-        return next(err);
-      }
-      if (user) {
-        req.login(user, err => {
-          if (err) {
-            return next(err);
-          }
-          return res.send(user);
-        });
-      } else {
-        return res.status(400).send(info);
-      }  
-    })(req, res, next);
-  });
+  //Login with Google Auth
+  //app.get("/auth/google", auth_controller.login_google);
 
-  app.post("/auth/login", (req, res, next) => {
-    passport.authenticate("local-login", (err, user, info) => {
-      if (err) {
-        return next(err);
-      }
-      if (user) {
-        req.login(user, err => {
-          if (err) {
-            return next(err);
-          }
-          return res.send(user);
-        });
-      } else {
-        return res.status(400).send(info);
-      }
-    })(req, res, next);
-  });
+  //Callback for Google Auth
+ // app.get("/auth/google/callback", auth_controller.google_callback);
 
-  //Callback Google Auth
-  app.get(
-    "/auth/google/callback",
-    passport.authenticate("google"),
-    (req, res) => {
-      res.redirect("/dashboard");
-    }
-  );
-  //Check user status
-  app.get("/api/current_user", (req, res) => {
-    res.send(req.user);
-  });
+  //Signup with local auth (email/password)
+  app.post("/auth/signup", auth_controller.signup_local);
+
+  //Login with local auth (email/password)
+  app.post("/auth/login", auth_controller.login_local);
+
   //Logout User
-  app.get("/auth/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
-  });
+  app.get("/auth/logout", auth_controller.logout_user);
+
+  //Fetch current user
+  app.get("/auth/current_user", auth_controller.fetch_current_user);
 };

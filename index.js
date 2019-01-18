@@ -1,51 +1,26 @@
 const authRoutes = require("./routes/authRoutes");
 const subscribeRoutes = require("./routes/subscribeRoutes");
-const affiliateRoutes = require("./routes/affiliateRoutes");
-const productRoutes = require("./routes/productRoutes");
+const storeRoutes = require("./routes/storeRoutes");
 const userRoutes = require("./routes/userRoutes");
-
 const express = require("express");
-
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 var cors = require("cors");
 var bodyParser = require("body-parser");
-
 const keys = require("./config/keys");
-
-//New
-//const db = require("./services/database");
+const fileUpload = require("express-fileupload");
+const aws = require("aws-sdk");
 const sequelize = require("./services/database");
-const Store = require("./mysql_models/store");
-const Product = require("./mysql_models/product");
-const User = require("./mysql_models/user");
-const UserProduct = require("./mysql_models/userProduct");
+const Store = require("./models/store");
+const Product = require("./models/product");
+const User = require("./models/user");
+const UserProduct = require("./models/userProduct");
+const Offer = require("./models/offer");
 
 require("./services/passport");
 
-Product.belongsToMany(User, {
-  through: UserProduct
-});
-User.belongsToMany(Product, {
-  through: UserProduct
-});
-UserProduct.hasMany(User);
-UserProduct.hasMany(Product);
-Product.belongsTo(Store)
-Store.hasMany(Product, {as: 'Products'})
-
-sequelize
-  .sync()
-  .then(result => {
-   // console.log(result);
-  })
-  .catch(err => {
-    console.log("error");
-  });
-
-
 const app = express();
-
+app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
@@ -61,8 +36,7 @@ app.use(passport.session());
 
 authRoutes(app);
 subscribeRoutes(app);
-affiliateRoutes(app);
-productRoutes(app);
+storeRoutes(app);
 userRoutes(app);
 
 if (process.env.NODE_ENV === "production") {
@@ -73,5 +47,32 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+aws.config.update({
+  region: "us-east-2",
+  accessKeyId: keys.awsAccessKey,
+  secretAccessKey: keys.awsSecretKey
+});
+
+Product.belongsToMany(User, {
+  through: UserProduct
+});
+User.belongsToMany(Product, {
+  through: UserProduct
+});
+UserProduct.hasMany(User);
+UserProduct.hasMany(Product);
+Store.hasMany(Product, { as: "Products" });
+Product.hasMany(Offer, { as: "Offers" });
+Offer.belongsTo(Product);
+Product.belongsTo(Store);
+
+sequelize
+  .sync({alter:true})
+  .then(result => {
+    //console.log(result);
+  })
+  .catch(err => {
+    console.log("error");
+  });
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

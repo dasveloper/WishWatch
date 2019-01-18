@@ -1,10 +1,10 @@
 import axios from "axios";
 import {
   FETCH_USER,
-  FETCH_AFFILIATE_DETAILS,
-  FETCH_AFFILIATE_PRODUCTS,
+  FETCH_STORE_DETAILS,
+  FETCH_STORE_PRODUCTS,
   FETCH_PRODUCT,
-  FETCH_WATCHLIST,
+  FETCH_WISHLIST,
   FETCH_STORES
 } from "./types";
 import { SubmissionError } from "redux-form";
@@ -12,38 +12,36 @@ import { SubmissionError } from "redux-form";
 import formValues from "redux-form/lib/formValues";
 
 export const fetchUser = () => async dispatch => {
-  const res = await axios.get("/api/current_user");
+  const res = await axios.get("/auth/current_user");
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const fetchAffiliateDetails = affiliateId => async dispatch => {
+export const fetchStoreDetails = storeId => async dispatch => {
   axios
-    .get("/affiliate/fetchDetails", {
+    .get("/store/fetch", {
       params: {
-        affiliateId
+        storeId
       }
     })
     .then(function(response) {
       dispatch({
-        type: FETCH_AFFILIATE_DETAILS,
-        payload: response.data.affiliate
+        type: FETCH_STORE_DETAILS,
+        payload: response.data.store
       });
     })
     .catch(function(error) {
-      dispatch({ type: FETCH_AFFILIATE_DETAILS, payload: false });
+      console.log(error);
+      dispatch({ type: FETCH_STORE_DETAILS, payload: false });
     });
 };
 export const fetchStores = userId => async dispatch => {
   axios
-    .get("/affiliate/fetchStores", {
+    .get("/store/fetchAll", {
       params: {
         userId
       }
     })
     .then(function(response) {
-      console.log(response.data);
-      console.log("IN");
-      console.log(response.data.stores);
       dispatch({
         type: FETCH_STORES,
         payload: response.data.stores
@@ -54,33 +52,66 @@ export const fetchStores = userId => async dispatch => {
     });
 };
 
-export const fetchAffiliateProducts = affiliateId => async dispatch => {
+export const removeOffers = offers => async dispatch => {
+  console.log("remove", offers);
   axios
-    .get("/product/fetchAffiliateProducts", {
+    .post("/store/removeOffers", {
+      offers
+    })
+    .then(function(response) {
+     //console.log(response);
+    })
+    .catch(function(error) {
+     // console.log(error);
+    });
+};
+
+export const fetchStoreOffers = storeId => async dispatch => {
+  axios
+    .get("/store/fetchOffers", {
       params: {
-        affiliateId
+        storeId
+      }
+    })
+    .then(function(response) {
+      //console.log(response)
+      dispatch({
+        type: FETCH_STORE_PRODUCTS,
+        payload: response.data.offers
+      });
+    })
+    .catch(function(error) {
+      //console.log(error)
+
+      dispatch({ type: FETCH_STORE_PRODUCTS, payload: false });
+    });
+};
+export const fetchStoreProducts = storeId => async dispatch => {
+  axios
+    .get("/store/fetchProducts", {
+      params: {
+        storeId
       }
     })
     .then(function(response) {
       dispatch({
-        type: FETCH_AFFILIATE_PRODUCTS,
+        type: FETCH_STORE_PRODUCTS,
         payload: response.data.products
       });
     })
     .catch(function(error) {
-      dispatch({ type: FETCH_AFFILIATE_PRODUCTS, payload: false });
+      dispatch({ type: FETCH_STORE_PRODUCTS, payload: false });
     });
 };
 export const fetchProduct = (storeId, productId) => async dispatch => {
   axios
-    .get("/product/fetchProduct", {
+    .get("/store/fetchProduct", {
       params: {
         storeId,
         productId
       }
     })
     .then(function(response) {
-      console.log(response);
       dispatch({
         type: FETCH_PRODUCT,
         payload: response.data.product
@@ -92,15 +123,15 @@ export const fetchProduct = (storeId, productId) => async dispatch => {
     });
 };
 
-export const fetchWatchlist = () => async dispatch => {
+export const fetchWishlist = () => async dispatch => {
   axios
-    .get("/user/fetchWatchlist")
+    .get("/user/fetchWishlist")
     .then(function(response) {
-      const { watchlist } = response.data;
+      const { wishlist } = response.data;
 
       dispatch({
-        type: FETCH_WATCHLIST,
-        payload: watchlist
+        type: FETCH_WISHLIST,
+        payload: wishlist
       });
     })
     .catch(function(error) {
@@ -163,21 +194,22 @@ export const loginUser = (values, history) => async dispatch => {
   //dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const verifyDomain = (affiliateId, domain) => async dispatch => {
+export const verifyDomain = (storeId, domain) => async dispatch => {
   axios
-    .post("/affiliate/verifyDomain", {
-      affiliateId
+    .post("/store/verifyDomain", {
+      storeId
     })
     .then(response => {
       dispatch({
-        type: FETCH_AFFILIATE_DETAILS,
+        type: FETCH_STORE_DETAILS,
         payload: response.data.success
       });
     })
     .catch(function(error) {
-      dispatch({
-        type: FETCH_AFFILIATE_DETAILS,
-        payload: error.response.data.success
-      });
+      console.log(error);
+      //dispatch({
+     //   type: FETCH_STORE_DETAILS,
+     //   payload: error.response.data.success
+     // });
     });
 };

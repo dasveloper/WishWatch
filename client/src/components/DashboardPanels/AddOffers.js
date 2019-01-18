@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-class AddProducts extends React.Component {
+class AddOffers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +27,7 @@ class AddProducts extends React.Component {
       rejected: []
     };
 
-    this.handleProductListSubmit = this.handleProductListSubmit.bind(this);
+    this.handleOfferListSubmit = this.handleOfferListSubmit.bind(this);
   }
 
   handleselectedFile = file => {
@@ -55,12 +55,13 @@ class AddProducts extends React.Component {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
   };
 
-  handleProductListSubmit = () => {
+  handleOfferListSubmit = () => {
     const data = new FormData();
     data.append("file",this.state.selectedFile);
     data.append("storeId", this.props.affiliateStore.id);
+
     axios
-      .post("/store/addProducts", data, {
+      .post("/store/addOffers", data, {
         headers: {
           accept: "application/json",
           "Accept-Language": "en-US,en;q=0.8",
@@ -126,14 +127,14 @@ class AddProducts extends React.Component {
     return (
       <div className="form-wrapper profile-form-wrapper">
         <div className="form-header-wrapper">
-          <h3 className="form-header">Add products</h3>
+          <h3 className="form-header">Add Offers</h3>
         </div>
         <p className="form-subheader">
-            Upload your store's products to make them available to your
+            Upload your store's offers to make them available to your
             customers on Wishwatch.
           </p>
           <div className="prod-instruction-links">
-            <a href="/"className="form-link">How to set up product list .JSON <FontAwesomeIcon className="form-link-icon" icon={faInfoCircle} /></a>
+            <a href="/"className="form-link">How to set up offer list .JSON <FontAwesomeIcon className="form-link-icon" icon={faInfoCircle} /></a>
           </div>
         <div className="upload-wrapper">
           <div className="browse-wrapper">
@@ -153,7 +154,7 @@ class AddProducts extends React.Component {
 
           <button
             className="btn btn-secondary"
-            onClick={this.handleProductListSubmit}
+            onClick={this.handleOfferListSubmit}
           >
             Upload
           </button>
@@ -207,4 +208,4 @@ class AddProducts extends React.Component {
     );
   }
 }
-export default AddProducts;
+export default AddOffers;

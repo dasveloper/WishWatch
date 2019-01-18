@@ -6,23 +6,22 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      affiliateId: this.props.affiliate._id,
-      name: this.props.affiliate.name,
+      storeId: this.props.affiliateStore.id,
+      name: this.props.affiliateStore.name,
       pendingName: "",
-      website: this.props.affiliate.website,
+      website: this.props.affiliateStore.website,
       pendingWebsite: "",
-      phone: this.props.affiliate.phone,
+      phone: this.props.affiliateStore.phone,
       pendingPhone: "",
-      email: this.props.affiliate.email,
+      email: this.props.affiliateStore.email,
       pendingEmail: "",
       editMode: false,
       handlerResponse: undefined,
-      submitSuccess: false
+      submitSuccess: false,
+      errors: undefined,
     };
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleWebsiteChange = this.handleWebsiteChange.bind(
-      this
-    );
+    this.handleWebsiteChange = this.handleWebsiteChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.toggleEditMode = this.toggleEditMode.bind(this);
@@ -84,37 +83,45 @@ class Profile extends React.Component {
   handleEmailChange(event) {
     this.setState({
       handlerResponse: undefined,
+      errors: undefined,
+
       pendingEmail: event.target.value
     });
   }
   handleNameChange(event) {
     this.setState({
       handlerResponse: undefined,
+      errors: undefined,
+
       pendingName: event.target.value
     });
   }
   handleWebsiteChange(event) {
     this.setState({
       handlerResponse: undefined,
+      errors: undefined,
+
       pendingWebsite: event.target.value
     });
   }
   handlePhoneChange(event) {
     this.setState({
       handlerResponse: undefined,
+      errors: undefined,
+
       pendingPhone: event.target.value
     });
   }
   handleProfileSubmit(event) {
     event.preventDefault();
     let databody = {
-      affiliateId: this.state.affiliateId,
+      storeId: this.state.storeId,
       name: this.state.pendingName,
       website: this.state.pendingWebsite,
       phone: this.state.pendingPhone,
       email: this.state.pendingEmail
     };
-    fetch("/affiliate/updateProfile", {
+    fetch("/store/update", {
       method: "POST",
       body: JSON.stringify(databody),
       headers: {
@@ -123,17 +130,23 @@ class Profile extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        this.setState({
-          submitSuccess: data.success,
-          handlerResponse: data.message
-        });
+
         if (data.success) {
           this.setState({
             name: this.state.pendingName,
             website: this.state.pendingWebsite,
             phone: this.state.pendingPhone,
             email: this.state.pendingEmail,
-            editMode: false
+            editMode: false,
+
+          submitSuccess: data.success,
+          handlerResponse: data.message
+          });
+        }
+        else{
+          this.setState({
+            submitSuccess: data.success,
+            errors: data.errors
           });
         }
       });
@@ -150,7 +163,8 @@ class Profile extends React.Component {
       name,
       website,
       phone,
-      email
+      email,
+      errors
     } = this.state;
 
     return (
@@ -165,9 +179,8 @@ class Profile extends React.Component {
           <label className="form-label">
             Store Name
             {!editMode && (
-              <p
-                className={`form-item ${name || "not-set"}`}
-              >{`${name || "Not set"}`}</p>
+              <p className={`form-item ${name || "not-set"}`}>{`${name ||
+                "Not set"}`}</p>
             )}
             {editMode && (
               <input
@@ -183,9 +196,8 @@ class Profile extends React.Component {
           <label className="form-label">
             Store Website
             {!editMode && (
-              <p
-                className={`form-item ${website || "not-set"}`}
-              >{`${website || "Not set"}`}</p>
+              <p className={`form-item ${website || "not-set"}`}>{`${website ||
+                "Not set"}`}</p>
             )}
             {editMode && (
               <input
@@ -193,6 +205,7 @@ class Profile extends React.Component {
                 type="text"
                 placeholder="Store Website"
                 type="text"
+                disabled
                 value={this.state.pendingWebsite}
                 onChange={this.handleWebsiteChange}
               />
@@ -233,23 +246,32 @@ class Profile extends React.Component {
             )}
           </label>
 
-          {handlerResponse && (
-            <p
-              className={`handler-response ${
-                submitSuccess ? "success" : "error"
-              }`}
-            >
-              {handlerResponse}
-            </p>
-          )}
-          
+          {handlerResponse &&
+            !errors && (
+              <p
+                className={`handler-response ${
+                  submitSuccess ? "success" : "error"
+                }`}
+              >
+                {handlerResponse}
+              </p>
+            )}
+          {errors &&
+            errors.map(function(error, key) {
+              return (
+                <p key={key} className="handler-response error">
+                  {error}
+                </p>
+              );
+            })}
+
           {editMode && (
             <div className="form-submit-wrapper">
               <button type="submit" className="btn btn-primary">
                 Submit
               </button>
               <button
-              type="button"
+                type="button"
                 className="form-cancel-button"
                 onClick={this.toggleEditMode}
               >

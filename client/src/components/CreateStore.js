@@ -8,15 +8,15 @@ class CreateStore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      storeName: "",
-      storeWebsite: "",
+      name: "",
+      website: "",
       phone: "",
       email: "",
-      handlerResponse: undefined,
+      errors: undefined,
       submitSuccess: false
     };
-    this.handleStoreNameChange = this.handleStoreNameChange.bind(this);
-    this.handleStoreWebsiteChange = this.handleStoreWebsiteChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleWebsiteChange = this.handleWebsiteChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
 
@@ -24,37 +24,37 @@ class CreateStore extends React.Component {
   }
   handleEmailChange(event) {
     this.setState({
-      handlerResponse: undefined,
+      errors: undefined,
       email: event.target.value
     });
   }
-  handleStoreNameChange(event) {
+  handleNameChange(event) {
     this.setState({
-      handlerResponse: undefined,
-      storeName: event.target.value
+      errors: undefined,
+      name: event.target.value
     });
   }
-  handleStoreWebsiteChange(event) {
+  handleWebsiteChange(event) {
     this.setState({
-      handlerResponse: undefined,
-      storeWebsite: event.target.value
+      errors: undefined,
+      website: event.target.value
     });
   }
   handlePhoneChange(event) {
     this.setState({
-      handlerResponse: undefined,
+      errors: undefined,
       phone: event.target.value
     });
   }
   handleProfileSubmit(event) {
     event.preventDefault();
     let databody = {
-      storeName: this.state.storeName,
-      storeWebsite: this.state.storeWebsite,
+      name: this.state.name,
+      website: this.state.website,
       phone: this.state.phone,
       email: this.state.email
     };
-    fetch("/affiliate/createStore", {
+    fetch("/store/create", {
       method: "POST",
       body: JSON.stringify(databody),
       headers: {
@@ -63,14 +63,14 @@ class CreateStore extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        this.setState({
-          submitSuccess: data.success,
-          handlerResponse: data.message
-        });
         if (data.success) {
-          console.log(data, data.store.id);
           let path = `dashboard/${data.store.id}`;
           this.props.history.push(path);
+        } else {
+          this.setState({
+            submitSuccess: data.success,
+            errors: data.errors
+          });
         }
       });
   }
@@ -80,10 +80,10 @@ class CreateStore extends React.Component {
 
   render() {
     let {
-      handlerResponse,
+      errors,
       submitSuccess,
-      storeName,
-      storeWebsite,
+      name,
+      website,
       phone,
       email
     } = this.state;
@@ -106,8 +106,8 @@ class CreateStore extends React.Component {
                     type="text"
                     placeholder="Store Name"
                     type="text"
-                    value={storeName}
-                    onChange={this.handleStoreNameChange}
+                    value={name}
+                    onChange={this.handleNameChange}
                   />
                 </label>
                 <label className="form-label">
@@ -117,8 +117,8 @@ class CreateStore extends React.Component {
                     type="text"
                     placeholder="Store Website"
                     type="text"
-                    value={storeWebsite}
-                    onChange={this.handleStoreWebsiteChange}
+                    value={website}
+                    onChange={this.handleWebsiteChange}
                   />
                 </label>
                 <label className="form-label">
@@ -143,28 +143,29 @@ class CreateStore extends React.Component {
                     onChange={this.handleEmailChange}
                   />
                 </label>
-
-                {handlerResponse && (
-                  <p
-                    className={`handler-response ${
-                      submitSuccess ? "success" : "error"
-                    }`}
-                  >
-                    {handlerResponse}
-                  </p>
-                )}
+                {errors &&
+                  errors.map(function(error, key) {
+                    return (
+                      <p key={key} className="handler-response error">
+                        {error}
+                      </p>
+                    );
+                  })}
+      
 
                 <div className="form-submit-wrapper">
                   <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
-                  {false && <button
-                    type="button"
-                    className="form-cancel-button"
-                    onClick={() =>this.props.history.goBack()}
-                  >
-                    Cancel
-                  </button>}
+                  {false && (
+                    <button
+                      type="button"
+                      className="form-cancel-button"
+                      onClick={() => this.props.history.goBack()}
+                    >
+                      Cancel
+                    </button>
+                  )}
                 </div>
               </form>
             </div>

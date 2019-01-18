@@ -4,7 +4,7 @@ var LocalStrategy = require("passport-local").Strategy;
 var bcrypt = require("bcrypt-nodejs");
 
 const keys = require("../config/keys.js");
-const SQLUser = require("../mysql_models/user");
+const SQLUser = require("../models/user");
 
 //Put user in token
 passport.serializeUser((user, done) => {

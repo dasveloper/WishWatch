@@ -5,12 +5,18 @@ import * as actions from "../actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
 import AddProducts from "./DashboardPanels/AddProducts";
-import Profile from "./DashboardPanels/Profile";
+import AddOffers from "./DashboardPanels/AddOffers";
 
-import AffiliateProducts from "./DashboardPanels/AffiliateProducts";
+import Profile from "./DashboardPanels/Profile";
+import Billing from "./DashboardPanels/Billing";
+import StoreOffers from "./DashboardPanels/StoreOffers";
+import StoreProducts from "./DashboardPanels/StoreProducts";
 import VerifyDomain from "./DashboardPanels/VerifyDomain";
 
 import { Link } from "react-router-dom";
+const Analytics = require("analytics-node");
+
+const analytics = new Analytics("2p8ieF9XTkHVmRbyvhZ1RVQsrhu0xg2b");
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -22,23 +28,26 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
-    if (this.props.auth){
-    this.props.fetchStores(this.props.auth.id);
+    analytics.track({
+      event: "event name",
+      userId: "123456"
+    });
+    if (this.props.auth) {
+      this.props.fetchStores(this.props.auth.id);
     }
 
-    let affiliateId = this.props.match.params.affiliateId;
-    if (affiliateId) {
+    let storeId = this.props.match.params.storeId;
+    if (storeId) {
+      this.props.fetchStoreDetails(storeId);
+      this.props.fetchStoreProducts(storeId);
+      this.props.fetchStoreOffers(storeId);
 
-      this.props.fetchAffiliateDetails(affiliateId);
-      this.props.fetchAffiliateProducts(affiliateId);
     }
   }
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (
-      this.props.match.params.affiliateId !== prevProps.match.params.affiliateId
-    ) {
-      this.props.fetchAffiliateDetails(this.props.match.params.affiliateId);
+    if (this.props.match.params.storeId !== prevProps.match.params.storeId) {
+      this.props.fetchStoreDetails(this.props.match.params.storeId);
     }
   }
   setCurrentTab = tab => {
@@ -48,7 +57,7 @@ class Dashboard extends React.Component {
   };
   renderDashboard() {
     const { currentTab } = this.state;
-    switch (this.props.affiliate) {
+    switch (this.props.affiliateStore) {
       case null:
         return (
           <div className="loader-wrapper">
@@ -68,95 +77,158 @@ class Dashboard extends React.Component {
         return (
           <div className="container dashboard-page">
             <div className="dashboard-sidebar">
+              <a
+                href="javascript:;"
+                onClick={() => this.setCurrentTab("GETTING_STARTED")}
+                className={`getting-started sidebar-link ${
+                  currentTab === "GETTING_STARTED" ? "active" : undefined
+                }`}
+              >
+                Getting started
+              </a>
               <span className="sidebar-section-header">ACCOUNT</span>
               <a
                 href="javascript:;"
-                onClick={() => this.setCurrentTab(0)}
+                onClick={() => this.setCurrentTab("PROFILE")}
                 className={`sidebar-link ${
-                  currentTab === 0 ? "active" : undefined
+                  currentTab === "PROFILE" ? "active" : undefined
                 }`}
               >
                 Profile
               </a>
               <a
                 href="javascript:;"
-                onClick={() => this.setCurrentTab(1)}
+                onClick={() => this.setCurrentTab("BILLING")}
                 className={`sidebar-link ${
-                  currentTab === 1 ? "active" : undefined
+                  currentTab === "BILLING" ? "active" : undefined
                 }`}
               >
                 Billing
               </a>
+              {/*<a
+                href="javascript:;"
+                onClick={() => this.setCurrentTab("SETTINGS")}
+                className={`sidebar-link ${
+                  currentTab === "SETTINGS" ? "active" : undefined
+                }`}
+              >
+                Settings
+              </a>*/}
               <span className="sidebar-section-header">SETUP</span>
               <a
                 href="javascript:;"
-                onClick={() => this.setCurrentTab(2)}
+                onClick={() => this.setCurrentTab("PRODUCT_SETUP")}
                 className={`sidebar-link ${
-                  currentTab === 2 ? "active" : undefined
+                  currentTab === 2 ? "PRODUCT_SETUP" : undefined
                 }`}
               >
                 Products
               </a>
               <a
                 href="javascript:;"
-                onClick={() => this.setCurrentTab(3)}
+                onClick={() => this.setCurrentTab("OFFER_SETUP")}
                 className={`sidebar-link ${
-                  currentTab === 3 ? "active" : undefined
+                  currentTab === "OFFER_SETUP" ? "active" : undefined
                 }`}
               >
                 Offers
               </a>
               <span className="sidebar-section-header">ANALYTICS</span>
-
               <a
                 href="javascript:;"
-                onClick={() => this.setCurrentTab(4)}
+                onClick={() => this.setCurrentTab("ANALYTICS_OVERVIEW")}
                 className={`sidebar-link ${
-                  currentTab === 4 ? "active" : undefined
+                  currentTab === "ANALYTICS_OVERVIEW" ? "active" : undefined
+                }`}
+              >
+                Overview
+              </a>
+              <a
+                href="javascript:;"
+                onClick={() => this.setCurrentTab("CUSTOMER_ANALYTICS")}
+                className={`sidebar-link ${
+                  currentTab === "CUSTOMER_ANALYTICS" ? "active" : undefined
+                }`}
+              >
+                Customers
+              </a>
+              <a
+                href="javascript:;"
+                onClick={() => this.setCurrentTab("PRODUCT_ANALYTICS")}
+                className={`sidebar-link ${
+                  currentTab === "PRODUCT_ANALYTICS" ? "active" : undefined
                 }`}
               >
                 Products
               </a>
               <a
                 href="javascript:;"
-                onClick={() => this.setCurrentTab(5)}
+                onClick={() => this.setCurrentTab("OFFER_ANALYTICS")}
                 className={`sidebar-link ${
-                  currentTab === 5 ? "active" : undefined
+                  currentTab === "OFFER_ANALYTICS" ? "active" : undefined
                 }`}
               >
                 Offers
               </a>
               <span className="sidebar-section-header">SUPPORT</span>
-
               <a
                 href="javascript:;"
-                onClick={() => this.setCurrentTab(6)}
+                onClick={() => this.setCurrentTab("SUPPORT")}
                 className={`sidebar-link ${
-                  currentTab === 6 ? "active" : undefined
+                  currentTab === "SUPPORT" ? "active" : undefined
+                }`}
+              >
+                FAQ
+              </a>
+              <a
+                href="javascript:;"
+                onClick={() => this.setCurrentTab("CONTACT")}
+                className={`sidebar-link ${
+                  currentTab === "CONTACT" ? "active" : undefined
                 }`}
               >
                 Contact
               </a>
             </div>
-            {currentTab === 0 && (
+            {currentTab === "PROFILE" && (
               <div className="dashboard-wrapper">
                 <div className="dashboard-panel">
-                  <Profile affiliate={this.props.affiliate} />
+                  <VerifyDomain affiliateStore={this.props.affiliateStore} />
                 </div>
                 <div className="dashboard-panel">
-                  <VerifyDomain affiliate={this.props.affiliate} />
+                  <Profile affiliateStore={this.props.affiliateStore} />
                 </div>
               </div>
             )}
-            {currentTab === 2 && (
+            {currentTab === "BILLING" && (
               <div className="dashboard-wrapper">
                 <div className="dashboard-panel">
-                  <AddProducts affiliate={this.props.affiliate} />
+                  <Billing affiliateStore={this.props.affiliateStore} />
+                </div>
+              </div>
+            )}
+            {currentTab === "PRODUCT_SETUP" && (
+              <div className="dashboard-wrapper">
+                <div className="dashboard-panel">
+                  <AddProducts affiliateStore={this.props.affiliateStore} />
                 </div>
                 <div className="dashboard-panel">
-                  <AffiliateProducts
-                    affiliate={this.props.affiliate}
-                    products={this.props.affiliateProducts}
+                  <StoreProducts
+                    affiliateStore={this.props.affiliateStore}
+                    products={this.props.storeProducts}
+                  />
+                </div>
+              </div>
+            )}
+                        {currentTab === "OFFER_SETUP" && (
+              <div className="dashboard-wrapper">
+                <div className="dashboard-panel">
+                  <AddOffers affiliateStore={this.props.affiliateStore} />
+                </div>
+                <div className="dashboard-panel">
+                  <StoreOffers
+                    affiliateStore={this.props.affiliateStore}
+                    products={this.props.storeProducts}
                   />
                 </div>
               </div>
@@ -195,7 +267,7 @@ class Dashboard extends React.Component {
   }
   render() {
     const { stores } = this.props;
-    if (this.props.match.params.affiliateId) {
+    if (this.props.match.params.storeId) {
       return this.renderDashboard();
     } else {
       return (
@@ -217,8 +289,8 @@ class Dashboard extends React.Component {
   }
 }
 
-function mapStateToProps({ auth, stores, affiliate, affiliateProducts }) {
-  return { auth, stores, affiliate, affiliateProducts };
+function mapStateToProps({ auth, stores, affiliateStore, storeProducts }) {
+  return { auth, stores, affiliateStore, storeProducts };
 }
 export default withRouter(
   connect(

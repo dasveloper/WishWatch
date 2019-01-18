@@ -1,0 +1,80 @@
+.offer-details-wrapper {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  height: 100%;
+  margin: 0.5rem; 
+  overflow: hidden;
+     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+  .offers {
+    background: #fff;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 0.5rem;
+    .offer {
+      background: #fff;
+      display: flex;
+      justify-content: flex-start;
+      border-radius: 4px;
+      flex-direction: row;
+      background: $lightBlue;
+      margin: .25rem 0;
+      padding: 0.5rem;
+      z-index: 2;
+      flex:1;
+      .offer-details {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        .offer-text {
+            font-weight: $font-weight-base;
+            margin: 0.25rem;
+          }
+          .offer-link {
+            font-weight: $font-weight-bold;
+            font-size: $font-size-sm;
+            margin: 0.25rem;
+            color: $mediumGray;
+          }
+      }
+
+    .offer-updated {
+        font-weight: $font-weight-light;
+        font-size: $font-size-base;
+        color: $mediumGray;
+        margin: 0.5rem;
+        align-self: center;
+      }
+    }
+  }
+  .offer-details-header {
+    background: #fff;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid $lightGray;
+    flex-direction: row;
+    padding: 0.5rem;
+    z-index: 2;
+    .offer-sku {
+      font-weight: $font-weight-bold;
+      font-size: $font-size-sm;
+      margin: 0.25rem;
+      color: $mediumGray;
+      align-self: center;
+      flex: 1;
+    }
+
+
+    .offer-updated {
+      font-weight: $font-weight-light;
+      font-size: $font-size-base;
+      color: $mediumGray;
+      margin: 0.5rem;
+    }
+  }
+}

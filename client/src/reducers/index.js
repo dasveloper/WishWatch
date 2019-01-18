@@ -1,15 +1,17 @@
 import { combineReducers } from "redux";
 import { fetchUser} from "./authReducer";
-import {affiliate, affiliateProducts, affiliateStores} from "./affiliateReducer";
-import {product,fetchWatchlist} from "./userReducer";
+import {store, storeProducts, storeOffers, storeStores} from "./storeReducer";
+import {product,fetchWishlist} from "./userReducer";
 
 import {reducer as reduxForm} from 'redux-form';
 export default combineReducers({
   auth: fetchUser,
   product: product,
-  affiliate: affiliate,
-  affiliateProducts: affiliateProducts,
+  affiliateStore: store,
+  storeProducts: storeProducts,
+  storeOffers: storeOffers,
+
   form: reduxForm,
-  watchlist: fetchWatchlist,
-  stores: affiliateStores
+  wishlist: fetchWishlist,
+  stores: storeStores
 });

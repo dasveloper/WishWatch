@@ -1,7 +1,7 @@
 const keys = require("../config/keys.js");
 var validator = require("validator");
 
-const EmailSubscriber = require("../mysql_models/emailsubscriber");
+const EmailSubscriber = require("../models/emailsubscriber");
 
 module.exports = app => {
   app.post("/api/subscribe", async (req, res) => {

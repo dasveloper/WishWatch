@@ -37,9 +37,9 @@ class Header extends Component {
           <p className="account-menu-store">WishWatch</p>
         </div>
         <div className="account-menu-item">
-          <a className="account-menu-item-link" href="javascript:;">
+          <Link to={"/dashboard"} className="account-menu-item-link">
             Dashboard
-          </a>
+          </Link>
         </div>
         <div className="account-menu-item">
           <a className="account-menu-item-link" href="javascript:;">
@@ -72,9 +72,9 @@ class Header extends Component {
               <Link to={"/login"} className="sign-in">
                 Sign In
               </Link>
-              <a className="sign-up" href="/auth/google">
+              <Link to={"/signup"} className="sign-up">
                 GET STARTED
-              </a>
+              </Link>
             </div>
           </div>
         );

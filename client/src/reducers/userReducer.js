@@ -1,6 +1,6 @@
 import {
     FETCH_PRODUCT,
-    FETCH_WATCHLIST
+    FETCH_WISHLIST
   } from "../actions/types";
   
   export function product(state = null, action) {
@@ -11,9 +11,9 @@ import {
         return state;
     }
   }
-  export function fetchWatchlist(state = [], action) {
+  export function fetchWishlist(state = [], action) {
     switch (action.type) {
-      case FETCH_WATCHLIST:
+      case FETCH_WISHLIST:
         return action.payload || false;
       default:
         return state;

@@ -1,0 +1,36 @@
+.verify-domain-instructions {
+    margin: .5rem;
+}
+  .dns-example {
+    max-width: 400px;
+  }
+  .instructions-collapse-toggle {
+    background: none;
+    outline: none;
+    margin: 0.5rem;
+  }
+  .instructions-collapse {
+    .instructions {
+      display: none;
+      margin: 0.5rem;
+      .instruction {
+        margin: 0.5rem 0;
+      }
+      .instruction-footnote {
+        font-size: $font-size-sm;
+        color: $mediumGray;
+        margin: 0.5rem 0;
+      }
+    }
+    &.open {
+      .instructions {
+        display: block;
+      }
+    }
+  }
+  .verification-key {
+    background: $lightGray;
+    border-radius: 4px;
+    align-self: flex-start;
+  }
+

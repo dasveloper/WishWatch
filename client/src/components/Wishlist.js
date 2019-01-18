@@ -13,10 +13,10 @@ class Wishlist extends React.Component {
     // this.timer = this.timer.bind(this);
   }
   async componentDidMount() {
-    this.props.fetchWatchlist();
+    this.props.fetchWishlist();
   }
   renderWishlistProducts() {
-    const { products } = this.props.watchlist;
+    const { products } = this.props.wishlist;
     let sortedProducts = products.reduce((r, e) => {
       let store = e.store.id;
       if (!r[store]) r[store] = { store, products: [e] };
@@ -78,8 +78,8 @@ class Wishlist extends React.Component {
       : undefined; //add no store states
   }
   render() {
-    const { watchlist } = this.props;
-    const { products } = watchlist;
+    const { wishlist } = this.props;
+    const { products } = wishlist;
     return (
       <div className="container wishlist-page">
         <div className="wishlist-wrapper">
@@ -89,8 +89,8 @@ class Wishlist extends React.Component {
     );
   }
 }
-function mapStateToProps({ watchlist }) {
-  return { watchlist };
+function mapStateToProps({ wishlist }) {
+  return { wishlist };
 }
 export default withRouter(
   connect(

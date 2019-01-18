@@ -6,7 +6,7 @@ import { faDollarSign, faTag } from "@fortawesome/free-solid-svg-icons";
 
 class ProductDetails extends React.Component {
   render() {
-    let { image_url, name, price, sku ,updated} = this.props.product;
+    let { image_url, name, price, sku ,updatedAt} = this.props.product;
     return (
       <div className="product-details-wrapper">
         {image_url && (
@@ -21,7 +21,7 @@ class ProductDetails extends React.Component {
         <div className="product-updated-wrapper">
         
 
-        <p className="product-updated">updated <Moment fromNow>{updated}</Moment></p>
+        <p className="product-updated">updated <Moment fromNow>{updatedAt}</Moment></p>
           </div>
       </div>
     );

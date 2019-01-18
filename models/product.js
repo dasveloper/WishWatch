@@ -18,15 +18,7 @@ const Product = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    // owner: {
-    //   type: Sequelize.INTEGER,
-    //   primaryKey: true,
-    //   allowNull: false,
-    //   references: {
-    //     model: "store",
-    //     key: "id"
-    //   }
-    // },
+ 
     image_url: {
       type: Sequelize.STRING,
       allowNull: false

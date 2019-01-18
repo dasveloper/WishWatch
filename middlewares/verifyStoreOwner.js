@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-    var storeId = req.body.affiliateId;
+    var storeId = req.body.storeId;
     var ownsStore = req.user.stores.find(x => x.storeId === storeId)
     if (!storeId || !ownsStore ){
         return res
