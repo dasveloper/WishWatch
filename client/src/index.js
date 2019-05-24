@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
 import "normalize.css";
 import "./assets/styles/base.scss";
+import './assets/base-architect.scss';
 
 import App from "./components/App";
 import reducers from "./reducers";
@@ -15,7 +16,7 @@ const store = createStore(
   {},
   compose(
     applyMiddleware(reduxThunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 

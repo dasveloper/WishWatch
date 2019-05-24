@@ -1,4 +1,4 @@
-import {FETCH_USER} from "../actions/types";
+import { FETCH_USER } from '../actions/types';
 
 export function fetchUser(state = null, action) {
   switch (action.type) {
@@ -9,4 +9,3 @@ export function fetchUser(state = null, action) {
       return state;
   }
 }
-

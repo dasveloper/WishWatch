@@ -1,8 +1,6 @@
 
-
    .prod-block-wrapper {
-    padding: 0.5rem;
-  
+    //padding: 0.5rem;
    .prod-block {
     background: #fff;
     display: flex;
@@ -19,6 +17,16 @@
     justify-content: flex-end;
     padding: .5rem 0;
   }
+  .lnr-store{
+
+    font-size: 2.2rem !important;
+ line-height: 2rem;
+}
+.lnr-gift{
+
+  font-size: 2rem !important;
+line-height: 2rem;
+}
    .prod-special-icon {
     padding: 0.25rem;
     margin: 0.25rem;

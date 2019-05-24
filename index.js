@@ -66,13 +66,25 @@ Product.hasMany(Offer, { as: "Offers" });
 Offer.belongsTo(Product);
 Product.belongsTo(Store);
 
-sequelize
+
+ sequelize
   .sync({alter:true})
   .then(result => {
     //console.log(result);
+    // sequelize.query('SELECT * FROM node_js.identifies', { type: sequelize.QueryTypes.SELECT})
+    // .then(function(users) {
+    //   console.log("!!!!!!!!!!!!!!!");
+    //   console.log(users);
+      // We don't need spread here, since only the results will be returned for select queries
+    // }).catch(err => {
+    //   console.log(err);
+    // });
   })
   .catch(err => {
-    console.log("error");
-  });
+   console.log("error");
+   });
+
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

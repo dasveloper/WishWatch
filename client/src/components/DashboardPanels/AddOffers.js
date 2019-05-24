@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,27 @@ import {
   faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import PageTitle from "../PageTitle";
+
+import Dropzone from "react-dropzone";
+import { Progress } from "react-sweet-progress";
+
+import {
+  Row,
+  Col,
+  Collapse,
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Button,
+  UncontrolledButtonDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  ListGroupItem,
+  ListGroup
+} from "reactstrap";
 
 class AddOffers extends React.Component {
   constructor(props) {
@@ -22,20 +43,24 @@ class AddOffers extends React.Component {
       fileUploadProgress: 0,
       fileUploadStats: "",
       fileUploaded: 1,
+      files: [],
 
       accepted: [],
-      rejected: []
+      rejected: [],
+      collapse: false
     };
 
     this.handleOfferListSubmit = this.handleOfferListSubmit.bind(this);
   }
+  onDrop(files) {
+    this.setState({ files });
+  }
 
-  handleselectedFile = file => {
+  onCancel() {
     this.setState({
-      handlerResponse: undefined,
-      selectedFile: file
+      files: []
     });
-  };
+  }
 
   handleselectedFile = event => {
     const file = event.target.files[0];
@@ -57,9 +82,8 @@ class AddOffers extends React.Component {
 
   handleOfferListSubmit = () => {
     const data = new FormData();
-    data.append("file",this.state.selectedFile);
+    data.append("file", this.state.files[0]);
     data.append("storeId", this.props.affiliateStore.id);
-
     axios
       .post("/store/addOffers", data, {
         headers: {
@@ -85,7 +109,6 @@ class AddOffers extends React.Component {
         }
       })
       .then(res => {
-
         this.setState({
           submitSuccess: res.data.success,
           handlerResponse: JSON.stringify(res.data.message)
@@ -115,86 +138,46 @@ class AddOffers extends React.Component {
   componentWillUnmount() {}
 
   render() {
+    const files = this.state.files.map(file => (
+      <ListGroupItem key={file.name}>
+        {file.name} - {file.size} bytes
+      </ListGroupItem>
+    ));
     let {
       submitSuccess,
       handlerResponse,
       fileUploadProgress,
       fileUploadStats,
       selectedFile,
-      fileUploaded
+      fileUploaded,
+      collapse
     } = this.state;
 
     return (
-      <div className="form-wrapper profile-form-wrapper">
-        <div className="form-header-wrapper">
-          <h3 className="form-header">Add Offers</h3>
-        </div>
-        <p className="form-subheader">
-            Upload your store's offers to make them available to your
-            customers on Wishwatch.
-          </p>
-          <div className="prod-instruction-links">
-            <a href="/"className="form-link">How to set up offer list .JSON <FontAwesomeIcon className="form-link-icon" icon={faInfoCircle} /></a>
-          </div>
-        <div className="upload-wrapper">
-          <div className="browse-wrapper">
-            <button className="btn btn-primary browse-button">
-              <FontAwesomeIcon className="browse-icon" icon={faPlus} />
-              Add new file
-            </button>
-            <input
-              type="file"
-              name="product-list"
-              multiple={false}
-              accept="application/json"
-              onChange={this.handleselectedFile}
-              className="browse-button-hidden"
+      <Fragment>
+        <Row className="mb-3">
+          <Col>
+            <PageTitle
+              heading="Analytics Dashboard"
+              subheading={
+                <Fragment>
+                  <p>
+                    Upload your store's offers to make them available to your
+                    customers on Wishwatch.<br/>
+                    <a href="/">
+                      How to set up offer list .JSON{" "}
+                      <FontAwesomeIcon
+                        className="form-link-icon"
+                        icon={faInfoCircle}
+                      />
+                    </a>{" "}
+                  </p>
+                </Fragment>
+              }
+              icon="pe-7s-car icon-gradient bg-mean-fruit"
             />
-          </div>
-
-          <button
-            className="btn btn-secondary"
-            onClick={this.handleOfferListSubmit}
-          >
-            Upload
-          </button>
-        </div>
-        <div
-          className={`uploaded-file-wrapper ${
-            selectedFile ? "show" : undefined
-          }`}
-        >
-          {fileUploaded === 1 && (
-            <FontAwesomeIcon className="uploaded-file-icon" icon={faFileAlt} />
-          )}
-          {fileUploaded === 2 && (
-            <FontAwesomeIcon className="uploaded-file-icon" icon={faCheck} />
-          )}
-          {fileUploaded === 3 && (
-            <FontAwesomeIcon
-              className="uploaded-file-icon error"
-              icon={faTimes}
-            />
-          )}
-            <div className="uploaded-file-details">
-              <span className="uploaded-file-name">{selectedFile ? selectedFile.name : "test"}</span>
-
-              <div className="uploaded-file-progress">
-                <span
-                  className={`uploaded-file-progress-inner ${
-                    fileUploaded === 3 ? "error" : ""
-                  }`}
-                  style={{ width: fileUploadProgress + "%" }}
-                />
-              </div>
-              <div className="upload-stats">
-                <span className="uploaded-file-size">
-                {selectedFile ? this.formatBytes(selectedFile.size) : "test"}
-                </span>
-                <span className="uploaded-file-size">{fileUploadStats}</span>
-              </div>
-            </div>
-        </div>
+          </Col>
+        </Row>
         {handlerResponse && (
           <p
             className={`handler-response ${
@@ -204,7 +187,66 @@ class AddOffers extends React.Component {
             {handlerResponse}
           </p>
         )}
-      </div>
+        <Card className="mb-3">
+          <CardHeader className="card-header-tab z-index-6">
+            <div className="card-header-title font-size-lg text-capitalize font-weight-normal">
+              <i className="header-icon lnr-charts icon-gradient bg-happy-green" />
+              Add Offers
+            </div>
+          </CardHeader>
+
+          <CardBody className="text-center d-block p-3">
+            <Row>
+              <Col>
+                <div className="dropzone-wrapper dropzone-wrapper-md">
+                  <Dropzone
+                    multiple={false}
+                    onDrop={this.onDrop.bind(this)}
+                    onFileDialogCancel={this.onCancel.bind(this)}
+                    accept="application/json"
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <div className="dropzone-content">
+                          <p>
+                            Try dropping some files here, or click to select
+                            files to upload.
+                          </p>
+                          <ListGroup>{files}</ListGroup>
+                        </div>
+                      </div>
+                    )}
+                  </Dropzone>
+                </div>
+              </Col>
+            </Row>
+          </CardBody>
+          <CardFooter className="text-center d-block p-3">
+            <Row className="align-items-center">
+              <Col className="flex-grow-1">
+                <Progress
+                  percent={fileUploadProgress}
+                  theme={this.props.theme}
+                  width={this.props.width}
+                  strokeWidth={this.props.strokeWidth}
+                />
+              </Col>
+              <Col className="col-auto flex-shrink-1">
+                <Button
+                  color="primary"
+                  className="btn-shadow btn-wide fsize-1"
+                  size="lg"
+                  disabled={files.length === 0}
+                  onClick={this.handleOfferListSubmit}
+                >
+                  <span className="mr-1">Upload</span>
+                </Button>
+              </Col>
+            </Row>
+          </CardFooter>
+        </Card>
+      </Fragment>
     );
   }
 }

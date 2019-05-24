@@ -249,10 +249,14 @@ exports.fetch_offers = function(req, res) {
 };
 
 exports.remove_offers = async function(req,res){
-  let offers = req.body.offer;
+  let offers = req.body.offers;
 
-  Offers.destroy({ where: { id: offers }})
+  console.log(JSON.stringify(req.body));
+  console.log(JSON.stringify(req.body.offers));
+  for (const offer of offers) {
 
+  Offers.destroy({ where: { id: offer }})
+  }
 }
 exports.add_offers = async function(req, res) {
   var storeId = req.body.storeId;

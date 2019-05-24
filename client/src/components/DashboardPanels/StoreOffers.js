@@ -1,20 +1,23 @@
-import React from "react";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import OfferDetails from "../OfferDetails";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 import * as actions from "../../actions";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
-  faCheck,
   faTimes,
-  faFileAlt
+  faFileAlt,
+  faAngleUp,
+  faAngleDown,
+  faCalendarAlt,
+  faEllipsisH,
+  faCheck,
+  faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
+
 import Moment from "react-moment";
-import moment from 'moment'
+import moment from "moment";
 
 import "react-confirm-alert/src/react-confirm-alert.css";
 
@@ -24,29 +27,38 @@ import "react-table/react-table.css";
 import selectTableHOC from "react-table/lib/hoc/selectTable";
 import treeTableHOC from "react-table/lib/hoc/treeTable";
 import { product } from "../../reducers/userReducer";
+import Ionicon from "react-ionicons";
+import CountUp from "react-countup";
 
-const SelectTreeTable = selectTableHOC(treeTableHOC(ReactTable));
+import {
+  Row,
+  Col,
+  Collapse,
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Button,
+  UncontrolledButtonDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  ListGroupItem,
+  ListGroup
+} from "reactstrap";
+import Select from "react-select";
 
-// const CheckboxTable = checkboxHOC(ReactTable);
-let curIndex = 0;
+import BootstrapTable from "react-bootstrap-table-next";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
-function getNodes(data, node = []) {
-  data.forEach(item => {
-    if (item.hasOwnProperty("_subRows") && item._subRows) {
-      node = getNodes(item._subRows, node);
-    } else {
-      node.push(item._original);
-    }
-  });
-  return node;
-}
-const ignoreColumns = ['_id'];
 
 class StoreOffers extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      selectedOption: null,
+      collapse: false,
       products: [],
       offers: undefined,
       columns: undefined,
@@ -58,188 +70,257 @@ class StoreOffers extends React.Component {
     };
   }
 
-  getColumns(offers) {
-    const columns = [];
-    const sample = offers[0];
-    for (let key in sample) {
-      if (ignoreColumns.includes(key)) continue;
-
-      if (key  === 'Updated' || key === 'Created') {
-        columns.push({
-          id: key,
-          Header: key,
-          style: { whiteSpace: "normal" },
-          accessor: d => {
-            return moment(d.updated_at)
-              .local()
-              .format("MM-DD-YYYY hh:mm a");
-          }
-        });
-      } else {
-        columns.push({
-          accessor: key,
-          Header: key,
-          style: { whiteSpace: "normal" }
-        });
-      }
-    }
-
-    //const expanded = offers.map(x => true);
-
-    this.setState({ columns, offers });
-  }
   componentDidMount() {
+    if (this.props.storeProducts){
     let offers = [].concat(
       ...this.props.storeProducts.map(({ Offers }) => Offers || [])
     );
-    offers = offers.map((item) => {
+    offers = offers.map(item => {
       // using chancejs to generate guid
       // shortid is probably better but seems to have performance issues
       // on codesandbox.io
       const _id = item.Offer;
       return {
         _id,
-        ...item,
-      }
-    })
-    this.getColumns(offers);
+        ...item
+      };
+    });
+    this.setState({ offers });
+  }
   }
   componentDidUpdate(prevProps) {
     if (prevProps.products !== this.props.products) {
-      
       let offers = [].concat(
         ...this.props.products.map(({ Offers }) => Offers || [])
       );
-      offers = offers.map((item) => {
+      offers = offers.map(item => {
         // using chancejs to generate guid
         // shortid is probably better but seems to have performance issues
         // on codesandbox.io
         const _id = item.Offer;
         return {
           _id,
-          ...item,
-        }
-      })
-      this.getColumns(offers);
-    }
-  }
-
-  toggleSelection = (key, shift, row) => {
-    let selection = [...this.state.selection];
-    const keyIndex = selection.indexOf(key);
-    // check to see if the key exists
-    if (keyIndex >= 0) {
-      // it does exist so we will remove it using destructing
-      selection = [
-        ...selection.slice(0, keyIndex),
-        ...selection.slice(keyIndex + 1)
-      ];
-    } else {
-      // it does not exist so add it
-      selection.push(key);
-    }
-    // update the state
-    this.setState({ selection });
-  };
-  toggleAll = () => {
-    const selectAll = this.state.selectAll ? false : true;
-    const selection = [];
-    if (selectAll) {
-      // we need to get at the internals of ReactTable
-      const wrappedInstance = this.selectTable.getWrappedInstance();
-      // the 'sortedData' property contains the currently accessible records based on the filter and sort
-      const currentRecords = wrappedInstance.getResolvedState().sortedData;
-      // we need to get all the 'real' (original) records out to get at their IDs
-      const nodes = getNodes(currentRecords);
-      // we just push all the IDs onto the selection array
-      nodes.forEach(item => {
-        selection.push(item._id);
+          ...item
+        };
       });
+      this.setState({ offers });
     }
-    this.setState({ selectAll, selection });
-  };
-  isSelected = key => {
-    return this.state.selection.includes(key);
-  };
-  logSelection = () => {
-    this.props.removeOffers(this.state.selection);
-
-  };
-
-  onExpandedChange = expanded => {
-    this.setState({ expanded });
-  };
-  hasOffers(product) {
-    return product.Offers && product.Offers.length > 0;
   }
 
+  deleteOffer(offer) {
+    this.props.removeOffers(offer);
+  }
+  toggle = () => {
+    this.setState({ collapse: !this.state.collapse });
+  };
   render() {
-    const {
-      toggleSelection,
-      toggleAll,
-      isSelected,
-      logSelection,
-      onExpandedChange
-    } = this;
-    const { data, columns, selectAll, selectType, pivotBy, expanded, offers } = this.state;
-console.log(offers);
-    const extraProps =
-      {
-        selectAll,
-        isSelected,
-        toggleAll,
-        toggleSelection,
-        selectType,
-        pivotBy,
-        expanded,
-        onExpandedChange,
-      }
+    const { offers, selectedOption, collapse } = this.state;
 
     const { products, affiliateStore } = this.props;
 
+    const columns = [
+      {
+        dataField: "_id",
+        text: "Offer ID",
+        sort: true,
+        filter: textFilter()
+      },
+      {
+        dataField: "product_sku",
+        text: "Product SKU",
+        sort: true,
+        align: "center",
+        filter: textFilter()
+      },
+      {
+        dataField: "Link",
+        text: "Link",
+        sort: true
+      },
+      {
+        dataField: "Created",
+        text: "Created",
+        sort: true,
+        align: "center",
+        formatter: (cellContent, row) => {
+          return moment(cellContent)
+            .local()
+            .format("MM-DD-YYYY hh:mm a");
+        }
+      },
+      {
+        dataField: "Updated",
+        text: "Updated",
+        sort: true,
+        align: "center",
+        formatter: (cellContent, row) => {
+          return moment(cellContent)
+            .local()
+            .format("MM-DD-YYYY hh:mm a");
+        }
+      },
+
+      {
+        dataField: "status",
+        isDummyField: false,
+        align: "center",
+        text: "Status",
+        formatter: (cellContent, row) => {
+          return (
+            <div className="d-block w-100 text-center">
+              <span className="badge badge-success">Active</span>
+            </div>
+          );
+        }
+      },
+      {
+        dataField: "actions",
+        isDummyField: true,
+        align: "center",
+        text: "Actions",
+        formatter: (cellContent, row) => {
+          return (
+            <div>
+              <div className="d-block w-100 text-center">
+                <UncontrolledButtonDropdown>
+                  <DropdownToggle
+                    caret
+                    className="btn-icon btn-icon-only btn btn-link"
+                    color="link"
+                  >
+                    <i className="lnr-menu-circle btn-icon-wrapper" />
+                  </DropdownToggle>
+                  <DropdownMenu
+                    right
+                    className="rm-pointers dropdown-menu-hover-link"
+                  >
+                    <DropdownItem header>Header</DropdownItem>
+                    <DropdownItem>
+                      <i className="dropdown-icon lnr-inbox"> </i>
+                      <span>Menus</span>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <i className="dropdown-icon lnr-file-empty"> </i>
+                      <span>Settings</span>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <i className="dropdown-icon lnr-book"> </i>
+                      <span>Actions</span>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem onClick={() => this.deleteOffer(row)}>
+                      <i className="dropdown-icon lnr-trash"> </i>
+                      <span>Delete</span>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledButtonDropdown>
+              </div>
+            </div>
+          );
+        }
+      }
+    ];
+
+    const defaultSorted = [
+      {
+        dataField: "product_sku",
+        order: "asc"
+      }
+    ];
+
     return (
       <div className="form-wrapper profile-form-wrapper">
-        <div className="form-header-wrapper">
-          <h3 className="form-header">Offer List</h3>
-        </div>
-        <div className="prod-list-stats">
-          <div className="prod-list-stat-block">
-            <label className="form-label">
-              Offers
-              <p className="form-item">{offers ? offers.length : 0}</p>
-            </label>
-          </div>
-        </div>
-        {!offers ||
-          (!offers.length && (
-            <label className="form-label">
-              <p className="form-item">No offers found</p>
-            </label>
-          ))}
-
-        <div style={{ padding: "10px" }}>
-          <button onClick={logSelection}>Log Selection to Console</button>
-          {` (${this.state.selection.length}) selected`}
-          {offers &&  offers.length && columns ? (
-            <SelectTreeTable
-              data={offers}
-              showPagination={false}
-              columns={columns}
-              defaultPageSize={undefined}
-              ref={r => (this.selectTable = r)}
-              className="-striped -highlight"
-              {...extraProps}
-              freezWhenExpanded={true}
-            />
-          ) : null}
-        </div>
-
+        <Fragment>
+          <Card className="mb-3">
+            <CardHeader className="card-header-tab z-index-6">
+              <div className="card-header-title font-size-lg text-capitalize font-weight-normal">
+                <i className="header-icon lnr-charts icon-gradient bg-happy-green" />
+                Offer List
+              </div>
+              
+            </CardHeader>
+            <Row className="no-gutters">
+              <Col sm="6" md="4" xl="4">
+                <div className="card no-shadow rm-border bg-transparent widget-chart text-left">
+                  <div className="icon-wrapper rounded-circle">
+                    <div className="icon-wrapper-bg opacity-10 bg-warning" />
+                    <i className="lnr-list text-dark opacity-8" />
+                  </div>
+                  <div className="widget-chart-content">
+                    <div className="widget-subheading">Total Offers</div>
+                    <div className="widget-numbers">
+                      {offers ? offers.length : 0}
+                    </div>
+                  </div>
+                </div>
+                <div className="divider m-0 d-md-none d-sm-block" />
+              </Col>
+              <Col sm="6" md="4" xl="4">
+                <div className="card no-shadow rm-border bg-transparent widget-chart text-left">
+                  <div className="icon-wrapper rounded-circle">
+                    <div className="icon-wrapper-bg opacity-9 bg-success" />
+                    <i className="lnr-checkmark-circle text-white" />
+                  </div>
+                  <div className="widget-chart-content">
+                    <div className="widget-subheading">Active Offers</div>
+                    <div className="widget-numbers">0</div>
+                  </div>
+                </div>
+                <div className="divider m-0 d-md-none d-sm-block" />
+              </Col>
+              <Col sm="12" md="4" xl="4">
+                <div className="card no-shadow rm-border bg-transparent widget-chart text-left">
+                  <div className="icon-wrapper rounded-circle">
+                    <div className="icon-wrapper-bg opacity-9 bg-danger" />
+                    <i className="lnr-cross-circle text-white" />
+                  </div>
+                  <div className="widget-chart-content">
+                    <div className="widget-subheading">Inactive Offers</div>
+                    <div className="widget-numbers">0</div>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <CardFooter className="text-center d-block p-3">
+              <Collapse
+                isOpen={this.state.collapse}
+              >
+                <Row>
+                  <Col md="12">
+                    <div className="table-responsive">
+                      {offers && offers.length && columns ? (
+                        <BootstrapTable
+                          bootstrap4
+                          keyField="_id"
+                          data={offers}
+                          columns={columns}
+                          filter={filterFactory()}
+                          defaultSorted={defaultSorted}
+                        />
+                      ) : (
+                        undefined
+                      )}
+                    </div>
+                  </Col>
+                </Row>
+              </Collapse>
+              <Button
+                color="primary"
+                className="btn-pill btn-shadow btn-wide fsize-1"
+                size="lg"
+                onClick={this.toggle}
+              >
+                <span className="mr-1">{`${this.state.collapse ? "Hide" : "View" } Offers`}</span>
+              </Button>
+            </CardFooter>
+          </Card>
+        </Fragment>
       </div>
     );
   }
 }
-function mapStateToProps({ auth, stores, affiliateStore, storeProducts }) {
-  return { auth, stores, affiliateStore, storeProducts };
+function mapStateToProps({ auth, storeProducts }) {
+  return { auth, storeProducts };
 }
 export default withRouter(
   connect(

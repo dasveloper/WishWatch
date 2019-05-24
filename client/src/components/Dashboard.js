@@ -1,4 +1,11 @@
-import React from "react";
+import React, { Component, Fragment } from "react";
+import { Route, HashRouter } from "react-router-dom";
+
+import MetisMenu from "react-metismenu";
+import RouterLink from "react-metismenu-router-link";
+import MenuLink from "./MenuLink";
+import { AccountNav, SetupNav, AnalyticsNav, SupportNav } from "./NavItems";
+import { Nav, NavItem, NavLink } from "reactstrap";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as actions from "../actions";
@@ -14,9 +21,9 @@ import StoreProducts from "./DashboardPanels/StoreProducts";
 import VerifyDomain from "./DashboardPanels/VerifyDomain";
 
 import { Link } from "react-router-dom";
-//const Analytics = require("analytics-node");
+const Analytics = require("analytics-node");
 
-//const analytics = new Analytics("2p8ieF9XTkHVmRbyvhZ1RVQsrhu0xg2b");
+const analytics = new Analytics("2p8ieF9XTkHVmRbyvhZ1RVQsrhu0xg2b");
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -26,11 +33,11 @@ class Dashboard extends React.Component {
     };
     this.setCurrentTab = this.setCurrentTab.bind(this);
   }
-
   async componentDidMount() {
+    console.log(this.props);
     //analytics.track({
-     // event: "event name",
-     // userId: "123456"
+    // event: "event name",
+    // userId: "123456"
     //});
     if (this.props.auth) {
       this.props.fetchStores(this.props.auth.id);
@@ -41,7 +48,6 @@ class Dashboard extends React.Component {
       this.props.fetchStoreDetails(storeId);
       this.props.fetchStoreProducts(storeId);
       this.props.fetchStoreOffers(storeId);
-
     }
   }
   componentDidUpdate(prevProps) {
@@ -55,6 +61,7 @@ class Dashboard extends React.Component {
       currentTab: tab
     });
   };
+
   renderDashboard() {
     const { currentTab } = this.state;
     switch (this.props.affiliateStore) {
@@ -75,164 +82,231 @@ class Dashboard extends React.Component {
         );
       default:
         return (
-          <div className="container dashboard-page">
-            <div className="dashboard-sidebar">
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("GETTING_STARTED")}
-                className={`getting-started sidebar-link ${
-                  currentTab === "GETTING_STARTED" ? "active" : undefined
-                }`}
-              >
-                Getting started
-              </a>
-              <span className="sidebar-section-header">ACCOUNT</span>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("PROFILE")}
-                className={`sidebar-link ${
-                  currentTab === "PROFILE" ? "active" : undefined
-                }`}
-              >
-                Profile
-              </a>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("BILLING")}
-                className={`sidebar-link ${
-                  currentTab === "BILLING" ? "active" : undefined
-                }`}
-              >
-                Billing
-              </a>
-              {/*<a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("SETTINGS")}
-                className={`sidebar-link ${
-                  currentTab === "SETTINGS" ? "active" : undefined
-                }`}
-              >
-                Settings
-              </a>*/}
-              <span className="sidebar-section-header">SETUP</span>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("PRODUCT_SETUP")}
-                className={`sidebar-link ${
-                  currentTab === 2 ? "PRODUCT_SETUP" : undefined
-                }`}
-              >
-                Products
-              </a>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("OFFER_SETUP")}
-                className={`sidebar-link ${
-                  currentTab === "OFFER_SETUP" ? "active" : undefined
-                }`}
-              >
-                Offers
-              </a>
-              <span className="sidebar-section-header">ANALYTICS</span>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("ANALYTICS_OVERVIEW")}
-                className={`sidebar-link ${
-                  currentTab === "ANALYTICS_OVERVIEW" ? "active" : undefined
-                }`}
-              >
-                Overview
-              </a>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("CUSTOMER_ANALYTICS")}
-                className={`sidebar-link ${
-                  currentTab === "CUSTOMER_ANALYTICS" ? "active" : undefined
-                }`}
-              >
-                Customers
-              </a>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("PRODUCT_ANALYTICS")}
-                className={`sidebar-link ${
-                  currentTab === "PRODUCT_ANALYTICS" ? "active" : undefined
-                }`}
-              >
-                Products
-              </a>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("OFFER_ANALYTICS")}
-                className={`sidebar-link ${
-                  currentTab === "OFFER_ANALYTICS" ? "active" : undefined
-                }`}
-              >
-                Offers
-              </a>
-              <span className="sidebar-section-header">SUPPORT</span>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("SUPPORT")}
-                className={`sidebar-link ${
-                  currentTab === "SUPPORT" ? "active" : undefined
-                }`}
-              >
-                FAQ
-              </a>
-              <a
-                href="javascript:;"
-                onClick={() => this.setCurrentTab("CONTACT")}
-                className={`sidebar-link ${
-                  currentTab === "CONTACT" ? "active" : undefined
-                }`}
-              >
-                Contact
-              </a>
+          <div className="app-main">
+            <div className="app-sidebar">
+              <div className="app-sidebar__inner">
+              <div className="metismenu vertical-nav-menu">
+                  <div className="metismenu-container">
+                    <MenuLink
+                      active={this.props.match.params.section == "getting_started"}
+                      icon="pe-7s-browser"
+                      label="Getting Started"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "getting-started"
+                      }
+                    />
+                  </div>
+                </div>
+                <h5 className="app-sidebar__heading">Account</h5>
+                <div className="metismenu vertical-nav-menu">
+                  <div className="metismenu-container">
+                    <MenuLink
+                      active={
+                        this.props.match.params.section == "profile"
+                      }
+                      icon="pe-7s-browser"
+                      label="Profile"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "profile"
+                      }
+                    />
+                    <MenuLink
+                      active={this.props.match.params.section == "billing"}
+                      icon="pe-7s-browser"
+                      label="Billing"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "billing"
+                      }
+                    />
+                  </div>
+                </div>
+                <h5 className="app-sidebar__heading">Setup</h5>
+                <div className="metismenu vertical-nav-menu">
+                  <div className="metismenu-container">
+                    <MenuLink
+                      active={
+                        this.props.match.params.section == "setup_products"
+                      }
+                      icon="pe-7s-browser"
+                      label="Products"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "setup_products"
+                      }
+                    />
+                    <MenuLink
+                      active={this.props.match.params.section == "setup_offers"}
+                      icon="pe-7s-browser"
+                      label="Offers"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "setup_offers"
+                      }
+                    />
+                  </div>
+                </div>
+                <h5 className="app-sidebar__heading">Analytics</h5>
+                <div className="metismenu vertical-nav-menu">
+                  <div className="metismenu-container">
+                    <MenuLink
+                      active={
+                        this.props.match.params.section == "analytics_overview"
+                      }
+                      icon="pe-7s-browser"
+                      label="Overview"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "analytics_overview"
+                      }
+                    />
+                    <MenuLink
+                      active={
+                        this.props.match.params.section == "analytics_customer"
+                      }
+                      icon="pe-7s-browser"
+                      label="Customers"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "analytics_customer"
+                      }
+                    />
+                    <MenuLink
+                      active={
+                        this.props.match.params.section == "analytics_products"
+                      }
+                      icon="pe-7s-browser"
+                      label="Products"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "analyticsproducts"
+                      }
+                    />
+                    <MenuLink
+                      active={
+                        this.props.match.params.section == "analytics_offers"
+                      }
+                      icon="pe-7s-browser"
+                      label="Offers"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "analytics_offers"
+                      }
+                    />
+                  </div>
+                </div>
+
+                <h5 className="app-sidebar__heading">Support</h5>
+                <div className="metismenu vertical-nav-menu">
+                  <div className="metismenu-container">
+                    <MenuLink
+                      active={this.props.match.params.section == "faq"}
+                      icon="pe-7s-browser"
+                      label="FAQ"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "faq"
+                      }
+                    />
+                    <MenuLink
+                      active={this.props.match.params.section == "contact"}
+                      icon="pe-7s-browser"
+                      label="Contact"
+                      to={
+                        "/dashboard/" +
+                        this.props.match.params.storeId +
+                        "/" +
+                        "contact"
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            {currentTab === "PROFILE" && (
-              <div className="dashboard-wrapper">
-                <div className="dashboard-panel">
-                  <VerifyDomain affiliateStore={this.props.affiliateStore} />
-                </div>
-                <div className="dashboard-panel">
-                  <Profile affiliateStore={this.props.affiliateStore} />
-                </div>
+            <div className="app-main__outer">
+              <div className="container dashboard-page">
+                <Route
+                  path={`/dashboard/:storeId?/profile`}
+                  component={() => (
+                    <div className="dashboard-wrapper">
+                    <div className="dashboard-panel">
+                      <VerifyDomain
+                        affiliateStore={this.props.affiliateStore}
+                      />
+                    </div>
+                    <div className="dashboard-panel">
+                      <Profile affiliateStore={this.props.affiliateStore} />
+                    </div>
+                  </div>
+                  )}
+                />
+                <Route
+                  path={`/dashboard/:storeId?/billing`}
+                  component={() => (
+                    <div className="dashboard-wrapper">
+                    <div className="dashboard-panel">
+                      <Billing affiliateStore={this.props.affiliateStore} />
+                    </div>
+                  </div>
+                  )}
+                />
+                  <Route
+                  path={`/dashboard/:storeId?/setup_products`}
+                  component={() => (
+                    <div className="dashboard-wrapper">
+                    <div >
+                      <AddProducts affiliateStore={this.props.affiliateStore} />
+                    </div>
+                    <div>
+                      <StoreProducts
+                        affiliateStore={this.props.affiliateStore}
+                        products={this.props.storeProducts}
+                      />
+                    </div>
+                  </div>
+                  )}
+                />
+                   <Route
+                  path={`/dashboard/:storeId?/setup_offers`}
+                  component={() => (
+                    <div className="dashboard-wrapper">
+                    <div>
+                      <AddOffers affiliateStore={this.props.affiliateStore} />
+                    </div>
+                    <div className="">
+                      <StoreOffers
+                        affiliateStore={this.props.affiliateStore}
+                        products={this.props.storeProducts}
+                      />
+                    </div>
+                  </div>
+                  )}
+                />
+             
               </div>
-            )}
-            {currentTab === "BILLING" && (
-              <div className="dashboard-wrapper">
-                <div className="dashboard-panel">
-                  <Billing affiliateStore={this.props.affiliateStore} />
-                </div>
-              </div>
-            )}
-            {currentTab === "PRODUCT_SETUP" && (
-              <div className="dashboard-wrapper">
-                <div className="dashboard-panel">
-                  <AddProducts affiliateStore={this.props.affiliateStore} />
-                </div>
-                <div className="dashboard-panel">
-                  <StoreProducts
-                    affiliateStore={this.props.affiliateStore}
-                    products={this.props.storeProducts}
-                  />
-                </div>
-              </div>
-            )}
-                        {currentTab === "OFFER_SETUP" && (
-              <div className="dashboard-wrapper">
-                <div className="dashboard-panel">
-                  <AddOffers affiliateStore={this.props.affiliateStore} />
-                </div>
-                <div className="dashboard-panel">
-                  <StoreOffers
-                    affiliateStore={this.props.affiliateStore}
-                    products={this.props.storeProducts}
-                  />
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         );
     }

@@ -1,7 +1,7 @@
 const passport = require("passport");
-//const Analytics = require("analytics-node");
+const Analytics = require("analytics-node");
 
-//const analytics = new Analytics("2p8ieF9XTkHVmRbyvhZ1RVQsrhu0xg2b");
+const analytics = new Analytics("2p8ieF9XTkHVmRbyvhZ1RVQsrhu0xg2b");
 
 exports.signup_local = function(req, res, next) {
   passport.authenticate("local-signup", (err, user, info) => {

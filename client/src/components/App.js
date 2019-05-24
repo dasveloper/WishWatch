@@ -39,7 +39,7 @@ class App extends Component {
 
           <PrivateRoute exact path="/createStore" component={CreateStore} />
 
-          <PrivateRoute path="/dashboard/:storeId?" component={Dashboard} />
+          <PrivateRoute path="/dashboard/:storeId?/:section?" component={Dashboard} />
         </div>
       </BrowserRouter>
     );

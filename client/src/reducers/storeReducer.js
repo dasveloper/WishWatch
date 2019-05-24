@@ -3,8 +3,8 @@ import {
   FETCH_STORE_PRODUCTS,
   FETCH_STORE_OFFERS,
 
-  FETCH_STORES
-} from "../actions/types";
+  FETCH_STORES,
+} from '../actions/types';
 
 export function store(state = null, action) {
   switch (action.type) {
