@@ -16,7 +16,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "analytics-node": "^3.3.0",
     "aws-sdk": "^2.344.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",

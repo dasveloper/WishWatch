@@ -21,9 +21,6 @@ import StoreProducts from "./DashboardPanels/StoreProducts";
 import VerifyDomain from "./DashboardPanels/VerifyDomain";
 
 import { Link } from "react-router-dom";
-const Analytics = require("analytics-node");
-
-const analytics = new Analytics("2p8ieF9XTkHVmRbyvhZ1RVQsrhu0xg2b");
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -34,11 +31,7 @@ class Dashboard extends React.Component {
     this.setCurrentTab = this.setCurrentTab.bind(this);
   }
   async componentDidMount() {
-    console.log(this.props);
-    //analytics.track({
-    // event: "event name",
-    // userId: "123456"
-    //});
+
     if (this.props.auth) {
       this.props.fetchStores(this.props.auth.id);
     }

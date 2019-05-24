@@ -1,7 +1,4 @@
 const passport = require("passport");
-const Analytics = require("analytics-node");
-
-const analytics = new Analytics("2p8ieF9XTkHVmRbyvhZ1RVQsrhu0xg2b");
 
 exports.signup_local = function(req, res, next) {
   passport.authenticate("local-signup", (err, user, info) => {
@@ -13,15 +10,7 @@ exports.signup_local = function(req, res, next) {
         if (err) {
           return next(err);
         }
-       // analytics.identify({
-       //   userId: '22221111',
-       //   traits: {
-       //     name: 'Michael Bolton',
-         //   email: 'mbolton@initech.com',
-       //     plan: 'Enterprise',
-         //   friends: 42
-         // }
-       // });
+
         return res.send(user);
       });
     } else {
