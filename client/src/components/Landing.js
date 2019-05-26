@@ -71,6 +71,7 @@ class Landing extends React.Component {
       <ReactFullpage
         afterLoad={this.afterLoad.bind(this)}
         recordHistory={false}
+        licenseKey="FFAF4696-0B614353-92AADF15-4B6FBF0D"
         // responsiveWidth={960}
         render={({ state, fullpageApi }) => {
           return (
