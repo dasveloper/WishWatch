@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
-//mport "normalize.css";
+import "normalize.css";
 import "./assets/styles/base.scss";
 import './assets/base-architect.scss';
 
